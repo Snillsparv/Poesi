@@ -26,7 +26,10 @@ HTML_TEMPLATE = """<!doctype html>
   .controls { display: flex; gap: 1rem; align-items: center; font-size: .9rem; }
   .card { display: grid; grid-template-columns: minmax(300px, 45%) 1fr; gap: 1rem; margin: 1.5rem 0; padding: 1rem; background: #1a1a1a; border-radius: 8px; }
   .card h2 { margin: 0 0 .5rem; font-size: 1rem; font-family: monospace; }
-  .card img { width: 100%; height: auto; border-radius: 4px; cursor: zoom-in; background: #000; }
+  .img-wrap { position: relative; overflow: hidden; border-radius: 4px; background: #000; width: 100%; }
+  .img-wrap img { display: block; width: 100%; height: auto; cursor: zoom-in; transform-origin: center center; transition: transform .2s; }
+  .rotate-btn { position: absolute; top: .5rem; right: .5rem; background: rgba(0,0,0,.65); color: #fff; border: 1px solid #555; border-radius: 4px; padding: .3rem .6rem; cursor: pointer; font-size: .85rem; z-index: 2; }
+  .rotate-btn:hover { background: rgba(0,0,0,.85); }
   table { border-collapse: collapse; width: 100%; font-size: .85rem; }
   th, td { text-align: left; padding: .35rem .5rem; border-bottom: 1px solid #333; vertical-align: top; }
   th { background: #222; position: sticky; top: 0; }
@@ -79,10 +82,14 @@ function render() {
     const card = document.createElement('section');
     card.className = 'card';
     const imgPath = IMG_PREFIX + encodeURIComponent(imgName);
+    const rot = parseInt(localStorage.getItem('rot:' + imgName)) || 0;
     card.innerHTML = `
       <div>
         <h2>${escapeHtml(imgName)}</h2>
-        <a href="${imgPath}" target="_blank"><img src="${imgPath}" loading="lazy" alt=""></a>
+        <div class="img-wrap" data-rot="${rot}" data-name="${escapeHtml(imgName)}">
+          <button class="rotate-btn" title="Rotera 90°">↻</button>
+          <a href="${imgPath}" target="_blank"><img src="${imgPath}" loading="lazy" alt=""></a>
+        </div>
       </div>
       <div>
         <table>
@@ -108,7 +115,57 @@ function render() {
     `;
     cards.appendChild(card);
   }
+  document.querySelectorAll('.img-wrap').forEach(setupWrap);
 }
+
+function applyRotation(wrap) {
+  const rot = parseInt(wrap.dataset.rot) || 0;
+  const img = wrap.querySelector('img');
+  if (!img.complete || !img.naturalWidth) {
+    img.addEventListener('load', () => applyRotation(wrap), { once: true });
+    return;
+  }
+  const swapped = rot === 90 || rot === 270;
+  const wrapW = wrap.clientWidth;
+  if (swapped) {
+    const scale = wrapW / img.naturalHeight;
+    const displayedH = img.naturalWidth * scale;
+    wrap.style.height = displayedH + 'px';
+    img.style.position = 'absolute';
+    img.style.left = '50%';
+    img.style.top = '50%';
+    img.style.width = img.naturalWidth + 'px';
+    img.style.height = img.naturalHeight + 'px';
+    img.style.transform = `translate(-50%, -50%) rotate(${rot}deg) scale(${scale})`;
+  } else {
+    wrap.style.height = '';
+    img.style.position = '';
+    img.style.left = '';
+    img.style.top = '';
+    img.style.width = '';
+    img.style.height = '';
+    img.style.transform = rot ? `rotate(${rot}deg)` : '';
+  }
+}
+
+function setupWrap(wrap) {
+  applyRotation(wrap);
+  const btn = wrap.querySelector('.rotate-btn');
+  if (btn.dataset.bound) return;
+  btn.dataset.bound = '1';
+  btn.addEventListener('click', e => {
+    e.preventDefault();
+    e.stopPropagation();
+    const next = ((parseInt(wrap.dataset.rot) || 0) + 90) % 360;
+    wrap.dataset.rot = next;
+    localStorage.setItem('rot:' + wrap.dataset.name, next);
+    applyRotation(wrap);
+  });
+}
+
+window.addEventListener('resize', () => {
+  document.querySelectorAll('.img-wrap').forEach(applyRotation);
+});
 
 document.getElementById('only-low').addEventListener('change', render);
 document.getElementById('threshold').addEventListener('input', render);
