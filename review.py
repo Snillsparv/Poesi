@@ -37,6 +37,16 @@ HTML_TEMPLATE = """<!doctype html>
   tr.med-conf td { background: #2a2a1a; }
   .conf { font-variant-numeric: tabular-nums; }
   .ovrig { margin-top: .75rem; font-size: .85rem; color: #aaa; font-style: italic; }
+  [contenteditable] { outline: none; min-width: 1ch; }
+  [contenteditable]:hover { background: #2a2a2a; }
+  [contenteditable]:focus { background: #1a2a3a; box-shadow: inset 0 0 0 1px #4a90d9; }
+  td.edited, .ovrig.edited span[contenteditable] { border-left: 2px solid #4a90d9; padding-left: 4px; }
+  td.edited::after { content: ' ✎'; color: #4a90d9; font-size: .7rem; }
+  button.action { background: #2a4a6a; color: #fff; border: 1px solid #4a90d9; border-radius: 4px; padding: .35rem .8rem; cursor: pointer; font-size: .85rem; }
+  button.action:hover { background: #3a5a7a; }
+  button.action.danger { background: #6a2a2a; border-color: #d94a4a; }
+  button.action.danger:hover { background: #7a3a3a; }
+  #edit-count { color: #4a90d9; font-weight: bold; }
   .hidden { display: none; }
   details summary { cursor: pointer; color: #888; font-size: .8rem; }
   details pre { font-size: .75rem; overflow-x: auto; background: #0a0a0a; padding: .5rem; border-radius: 4px; }
@@ -49,6 +59,10 @@ HTML_TEMPLATE = """<!doctype html>
   <div class="controls">
     <label><input type="checkbox" id="only-low"> Visa bara osäkra rader (conf &lt; 0.7)</label>
     <label>Tröskel: <input type="number" id="threshold" value="0.7" step="0.05" min="0" max="1" style="width: 4rem"></label>
+    <span><span id="edit-count">0</span> redigeringar</span>
+    <button class="action" id="dl-csv">Ladda ner CSV</button>
+    <button class="action" id="dl-json">Ladda ner JSON</button>
+    <button class="action danger" id="reset-edits">Återställ ändringar</button>
   </div>
 </header>
 <main id="cards"></main>
@@ -68,6 +82,102 @@ function escapeHtml(s) {
   return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 }
 
+const EDIT_FIELDS = ['diktnummer', 'minnesanteckning', 'poang_officiell', 'poang_alla', 'kommentar'];
+
+function loadEdits() {
+  try { return JSON.parse(localStorage.getItem('edits') || '{}'); } catch { return {}; }
+}
+function saveEdits(edits) { localStorage.setItem('edits', JSON.stringify(edits)); }
+
+function getEditedRow(imgName, rowIdx) {
+  const edits = loadEdits();
+  return (edits[imgName]?.rader?.[rowIdx]) || {};
+}
+function getEditedOvrig(imgName) {
+  const edits = loadEdits();
+  return edits[imgName]?.ovrig_text;
+}
+
+function setEdit(imgName, rowIdx, field, value, original) {
+  const edits = loadEdits();
+  edits[imgName] = edits[imgName] || { rader: {} };
+  edits[imgName].rader = edits[imgName].rader || {};
+  if (value === original || value === '' && (original === null || original === undefined)) {
+    if (edits[imgName].rader[rowIdx]) {
+      delete edits[imgName].rader[rowIdx][field];
+      if (Object.keys(edits[imgName].rader[rowIdx]).length === 0) delete edits[imgName].rader[rowIdx];
+    }
+  } else {
+    edits[imgName].rader[rowIdx] = edits[imgName].rader[rowIdx] || {};
+    edits[imgName].rader[rowIdx][field] = value;
+  }
+  pruneEmpty(edits, imgName);
+  saveEdits(edits);
+  updateEditCount();
+}
+function setOvrigEdit(imgName, value, original) {
+  const edits = loadEdits();
+  edits[imgName] = edits[imgName] || {};
+  if (value === (original || '')) delete edits[imgName].ovrig_text;
+  else edits[imgName].ovrig_text = value;
+  pruneEmpty(edits, imgName);
+  saveEdits(edits);
+  updateEditCount();
+}
+function pruneEmpty(edits, imgName) {
+  const e = edits[imgName];
+  if (!e) return;
+  const noRader = !e.rader || Object.keys(e.rader).length === 0;
+  const noOvrig = !('ovrig_text' in e);
+  if (noRader && noOvrig) delete edits[imgName];
+}
+
+function countEdits() {
+  const edits = loadEdits();
+  let n = 0;
+  for (const e of Object.values(edits)) {
+    if ('ovrig_text' in e) n++;
+    if (e.rader) for (const r of Object.values(e.rader)) n += Object.keys(r).length;
+  }
+  return n;
+}
+function updateEditCount() {
+  document.getElementById('edit-count').textContent = countEdits();
+}
+
+function effectiveValue(original, edited, field) {
+  if (edited && field in edited) {
+    if (field === 'poang_alla') {
+      return edited[field].split('→').map(s => s.trim()).filter(Boolean);
+    }
+    return edited[field];
+  }
+  return original[field];
+}
+function mergedData() {
+  const edits = loadEdits();
+  const out = {};
+  for (const [imgName, data] of Object.entries(DATA)) {
+    const e = edits[imgName] || {};
+    const merged = { ...data };
+    if ('ovrig_text' in e) merged.ovrig_text = e.ovrig_text;
+    merged.rader = (data.rader || []).map((row, idx) => {
+      const re = e.rader?.[idx];
+      if (!re) return row;
+      const r = { ...row };
+      for (const f of EDIT_FIELDS) {
+        if (f in re) {
+          if (f === 'poang_alla') r[f] = re[f].split('→').map(s => s.trim()).filter(Boolean);
+          else r[f] = re[f];
+        }
+      }
+      return r;
+    });
+    out[imgName] = merged;
+  }
+  return out;
+}
+
 function render() {
   const onlyLow = document.getElementById('only-low').checked;
   const threshold = parseFloat(document.getElementById('threshold').value) || 0.7;
@@ -76,14 +186,17 @@ function render() {
   for (const [imgName, data] of Object.entries(DATA)) {
     const rows = data.rader || [];
     const visibleRows = onlyLow
-      ? rows.filter(r => typeof r.confidence === 'number' && r.confidence < threshold)
-      : rows;
+      ? rows.map((r, i) => [r, i]).filter(([r]) => typeof r.confidence === 'number' && r.confidence < threshold)
+      : rows.map((r, i) => [r, i]);
     if (onlyLow && visibleRows.length === 0) continue;
     const card = document.createElement('section');
     card.className = 'card';
     const imgPath = IMG_PREFIX + encodeURIComponent(imgName);
     const stored = localStorage.getItem('rot:' + imgName);
     const rot = stored !== null ? parseInt(stored) : 270;
+    const ovrigEdited = getEditedOvrig(imgName);
+    const ovrigValue = ovrigEdited !== undefined ? ovrigEdited : (data.ovrig_text || '');
+    const ovrigIsEdited = ovrigEdited !== undefined;
     card.innerHTML = `
       <div>
         <h2>${escapeHtml(imgName)}</h2>
@@ -98,25 +211,106 @@ function render() {
             <th>#</th><th>Minnesanteckning</th><th>Poäng</th><th>Alla</th><th>Kommentar</th><th>Conf</th>
           </tr></thead>
           <tbody>
-            ${visibleRows.map(r => `
+            ${visibleRows.map(([r, idx]) => {
+              const ed = getEditedRow(imgName, idx);
+              const cell = (field, content) => {
+                const isEdited = field in ed;
+                const cls = isEdited ? 'edited' : '';
+                return `<td class="${cls}" contenteditable="true" data-img="${escapeHtml(imgName)}" data-row="${idx}" data-field="${field}">${content}</td>`;
+              };
+              const v = (f) => effectiveValue(r, ed, f);
+              return `
               <tr class="${classifyConf(r.confidence, threshold)}">
-                <td>${escapeHtml(r.diktnummer)}</td>
-                <td>${escapeHtml(r.minnesanteckning)}</td>
-                <td><strong>${escapeHtml(r.poang_officiell)}</strong></td>
-                <td>${escapeHtml((r.poang_alla || []).join(' → '))}</td>
-                <td>${escapeHtml(r.kommentar)}</td>
+                ${cell('diktnummer', escapeHtml(v('diktnummer')))}
+                ${cell('minnesanteckning', escapeHtml(v('minnesanteckning')))}
+                ${cell('poang_officiell', escapeHtml(v('poang_officiell')))}
+                ${cell('poang_alla', escapeHtml((v('poang_alla') || []).join(' → ')))}
+                ${cell('kommentar', escapeHtml(v('kommentar')))}
                 <td class="conf">${typeof r.confidence === 'number' ? r.confidence.toFixed(2) : ''}</td>
-              </tr>
-            `).join('')}
+              </tr>`;
+            }).join('')}
           </tbody>
         </table>
-        ${data.ovrig_text ? `<div class="ovrig">Övrig text: ${escapeHtml(data.ovrig_text)}</div>` : ''}
+        <div class="ovrig ${ovrigIsEdited ? 'edited' : ''}">Övrig text: <span contenteditable="true" data-img="${escapeHtml(imgName)}" data-field="ovrig_text">${escapeHtml(ovrigValue)}</span></div>
         <details><summary>JSON</summary><pre>${escapeHtml(JSON.stringify(data, null, 2))}</pre></details>
       </div>
     `;
     cards.appendChild(card);
   }
   document.querySelectorAll('.img-wrap').forEach(setupWrap);
+  bindEditableCells();
+  updateEditCount();
+}
+
+function bindEditableCells() {
+  document.querySelectorAll('td[contenteditable]').forEach(td => {
+    if (td.dataset.bound) return;
+    td.dataset.bound = '1';
+    td.addEventListener('blur', () => {
+      const imgName = td.dataset.img;
+      const idx = parseInt(td.dataset.row);
+      const field = td.dataset.field;
+      const value = td.textContent.trim();
+      const original = DATA[imgName].rader[idx][field];
+      const origStr = field === 'poang_alla' ? (original || []).join(' → ') : (original ?? '');
+      setEdit(imgName, idx, field, value, origStr);
+      td.classList.toggle('edited', value !== origStr);
+    });
+    td.addEventListener('keydown', e => {
+      if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); td.blur(); }
+      if (e.key === 'Escape') { e.preventDefault(); td.blur(); }
+    });
+  });
+  document.querySelectorAll('.ovrig span[contenteditable]').forEach(span => {
+    if (span.dataset.bound) return;
+    span.dataset.bound = '1';
+    span.addEventListener('blur', () => {
+      const imgName = span.dataset.img;
+      const value = span.textContent.trim();
+      const original = DATA[imgName].ovrig_text || '';
+      setOvrigEdit(imgName, value, original);
+      span.parentElement.classList.toggle('edited', value !== original);
+    });
+    span.addEventListener('keydown', e => {
+      if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); span.blur(); }
+    });
+  });
+}
+
+function csvEscape(s) {
+  if (s === null || s === undefined) return '';
+  s = String(s);
+  if (/[",\n\r]/.test(s)) return '"' + s.replace(/"/g, '""') + '"';
+  return s;
+}
+function buildCsv() {
+  const merged = mergedData();
+  const fields = ['bild','diktnummer','minnesanteckning','poang_officiell','poang_alla','kommentar','confidence','ovrig_text'];
+  const lines = [fields.join(',')];
+  for (const [imgName, data] of Object.entries(merged)) {
+    const ovrig = data.ovrig_text || '';
+    for (const r of (data.rader || [])) {
+      lines.push([
+        csvEscape(imgName),
+        csvEscape(r.diktnummer ?? ''),
+        csvEscape(r.minnesanteckning ?? ''),
+        csvEscape(r.poang_officiell ?? ''),
+        csvEscape((r.poang_alla || []).join('|')),
+        csvEscape(r.kommentar ?? ''),
+        csvEscape(typeof r.confidence === 'number' ? r.confidence : ''),
+        csvEscape(ovrig),
+      ].join(','));
+    }
+  }
+  return '﻿' + lines.join('\r\n');
+}
+function download(filename, content, mime) {
+  const blob = new Blob([content], { type: mime });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = filename;
+  document.body.appendChild(a); a.click();
+  setTimeout(() => { URL.revokeObjectURL(url); a.remove(); }, 0);
 }
 
 function applyRotation(wrap) {
@@ -170,6 +364,17 @@ window.addEventListener('resize', () => {
 
 document.getElementById('only-low').addEventListener('change', render);
 document.getElementById('threshold').addEventListener('input', render);
+document.getElementById('dl-csv').addEventListener('click', () => {
+  download('rader_korrigerad.csv', buildCsv(), 'text/csv;charset=utf-8');
+});
+document.getElementById('dl-json').addEventListener('click', () => {
+  download('raw_korrigerad.json', JSON.stringify(mergedData(), null, 2), 'application/json;charset=utf-8');
+});
+document.getElementById('reset-edits').addEventListener('click', () => {
+  if (!confirm('Återställ alla redigeringar? Detta går inte att ångra.')) return;
+  localStorage.removeItem('edits');
+  render();
+});
 render();
 </script>
 </body>
