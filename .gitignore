@@ -1,0 +1,16 @@
+# Formulärfoton — ligger lokalt, ska inte committas
+formular/
+
+# Resultatfiler från extract_forms.py
+results/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.env
+
+# OS
+.DS_Store
+Thumbs.db
