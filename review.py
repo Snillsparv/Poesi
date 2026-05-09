@@ -82,7 +82,8 @@ function render() {
     const card = document.createElement('section');
     card.className = 'card';
     const imgPath = IMG_PREFIX + encodeURIComponent(imgName);
-    const rot = parseInt(localStorage.getItem('rot:' + imgName)) || 0;
+    const stored = localStorage.getItem('rot:' + imgName);
+    const rot = stored !== null ? parseInt(stored) : 270;
     card.innerHTML = `
       <div>
         <h2>${escapeHtml(imgName)}</h2>
