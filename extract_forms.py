@@ -36,16 +36,23 @@ MEDIA_TYPES = {
 }
 
 PROMPT = """Du tittar på ett foto av ett pappersformulär där en person har rankat dikter.
+Bilden kan vara fotograferad upp och ner eller på sidan – läs den i den orientering
+där texten är rättvänd.
 
-Formuläret har en rad per dikt med kolumnerna:
-1. Diktnummer
-2. Minnesanteckning – personens egen anteckning om vad dikten handlade om
-3. Poäng – ibland står det två poäng (en överstruken/ändrad och en ny). Den SENAST skrivna är officiell. Inkludera båda om så är fallet.
+Formuläret har en rubrik (t.ex. "<Namn> läser dikter") och en tabell med en rad
+per dikt. Kolumnerna är:
+1. Dikt nr
+2. Minnesanteckning – läsarens egen anteckning om vad dikten handlade om
+3. Poäng (1–5) – ibland står det två poäng (en överstruken/ändrad och en ny).
+   Den SENAST skrivna är officiell. Inkludera båda om så är fallet.
 4. Kommentar – fritextkommentar
 
-Det kan också stå övrig text någonstans på lappen (rubrik, namn, datum, kantanteckningar). Ta med det om du hittar det.
+Det kan också stå övrig text någonstans på lappen (rubrik med namn, datum,
+kantanteckningar, plustecken/symboler bredvid kommentarer). Ta med det om
+du hittar det – inklusive namnet i rubriken.
 
-Vissa lappar är handskrivna och svårlästa. Gissa hellre än att hoppa över, men sätt en låg confidence (0–1) på rader där du är osäker.
+Lapparna är handskrivna och ibland svårlästa. Gissa hellre än att hoppa över,
+men sätt en låg confidence (0–1) på rader där du är osäker.
 
 Returnera ENBART giltig JSON, inga kodblock, ingen förklaring. Format:
 

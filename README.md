@@ -24,3 +24,19 @@ Resultat hamnar i `results/`:
 
 Skriptet skriver även ut rader med låg confidence (< 0.7) i terminalen så
 du vet vilka du bör dubbelkolla mot originalfotot.
+
+## Granska och korrigera
+
+För att gå igenom allt visuellt mot originalfotona innan du gör statistik:
+
+```
+python build_review.py formular/
+```
+
+Det skapar `results/granska.html`. Öppna den i en webbläsare:
+- Varje foto visas bredvid den extraherade datan.
+- Gula rader är de Claude var osäker på.
+- Klicka på fotot (eller "Rotera 90°") om bilden ligger upp och ner.
+- Alla fält är redigerbara – rätta direkt i sidan.
+- Tryck **⬇ CSV** eller **⬇ JSON** uppe i högra hörnet för att ladda ner
+  en korrigerad version att analysera vidare.
