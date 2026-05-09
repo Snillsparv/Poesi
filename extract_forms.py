@@ -17,6 +17,7 @@ HEIC-bilder från iPhone fungerar inte direkt. Konvertera först:
 import argparse
 import base64
 import csv
+import io
 import json
 import os
 import sys
@@ -24,16 +25,18 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 
 import anthropic
+from PIL import Image
 
 MODEL = "claude-sonnet-4-6"
 IMAGE_EXTENSIONS = {".jpg", ".jpeg", ".png", ".webp", ".gif"}
-MEDIA_TYPES = {
-    ".jpg": "image/jpeg",
-    ".jpeg": "image/jpeg",
-    ".png": "image/png",
-    ".webp": "image/webp",
-    ".gif": "image/gif",
-}
+
+# Anthropic accepterar max 5 MB base64. Vi skalar och komprimerar tills bilden
+# ryms med god marginal. 1568 px på längsta sidan är Anthropics rekommenderade
+# upplösning – det räcker gott för OCR av handskrift.
+MAX_LONGEST_EDGE = 1568
+INITIAL_QUALITY = 85
+MAX_BASE64_BYTES = 5 * 1024 * 1024 - 64 * 1024
+MAX_RAW_BYTES = (MAX_BASE64_BYTES * 3) // 4
 
 PROMPT = """Du tittar på ett foto av ett pappersformulär där en person har rankat dikter.
 Bilden kan vara fotograferad upp och ner eller på sidan – läs den i den orientering
@@ -74,9 +77,25 @@ Tomma celler: sätt fältet till null. Om bara en poäng finns: sätt poang_alla
 
 
 def encode_image(path: Path) -> tuple[str, str]:
-    media_type = MEDIA_TYPES[path.suffix.lower()]
-    data = base64.standard_b64encode(path.read_bytes()).decode()
-    return media_type, data
+    """Skala ner och komprimera bilden så base64-storleken får plats hos API:et."""
+    with Image.open(path) as img:
+        img.load()
+        if img.mode not in ("RGB", "L"):
+            img = img.convert("RGB")
+        w, h = img.size
+        longest = max(w, h)
+        if longest > MAX_LONGEST_EDGE:
+            scale = MAX_LONGEST_EDGE / longest
+            img = img.resize((max(1, int(w * scale)), max(1, int(h * scale))), Image.LANCZOS)
+        quality = INITIAL_QUALITY
+        while True:
+            buf = io.BytesIO()
+            img.save(buf, format="JPEG", quality=quality, optimize=True)
+            raw = buf.getvalue()
+            if len(raw) <= MAX_RAW_BYTES or quality <= 40:
+                break
+            quality -= 10
+    return "image/jpeg", base64.standard_b64encode(raw).decode()
 
 
 def parse_json_response(text: str) -> dict:
