@@ -280,7 +280,7 @@ function bindEditableCells() {
 function csvEscape(s) {
   if (s === null || s === undefined) return '';
   s = String(s);
-  if (/[",\n\r]/.test(s)) return '"' + s.replace(/"/g, '""') + '"';
+  if (/[",\\n\\r]/.test(s)) return '"' + s.replace(/"/g, '""') + '"';
   return s;
 }
 function buildCsv() {
@@ -302,7 +302,7 @@ function buildCsv() {
       ].join(','));
     }
   }
-  return '﻿' + lines.join('\r\n');
+  return '﻿' + lines.join('\\r\\n');
 }
 function download(filename, content, mime) {
   const blob = new Blob([content], { type: mime });
