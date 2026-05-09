@@ -227,10 +227,10 @@ def main() -> None:
     csv_path = args.out / "rader.csv"
     errors_path = args.out / "errors.txt"
 
-    raw_path.write_text(json.dumps(raw_results, ensure_ascii=False, indent=2))
+    raw_path.write_text(json.dumps(raw_results, ensure_ascii=False, indent=2), encoding="utf-8")
     write_csv(raw_results, csv_path)
     if errors:
-        errors_path.write_text("\n".join(errors))
+        errors_path.write_text("\n".join(errors), encoding="utf-8")
 
     print(f"\nKlart. Skrev {csv_path} och {raw_path}")
     if errors:
