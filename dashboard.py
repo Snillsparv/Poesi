@@ -125,88 +125,193 @@ def main() -> None:
 
 
 def render_html(rows: list[dict], n_forms: int) -> str:
-    return HTML_TEMPLATE.replace("__N_FORMS__", str(n_forms)).replace(
-        "__ROWS__", json.dumps(rows, ensure_ascii=False)
-    )
+    n_scores = sum(r["antal"] for r in rows)
+    return (HTML_TEMPLATE
+            .replace("__N_FORMS__", str(n_forms))
+            .replace("__N_SCORES__", str(n_scores))
+            .replace("__ROWS__", json.dumps(rows, ensure_ascii=False)))
 
 
 HTML_TEMPLATE = r"""<!doctype html>
 <html lang="sv">
 <head>
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Dikt-dashboard</title>
 <style>
-  :root { color-scheme: light dark; }
-  body { font-family: -apple-system, Segoe UI, Roboto, sans-serif; margin: 0; padding: 1.5rem; background: #111; color: #eee; max-width: 1100px; }
-  h1 { margin: 0 0 .25rem; font-size: 1.4rem; }
-  .sub { color: #888; margin-bottom: 1.5rem; font-size: .9rem; }
-  h2 { margin: 1.5rem 0 .5rem; font-size: 1rem; color: #4a90d9; text-transform: uppercase; letter-spacing: .05em; }
-  table { border-collapse: collapse; width: 100%; font-size: .9rem; }
-  th, td { text-align: left; padding: .5rem .75rem; border-bottom: 1px solid #333; }
-  th { background: #1a1a1a; cursor: pointer; user-select: none; position: sticky; top: 0; }
-  th:hover { background: #2a2a2a; }
-  th.sort-asc::after { content: ' ▲'; color: #4a90d9; }
-  th.sort-desc::after { content: ' ▼'; color: #4a90d9; }
-  td.num { text-align: right; font-variant-numeric: tabular-nums; }
-  tr.poem { cursor: pointer; }
-  tr.poem:hover td { background: #1f2a3a; }
-  tr.poem.active td { background: #2a3a4a; }
-  .name { font-weight: 600; }
-  .nr { color: #888; }
-  .rank { display: inline-block; width: 1.5em; color: #4a90d9; font-weight: bold; }
-  .bar { display: inline-block; height: .6rem; background: linear-gradient(90deg, #4a90d9, #7bb6ee); border-radius: 3px; vertical-align: middle; margin-right: .4rem; }
-  #comments { margin-top: 2rem; padding: 1rem; background: #1a1a1a; border-radius: 8px; min-height: 4rem; }
-  #comments.empty { color: #666; font-style: italic; padding: 2rem; text-align: center; }
-  .comment { padding: .75rem 0; border-bottom: 1px solid #333; }
+  :root {
+    --bg: #f7f5f0;
+    --card: #ffffff;
+    --ink: #1f1f24;
+    --ink-soft: #5a5a66;
+    --ink-muted: #8a8a96;
+    --line: #e6e3dc;
+    --line-soft: #f0ede6;
+    --accent: #b34a3a;
+    --accent-soft: #faf0ee;
+    --gold: #c9a23a;
+    --gold-soft: #fbf5e2;
+    --silver: #9aa0a6;
+    --silver-soft: #f1f2f4;
+    --bronze: #b27a4a;
+    --bronze-soft: #f7eee5;
+    --shadow: 0 1px 2px rgba(0,0,0,.04), 0 6px 24px rgba(20,20,30,.06);
+  }
+  * { box-sizing: border-box; }
+  html, body { background: var(--bg); color: var(--ink); }
+  body { font-family: 'Inter', -apple-system, 'Segoe UI', Roboto, sans-serif; margin: 0; padding: 3rem 1.5rem 5rem; line-height: 1.5; }
+  .wrap { max-width: 960px; margin: 0 auto; }
+  header.hero { text-align: center; margin-bottom: 3rem; }
+  .eyebrow { color: var(--accent); font-size: .8rem; font-weight: 600; letter-spacing: .15em; text-transform: uppercase; margin-bottom: .5rem; }
+  h1 { font-family: 'Georgia', 'Times New Roman', serif; font-size: 2.6rem; font-weight: 400; margin: 0 0 .75rem; letter-spacing: -.01em; }
+  .lead { color: var(--ink-soft); font-size: 1.05rem; max-width: 540px; margin: 0 auto; }
+  .lead strong { color: var(--ink); font-weight: 600; }
+
+  section { background: var(--card); border-radius: 12px; padding: 2rem 2.25rem; margin-bottom: 1.5rem; box-shadow: var(--shadow); }
+  section.tight { padding: 1.5rem 2.25rem; }
+  h2 { font-family: 'Georgia', serif; font-size: 1.35rem; font-weight: 400; margin: 0 0 .25rem; letter-spacing: -.005em; }
+  .section-sub { color: var(--ink-muted); font-size: .85rem; margin-bottom: 1.25rem; }
+
+  .podium { display: grid; grid-template-columns: 1fr 1.2fr 1fr; gap: 1rem; margin-top: .5rem; align-items: end; }
+  .pod { border-radius: 10px; padding: 1.25rem 1rem; text-align: center; transition: transform .15s; cursor: pointer; }
+  .pod:hover { transform: translateY(-2px); }
+  .pod.gold { background: var(--gold-soft); border: 1px solid #f0e3b8; }
+  .pod.silver { background: var(--silver-soft); border: 1px solid #e1e3e7; }
+  .pod.bronze { background: var(--bronze-soft); border: 1px solid #ecd9c3; }
+  .pod .medal { font-size: 1.6rem; margin-bottom: .25rem; }
+  .pod .place { font-size: .75rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-soft); }
+  .pod.gold .place { color: var(--gold); }
+  .pod.silver .place { color: var(--silver); }
+  .pod.bronze .place { color: var(--bronze); }
+  .pod .pname { font-family: 'Georgia', serif; font-size: 1.15rem; margin: .35rem 0 .25rem; line-height: 1.2; }
+  .pod .pmeta { color: var(--ink-muted); font-size: .8rem; }
+  .pod .pscore { font-size: 1.5rem; font-weight: 600; margin-top: .25rem; font-variant-numeric: tabular-nums; }
+
+  table { border-collapse: collapse; width: 100%; font-size: .95rem; }
+  th, td { padding: .7rem .85rem; text-align: left; border-bottom: 1px solid var(--line-soft); }
+  thead th { font-size: .75rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-muted); border-bottom: 1px solid var(--line); }
+  tbody tr:last-child td { border-bottom: none; }
+  tbody tr.poem { cursor: pointer; transition: background .12s; }
+  tbody tr.poem:hover td { background: var(--accent-soft); }
+  tbody tr.poem.active td { background: var(--accent-soft); box-shadow: inset 3px 0 0 var(--accent); }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  td.name { font-weight: 500; }
+  td.nr { color: var(--ink-muted); width: 2em; }
+  td.rank { font-weight: 600; color: var(--accent); width: 2em; text-align: center; }
+
+  .bar-row { display: flex; align-items: center; gap: .75rem; }
+  .bar-row .label { flex: 0 0 auto; min-width: 12rem; font-weight: 500; }
+  .bar-row .label .nr { color: var(--ink-muted); margin-right: .4em; font-weight: 400; }
+  .bar-track { flex: 1; height: .6rem; background: var(--line-soft); border-radius: 100px; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 100px; }
+  .bar-fill.fav { background: linear-gradient(90deg, #c9a23a, #d9b860); }
+  .bar-fill.worst { background: linear-gradient(90deg, #b34a3a, #c97264); }
+  .bar-row .count { flex: 0 0 2.5em; text-align: right; font-weight: 600; font-variant-numeric: tabular-nums; }
+
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  @media (max-width: 720px) {
+    body { padding: 2rem 1rem 3rem; }
+    h1 { font-size: 2rem; }
+    .grid-2 { grid-template-columns: 1fr; }
+    .podium { grid-template-columns: 1fr; }
+    section { padding: 1.5rem; }
+  }
+
+  #comments { scroll-margin-top: 1rem; }
+  #comments.empty .empty-msg { color: var(--ink-muted); font-style: italic; text-align: center; padding: 2rem 0; }
+  .comment { padding: 1rem 0; border-bottom: 1px solid var(--line-soft); }
   .comment:last-child { border-bottom: none; }
-  .comment-head { display: flex; gap: .75rem; align-items: baseline; font-size: .85rem; color: #aaa; margin-bottom: .25rem; }
-  .comment-head .reader { color: #fff; font-weight: 600; }
-  .comment-head .score { color: #4a90d9; font-weight: bold; font-variant-numeric: tabular-nums; }
-  .comment-head .img { color: #666; font-family: monospace; font-size: .75rem; }
-  .comment-body { font-size: .95rem; line-height: 1.4; }
-  .minne { color: #888; font-style: italic; }
-  .info { font-size: .8rem; color: #777; margin-top: 1rem; line-height: 1.5; }
+  .comment-head { display: flex; gap: .85rem; align-items: baseline; flex-wrap: wrap; margin-bottom: .35rem; }
+  .comment-head .reader { font-weight: 600; color: var(--ink); }
+  .comment-head .score { color: var(--accent); font-weight: 700; font-variant-numeric: tabular-nums; }
+  .comment-head .img { color: var(--ink-muted); font-family: 'SF Mono', Menlo, Consolas, monospace; font-size: .75rem; margin-left: auto; }
+  .minne { color: var(--ink-soft); font-style: italic; margin-bottom: .15rem; }
+  .minne::before { content: '✎ '; color: var(--ink-muted); }
+  .info { font-size: .8rem; color: var(--ink-muted); padding: 1rem 1.25rem; background: var(--line-soft); border-radius: 8px; margin-top: 1rem; line-height: 1.55; }
+  .info strong { color: var(--ink-soft); }
+  .sortable { cursor: pointer; user-select: none; }
+  .sortable:hover { color: var(--ink); }
+  .sortable.sort-asc::after { content: ' ↑'; color: var(--accent); }
+  .sortable.sort-desc::after { content: ' ↓'; color: var(--accent); }
 </style>
 </head>
 <body>
-<h1>Dikt-dashboard</h1>
-<div class="sub">Sammanställning av <strong>__N_FORMS__</strong> kompletta formulär. Klicka på en kolumnrubrik för att sortera. Klicka på en dikt för att se alla kommentarer.</div>
+<div class="wrap">
 
-<h2>Översikt — alla dikter</h2>
-<table id="main-table">
-  <thead><tr>
-    <th data-key="nr" class="num">#</th>
-    <th data-key="namn">Dikt</th>
-    <th data-key="antal" class="num">N</th>
-    <th data-key="snitt" class="num" data-default="desc">Snitt</th>
-    <th data-key="stddev" class="num">Std.avv.</th>
-    <th data-key="total" class="num">Total</th>
-    <th data-key="norm_snitt" class="num">Norm. snitt</th>
-    <th data-key="norm_stddev" class="num">Norm. std.avv.</th>
-    <th data-key="norm_total" class="num">Norm. total</th>
-    <th data-key="favoriter" class="num" title="Antal formulär där dikten fick högsta poängen (delade förstaplatser räknas)">★ Favorit</th>
-    <th data-key="samst" class="num" title="Antal formulär där dikten fick lägsta poängen (delade sistaplatser räknas)">▼ Sämst</th>
-    <th data-key="rank_total" class="num">Rang (total)</th>
-    <th data-key="rank_norm" class="num">Rang (norm.)</th>
-  </tr></thead>
-  <tbody></tbody>
-</table>
+<header class="hero">
+  <div class="eyebrow">Resultatsammanställning</div>
+  <h1>Dikter i siffror</h1>
+  <p class="lead"><strong>__N_FORMS__</strong> formulär · <strong>8</strong> dikter · <strong>__N_SCORES__</strong> poäng</p>
+</header>
 
-<div class="info">
-  <strong>Snitt/Std.avv./Total:</strong> baserat på den officiella poängen (1–5) per röst.<br>
-  <strong>Normaliserad:</strong> i varje formulär ersätts poängen med diktens placering 1–8 (1 = bäst, lika poäng → medelplacering). Lägre värde är bättre.<br>
-  <strong>★ Favorit / ▼ Sämst:</strong> antal formulär där dikten fick formulärets högsta respektive lägsta poäng. Vid delade poäng räknas alla på den platsen.
+<section>
+  <h2>Pallplatser</h2>
+  <div class="section-sub">Sorterat efter genomsnittlig poäng. Klicka på ett kort för att läsa kommentarer.</div>
+  <div class="podium" id="podium"></div>
+</section>
+
+<section>
+  <h2>Alla dikter</h2>
+  <div class="section-sub">Klicka på en kolumnrubrik för att sortera om. Klicka på en dikt för att läsa kommentarer.</div>
+  <table id="main-table">
+    <thead><tr>
+      <th class="num sortable" data-key="nr">#</th>
+      <th class="sortable" data-key="namn">Dikt</th>
+      <th class="num sortable" data-key="snitt" data-default="desc">Snitt</th>
+      <th class="num sortable" data-key="stddev">Std.avv.</th>
+      <th class="num sortable" data-key="total">Total</th>
+      <th class="num sortable" data-key="favoriter">★ Favorit</th>
+      <th class="num sortable" data-key="samst">▼ Sämst</th>
+    </tr></thead>
+    <tbody></tbody>
+  </table>
+</section>
+
+<div class="grid-2">
+  <section class="tight">
+    <h2>★ Favorit</h2>
+    <div class="section-sub">Antal formulär där dikten fick högsta poängen.</div>
+    <div id="fav-bars"></div>
+  </section>
+  <section class="tight">
+    <h2>▼ Sämst</h2>
+    <div class="section-sub">Antal formulär där dikten fick lägsta poängen.</div>
+    <div id="worst-bars"></div>
+  </section>
 </div>
 
-<h2 id="comment-header">Kommentarer</h2>
-<div id="comments" class="empty">Klicka på en dikt ovan för att se kommentarerna.</div>
+<section>
+  <h2>Normaliserad rangordning</h2>
+  <div class="section-sub">I varje formulär ersätts poängen med diktens placering 1–8 (1 = bäst, lika poäng → medelplacering). Lägre värde = bättre.</div>
+  <table id="norm-table">
+    <thead><tr>
+      <th class="num">Rang</th>
+      <th>Dikt</th>
+      <th class="num">Snittplacering</th>
+      <th class="num">Std.avv.</th>
+      <th class="num">Summa placeringar</th>
+    </tr></thead>
+    <tbody></tbody>
+  </table>
+  <div class="info">
+    <strong>Varför två sätt?</strong> Snitt-rankningen mäter absolut uppskattning (4.2 av 5 osv). Den normaliserade rankningen ignorerar att olika personer betygsätter olika hårt — bara ordningen inom varje formulär räknas. När båda pekar åt samma håll är resultatet stabilt.
+  </div>
+</section>
+
+<section id="comments-section">
+  <h2 id="comment-header">Kommentarer</h2>
+  <div id="comments" class="empty">
+    <div class="empty-msg">Klicka på en dikt för att se kommentarerna.</div>
+  </div>
+</section>
+
+</div>
 
 <script>
 const ROWS = __ROWS__;
 
-// Compute ranks (1 = best). Total: highest is best. Norm: lowest is best.
 function computeRanks() {
-  const byTotal = [...ROWS].sort((a, b) => b.total - a.total);
+  const byTotal = [...ROWS].sort((a, b) => b.snitt - a.snitt);
   byTotal.forEach((r, i) => r.rank_total = i + 1);
   const byNorm = [...ROWS].sort((a, b) => a.norm_snitt - b.norm_snitt);
   byNorm.forEach((r, i) => r.rank_norm = i + 1);
@@ -214,15 +319,38 @@ function computeRanks() {
 computeRanks();
 
 let sortKey = 'snitt';
-let sortDir = -1; // -1 desc, +1 asc
+let sortDir = -1;
 
-function fmt(v, decimals = 2) {
+function fmt(v, d = 2) {
   if (v === null || v === undefined || v === '') return '';
-  if (typeof v === 'number') return v.toFixed(decimals);
+  if (typeof v === 'number') return v.toFixed(d);
   return v;
 }
 
-function render() {
+function escapeHtml(s) {
+  if (s === null || s === undefined) return '';
+  return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+function renderPodium() {
+  const top3 = [...ROWS].sort((a, b) => b.snitt - a.snitt).slice(0, 3);
+  const order = [top3[1], top3[0], top3[2]];
+  const tier = ['silver', 'gold', 'bronze'];
+  const medal = ['🥈', '🥇', '🥉'];
+  const place = ['Andra plats', 'Första plats', 'Tredje plats'];
+  document.getElementById('podium').innerHTML = order.map((r, i) => `
+    <div class="pod ${tier[i]}" data-nr="${r.nr}">
+      <div class="medal">${medal[i]}</div>
+      <div class="place">${place[i]}</div>
+      <div class="pname">${escapeHtml(r.namn)}</div>
+      <div class="pscore">${r.snitt.toFixed(2)}</div>
+      <div class="pmeta">snitt · ${r.favoriter} favoriter</div>
+    </div>
+  `).join('');
+  document.querySelectorAll('.pod').forEach(el => el.addEventListener('click', () => showComments(el.dataset.nr)));
+}
+
+function renderMain() {
   const tbody = document.querySelector('#main-table tbody');
   const sorted = [...ROWS].sort((a, b) => {
     let av = a[sortKey], bv = b[sortKey];
@@ -231,28 +359,51 @@ function render() {
   });
   tbody.innerHTML = sorted.map(r => `
     <tr class="poem" data-nr="${r.nr}">
-      <td class="num nr">${r.nr}</td>
+      <td class="nr num">${r.nr}</td>
       <td class="name">${escapeHtml(r.namn)}</td>
-      <td class="num">${r.antal}</td>
       <td class="num">${fmt(r.snitt)}</td>
       <td class="num">${fmt(r.stddev)}</td>
       <td class="num">${fmt(r.total, 1)}</td>
-      <td class="num">${fmt(r.norm_snitt)}</td>
-      <td class="num">${fmt(r.norm_stddev)}</td>
-      <td class="num">${fmt(r.norm_total, 1)}</td>
       <td class="num">${r.favoriter}</td>
       <td class="num">${r.samst}</td>
-      <td class="num"><span class="rank">${r.rank_total}</span></td>
-      <td class="num"><span class="rank">${r.rank_norm}</span></td>
     </tr>
   `).join('');
-  document.querySelectorAll('th').forEach(th => {
+  document.querySelectorAll('#main-table th.sortable').forEach(th => {
     th.classList.remove('sort-asc', 'sort-desc');
     if (th.dataset.key === sortKey) th.classList.add(sortDir < 0 ? 'sort-desc' : 'sort-asc');
   });
   document.querySelectorAll('tr.poem').forEach(tr => {
     tr.addEventListener('click', () => showComments(tr.dataset.nr));
   });
+}
+
+function renderBars(elId, key, cls) {
+  const sorted = [...ROWS].sort((a, b) => b[key] - a[key]);
+  const max = Math.max(...sorted.map(r => r[key])) || 1;
+  document.getElementById(elId).innerHTML = sorted.map(r => `
+    <div class="bar-row" data-nr="${r.nr}" style="cursor:pointer; padding:.35rem 0;">
+      <div class="label"><span class="nr">${r.nr}.</span>${escapeHtml(r.namn)}</div>
+      <div class="bar-track"><div class="bar-fill ${cls}" style="width:${(r[key] / max * 100).toFixed(1)}%"></div></div>
+      <div class="count">${r[key]}</div>
+    </div>
+  `).join('');
+  document.querySelectorAll('#' + elId + ' .bar-row').forEach(el =>
+    el.addEventListener('click', () => showComments(el.dataset.nr)));
+}
+
+function renderNorm() {
+  const sorted = [...ROWS].sort((a, b) => a.norm_snitt - b.norm_snitt);
+  document.querySelector('#norm-table tbody').innerHTML = sorted.map((r, i) => `
+    <tr class="poem" data-nr="${r.nr}">
+      <td class="rank">${i + 1}</td>
+      <td class="name"><span class="nr" style="color:#8a8a96; margin-right:.4em">${r.nr}.</span>${escapeHtml(r.namn)}</td>
+      <td class="num">${r.norm_snitt.toFixed(2)}</td>
+      <td class="num">${r.norm_stddev.toFixed(2)}</td>
+      <td class="num">${r.norm_total.toFixed(1)}</td>
+    </tr>
+  `).join('');
+  document.querySelectorAll('#norm-table tr.poem').forEach(tr =>
+    tr.addEventListener('click', () => showComments(tr.dataset.nr)));
 }
 
 function showComments(nr) {
@@ -262,41 +413,38 @@ function showComments(nr) {
   document.getElementById('comment-header').textContent = `Kommentarer — ${nr}. ${row.namn} (${row.kommentarer.length} st)`;
   if (row.kommentarer.length === 0) {
     div.className = 'empty';
-    div.textContent = 'Inga kommentarer eller minnesanteckningar för denna dikt.';
-    return;
-  }
-  div.className = '';
-  div.innerHTML = row.kommentarer.map(c => `
-    <div class="comment">
-      <div class="comment-head">
-        <span class="reader">${escapeHtml(c.lasare || '(okänd läsare)')}</span>
-        <span class="score">${c.poang.toFixed(1)} p</span>
-        <span class="img">${escapeHtml(c.bild)}</span>
-      </div>
-      <div class="comment-body">
-        ${c.minnesanteckning ? `<div class="minne">Minne: ${escapeHtml(c.minnesanteckning)}</div>` : ''}
+    div.innerHTML = '<div class="empty-msg">Inga kommentarer eller minnesanteckningar för denna dikt.</div>';
+  } else {
+    div.className = '';
+    div.innerHTML = row.kommentarer.map(c => `
+      <div class="comment">
+        <div class="comment-head">
+          <span class="reader">${escapeHtml(c.lasare || '(okänd läsare)')}</span>
+          <span class="score">${c.poang.toFixed(1)}</span>
+          <span class="img">${escapeHtml(c.bild)}</span>
+        </div>
+        ${c.minnesanteckning ? `<div class="minne">${escapeHtml(c.minnesanteckning)}</div>` : ''}
         ${c.kommentar ? `<div>${escapeHtml(c.kommentar)}</div>` : ''}
       </div>
-    </div>
-  `).join('');
+    `).join('');
+  }
   document.getElementById('comment-header').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
-function escapeHtml(s) {
-  if (s === null || s === undefined) return '';
-  return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-}
-
-document.querySelectorAll('th').forEach(th => {
+document.querySelectorAll('th.sortable').forEach(th => {
   th.addEventListener('click', () => {
     const key = th.dataset.key;
     if (sortKey === key) sortDir = -sortDir;
     else { sortKey = key; sortDir = th.dataset.default === 'asc' ? 1 : -1; }
-    render();
+    renderMain();
   });
 });
 
-render();
+renderPodium();
+renderMain();
+renderBars('fav-bars', 'favoriter', 'fav');
+renderBars('worst-bars', 'samst', 'worst');
+renderNorm();
 </script>
 </body>
 </html>

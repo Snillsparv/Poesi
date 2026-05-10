@@ -2,79 +2,182 @@
 <html lang="sv">
 <head>
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Dikt-dashboard</title>
 <style>
-  :root { color-scheme: light dark; }
-  body { font-family: -apple-system, Segoe UI, Roboto, sans-serif; margin: 0; padding: 1.5rem; background: #111; color: #eee; max-width: 1100px; }
-  h1 { margin: 0 0 .25rem; font-size: 1.4rem; }
-  .sub { color: #888; margin-bottom: 1.5rem; font-size: .9rem; }
-  h2 { margin: 1.5rem 0 .5rem; font-size: 1rem; color: #4a90d9; text-transform: uppercase; letter-spacing: .05em; }
-  table { border-collapse: collapse; width: 100%; font-size: .9rem; }
-  th, td { text-align: left; padding: .5rem .75rem; border-bottom: 1px solid #333; }
-  th { background: #1a1a1a; cursor: pointer; user-select: none; position: sticky; top: 0; }
-  th:hover { background: #2a2a2a; }
-  th.sort-asc::after { content: ' ▲'; color: #4a90d9; }
-  th.sort-desc::after { content: ' ▼'; color: #4a90d9; }
-  td.num { text-align: right; font-variant-numeric: tabular-nums; }
-  tr.poem { cursor: pointer; }
-  tr.poem:hover td { background: #1f2a3a; }
-  tr.poem.active td { background: #2a3a4a; }
-  .name { font-weight: 600; }
-  .nr { color: #888; }
-  .rank { display: inline-block; width: 1.5em; color: #4a90d9; font-weight: bold; }
-  .bar { display: inline-block; height: .6rem; background: linear-gradient(90deg, #4a90d9, #7bb6ee); border-radius: 3px; vertical-align: middle; margin-right: .4rem; }
-  #comments { margin-top: 2rem; padding: 1rem; background: #1a1a1a; border-radius: 8px; min-height: 4rem; }
-  #comments.empty { color: #666; font-style: italic; padding: 2rem; text-align: center; }
-  .comment { padding: .75rem 0; border-bottom: 1px solid #333; }
+  :root {
+    --bg: #f7f5f0;
+    --card: #ffffff;
+    --ink: #1f1f24;
+    --ink-soft: #5a5a66;
+    --ink-muted: #8a8a96;
+    --line: #e6e3dc;
+    --line-soft: #f0ede6;
+    --accent: #b34a3a;
+    --accent-soft: #faf0ee;
+    --gold: #c9a23a;
+    --gold-soft: #fbf5e2;
+    --silver: #9aa0a6;
+    --silver-soft: #f1f2f4;
+    --bronze: #b27a4a;
+    --bronze-soft: #f7eee5;
+    --shadow: 0 1px 2px rgba(0,0,0,.04), 0 6px 24px rgba(20,20,30,.06);
+  }
+  * { box-sizing: border-box; }
+  html, body { background: var(--bg); color: var(--ink); }
+  body { font-family: 'Inter', -apple-system, 'Segoe UI', Roboto, sans-serif; margin: 0; padding: 3rem 1.5rem 5rem; line-height: 1.5; }
+  .wrap { max-width: 960px; margin: 0 auto; }
+  header.hero { text-align: center; margin-bottom: 3rem; }
+  .eyebrow { color: var(--accent); font-size: .8rem; font-weight: 600; letter-spacing: .15em; text-transform: uppercase; margin-bottom: .5rem; }
+  h1 { font-family: 'Georgia', 'Times New Roman', serif; font-size: 2.6rem; font-weight: 400; margin: 0 0 .75rem; letter-spacing: -.01em; }
+  .lead { color: var(--ink-soft); font-size: 1.05rem; max-width: 540px; margin: 0 auto; }
+  .lead strong { color: var(--ink); font-weight: 600; }
+
+  section { background: var(--card); border-radius: 12px; padding: 2rem 2.25rem; margin-bottom: 1.5rem; box-shadow: var(--shadow); }
+  section.tight { padding: 1.5rem 2.25rem; }
+  h2 { font-family: 'Georgia', serif; font-size: 1.35rem; font-weight: 400; margin: 0 0 .25rem; letter-spacing: -.005em; }
+  .section-sub { color: var(--ink-muted); font-size: .85rem; margin-bottom: 1.25rem; }
+
+  .podium { display: grid; grid-template-columns: 1fr 1.2fr 1fr; gap: 1rem; margin-top: .5rem; align-items: end; }
+  .pod { border-radius: 10px; padding: 1.25rem 1rem; text-align: center; transition: transform .15s; cursor: pointer; }
+  .pod:hover { transform: translateY(-2px); }
+  .pod.gold { background: var(--gold-soft); border: 1px solid #f0e3b8; }
+  .pod.silver { background: var(--silver-soft); border: 1px solid #e1e3e7; }
+  .pod.bronze { background: var(--bronze-soft); border: 1px solid #ecd9c3; }
+  .pod .medal { font-size: 1.6rem; margin-bottom: .25rem; }
+  .pod .place { font-size: .75rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-soft); }
+  .pod.gold .place { color: var(--gold); }
+  .pod.silver .place { color: var(--silver); }
+  .pod.bronze .place { color: var(--bronze); }
+  .pod .pname { font-family: 'Georgia', serif; font-size: 1.15rem; margin: .35rem 0 .25rem; line-height: 1.2; }
+  .pod .pmeta { color: var(--ink-muted); font-size: .8rem; }
+  .pod .pscore { font-size: 1.5rem; font-weight: 600; margin-top: .25rem; font-variant-numeric: tabular-nums; }
+
+  table { border-collapse: collapse; width: 100%; font-size: .95rem; }
+  th, td { padding: .7rem .85rem; text-align: left; border-bottom: 1px solid var(--line-soft); }
+  thead th { font-size: .75rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-muted); border-bottom: 1px solid var(--line); }
+  tbody tr:last-child td { border-bottom: none; }
+  tbody tr.poem { cursor: pointer; transition: background .12s; }
+  tbody tr.poem:hover td { background: var(--accent-soft); }
+  tbody tr.poem.active td { background: var(--accent-soft); box-shadow: inset 3px 0 0 var(--accent); }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  td.name { font-weight: 500; }
+  td.nr { color: var(--ink-muted); width: 2em; }
+  td.rank { font-weight: 600; color: var(--accent); width: 2em; text-align: center; }
+
+  .bar-row { display: flex; align-items: center; gap: .75rem; }
+  .bar-row .label { flex: 0 0 auto; min-width: 12rem; font-weight: 500; }
+  .bar-row .label .nr { color: var(--ink-muted); margin-right: .4em; font-weight: 400; }
+  .bar-track { flex: 1; height: .6rem; background: var(--line-soft); border-radius: 100px; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 100px; }
+  .bar-fill.fav { background: linear-gradient(90deg, #c9a23a, #d9b860); }
+  .bar-fill.worst { background: linear-gradient(90deg, #b34a3a, #c97264); }
+  .bar-row .count { flex: 0 0 2.5em; text-align: right; font-weight: 600; font-variant-numeric: tabular-nums; }
+
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  @media (max-width: 720px) {
+    body { padding: 2rem 1rem 3rem; }
+    h1 { font-size: 2rem; }
+    .grid-2 { grid-template-columns: 1fr; }
+    .podium { grid-template-columns: 1fr; }
+    section { padding: 1.5rem; }
+  }
+
+  #comments { scroll-margin-top: 1rem; }
+  #comments.empty .empty-msg { color: var(--ink-muted); font-style: italic; text-align: center; padding: 2rem 0; }
+  .comment { padding: 1rem 0; border-bottom: 1px solid var(--line-soft); }
   .comment:last-child { border-bottom: none; }
-  .comment-head { display: flex; gap: .75rem; align-items: baseline; font-size: .85rem; color: #aaa; margin-bottom: .25rem; }
-  .comment-head .reader { color: #fff; font-weight: 600; }
-  .comment-head .score { color: #4a90d9; font-weight: bold; font-variant-numeric: tabular-nums; }
-  .comment-head .img { color: #666; font-family: monospace; font-size: .75rem; }
-  .comment-body { font-size: .95rem; line-height: 1.4; }
-  .minne { color: #888; font-style: italic; }
-  .info { font-size: .8rem; color: #777; margin-top: 1rem; line-height: 1.5; }
+  .comment-head { display: flex; gap: .85rem; align-items: baseline; flex-wrap: wrap; margin-bottom: .35rem; }
+  .comment-head .reader { font-weight: 600; color: var(--ink); }
+  .comment-head .score { color: var(--accent); font-weight: 700; font-variant-numeric: tabular-nums; }
+  .comment-head .img { color: var(--ink-muted); font-family: 'SF Mono', Menlo, Consolas, monospace; font-size: .75rem; margin-left: auto; }
+  .minne { color: var(--ink-soft); font-style: italic; margin-bottom: .15rem; }
+  .minne::before { content: '✎ '; color: var(--ink-muted); }
+  .info { font-size: .8rem; color: var(--ink-muted); padding: 1rem 1.25rem; background: var(--line-soft); border-radius: 8px; margin-top: 1rem; line-height: 1.55; }
+  .info strong { color: var(--ink-soft); }
+  .sortable { cursor: pointer; user-select: none; }
+  .sortable:hover { color: var(--ink); }
+  .sortable.sort-asc::after { content: ' ↑'; color: var(--accent); }
+  .sortable.sort-desc::after { content: ' ↓'; color: var(--accent); }
 </style>
 </head>
 <body>
-<h1>Dikt-dashboard</h1>
-<div class="sub">Sammanställning av <strong>46</strong> kompletta formulär. Klicka på en kolumnrubrik för att sortera. Klicka på en dikt för att se alla kommentarer.</div>
+<div class="wrap">
 
-<h2>Översikt — alla dikter</h2>
-<table id="main-table">
-  <thead><tr>
-    <th data-key="nr" class="num">#</th>
-    <th data-key="namn">Dikt</th>
-    <th data-key="antal" class="num">N</th>
-    <th data-key="snitt" class="num" data-default="desc">Snitt</th>
-    <th data-key="stddev" class="num">Std.avv.</th>
-    <th data-key="total" class="num">Total</th>
-    <th data-key="norm_snitt" class="num">Norm. snitt</th>
-    <th data-key="norm_stddev" class="num">Norm. std.avv.</th>
-    <th data-key="norm_total" class="num">Norm. total</th>
-    <th data-key="favoriter" class="num" title="Antal formulär där dikten fick högsta poängen (delade förstaplatser räknas)">★ Favorit</th>
-    <th data-key="samst" class="num" title="Antal formulär där dikten fick lägsta poängen (delade sistaplatser räknas)">▼ Sämst</th>
-    <th data-key="rank_total" class="num">Rang (total)</th>
-    <th data-key="rank_norm" class="num">Rang (norm.)</th>
-  </tr></thead>
-  <tbody></tbody>
-</table>
+<header class="hero">
+  <div class="eyebrow">Resultatsammanställning</div>
+  <h1>Dikter i siffror</h1>
+  <p class="lead"><strong>46</strong> formulär · <strong>8</strong> dikter · <strong>368</strong> poäng</p>
+</header>
 
-<div class="info">
-  <strong>Snitt/Std.avv./Total:</strong> baserat på den officiella poängen (1–5) per röst.<br>
-  <strong>Normaliserad:</strong> i varje formulär ersätts poängen med diktens placering 1–8 (1 = bäst, lika poäng → medelplacering). Lägre värde är bättre.<br>
-  <strong>★ Favorit / ▼ Sämst:</strong> antal formulär där dikten fick formulärets högsta respektive lägsta poäng. Vid delade poäng räknas alla på den platsen.
+<section>
+  <h2>Pallplatser</h2>
+  <div class="section-sub">Sorterat efter genomsnittlig poäng. Klicka på ett kort för att läsa kommentarer.</div>
+  <div class="podium" id="podium"></div>
+</section>
+
+<section>
+  <h2>Alla dikter</h2>
+  <div class="section-sub">Klicka på en kolumnrubrik för att sortera om. Klicka på en dikt för att läsa kommentarer.</div>
+  <table id="main-table">
+    <thead><tr>
+      <th class="num sortable" data-key="nr">#</th>
+      <th class="sortable" data-key="namn">Dikt</th>
+      <th class="num sortable" data-key="snitt" data-default="desc">Snitt</th>
+      <th class="num sortable" data-key="stddev">Std.avv.</th>
+      <th class="num sortable" data-key="total">Total</th>
+      <th class="num sortable" data-key="favoriter">★ Favorit</th>
+      <th class="num sortable" data-key="samst">▼ Sämst</th>
+    </tr></thead>
+    <tbody></tbody>
+  </table>
+</section>
+
+<div class="grid-2">
+  <section class="tight">
+    <h2>★ Favorit</h2>
+    <div class="section-sub">Antal formulär där dikten fick högsta poängen.</div>
+    <div id="fav-bars"></div>
+  </section>
+  <section class="tight">
+    <h2>▼ Sämst</h2>
+    <div class="section-sub">Antal formulär där dikten fick lägsta poängen.</div>
+    <div id="worst-bars"></div>
+  </section>
 </div>
 
-<h2 id="comment-header">Kommentarer</h2>
-<div id="comments" class="empty">Klicka på en dikt ovan för att se kommentarerna.</div>
+<section>
+  <h2>Normaliserad rangordning</h2>
+  <div class="section-sub">I varje formulär ersätts poängen med diktens placering 1–8 (1 = bäst, lika poäng → medelplacering). Lägre värde = bättre.</div>
+  <table id="norm-table">
+    <thead><tr>
+      <th class="num">Rang</th>
+      <th>Dikt</th>
+      <th class="num">Snittplacering</th>
+      <th class="num">Std.avv.</th>
+      <th class="num">Summa placeringar</th>
+    </tr></thead>
+    <tbody></tbody>
+  </table>
+  <div class="info">
+    <strong>Varför två sätt?</strong> Snitt-rankningen mäter absolut uppskattning (4.2 av 5 osv). Den normaliserade rankningen ignorerar att olika personer betygsätter olika hårt — bara ordningen inom varje formulär räknas. När båda pekar åt samma håll är resultatet stabilt.
+  </div>
+</section>
+
+<section id="comments-section">
+  <h2 id="comment-header">Kommentarer</h2>
+  <div id="comments" class="empty">
+    <div class="empty-msg">Klicka på en dikt för att se kommentarerna.</div>
+  </div>
+</section>
+
+</div>
 
 <script>
 const ROWS = [{"nr": "1", "namn": "Stjärnorna", "antal": 46, "snitt": 3.078, "stddev": 0.881, "total": 141.6, "norm_snitt": 5.859, "norm_stddev": 2.146, "norm_total": 269.5, "favoriter": 4, "samst": 18, "kommentarer": [{"bild": "P1159170.JPG", "lasare": "Jonas läser dikter", "poang": 5.0, "minnesanteckning": "Rymsten", "kommentar": "Spännande hela tiden"}, {"bild": "P1159195.JPG", "lasare": "Jonas läser dikter", "poang": 5.0, "minnesanteckning": "", "kommentar": "strålande framfört"}, {"bild": "P1159186.JPG", "lasare": "Jonas läser dikter", "poang": 4.5, "minnesanteckning": "Ur en gång nådepression kärer i sången", "kommentar": "målande, livlig beskrivning, stor inlevelse"}, {"bild": "P1159194.JPG", "lasare": "Jonas läser dikter. Lycka till förda visioner (kantanteckning). Du är... (kantanteckning vänster sida, svårläst)", "poang": 4.5, "minnesanteckning": "Evald Fiman / Om depression / Resa i/från", "kommentar": "Fantastiska rim!"}, {"bild": "P1159201.JPG", "lasare": "Jonas läser dikter", "poang": 4.5, "minnesanteckning": "UFO", "kommentar": "Som en saga, rolig"}, {"bild": "P1159202.JPG", "lasare": "Allt var förbe bra! Lycka till i Stockholm, Jonas läser dikter", "poang": 4.2, "minnesanteckning": "ur en diktsamling, mandel sen, älskat, bra rim, fyndig", "kommentar": "bra fyndigt, bra rim"}, {"bild": "P1159189.JPG", "lasare": "2 personer arter poem / Jonas läser dikter", "poang": 4.0, "minnesanteckning": "mest deprigeriv w/mån", "kommentar": "Fantasifyllt - eller"}, {"bild": "P1159210.JPG", "lasare": "Jonas läser dikter\nDu har verkligen talefs änva? Också...", "poang": 4.0, "minnesanteckning": "nattbild", "kommentar": "både rolig o allvarlig!"}, {"bild": "P1159165.JPG", "lasare": "Jonas läser dikter", "poang": 3.8, "minnesanteckning": "Kosmos", "kommentar": "Roligt, prata lite saktare"}, {"bild": "P1159163.JPG", "lasare": "Jonas läser dikter\nBra när du sänder foolye\nBra 'a' sänder foolye\nHur kul a' S-migrants grinner?\nROM (anteckning i övre vänstra hörnet)", "poang": 3.8, "minnesanteckning": "Tröst Depression", "kommentar": ""}, {"bild": "P1159191.JPG", "lasare": "Jonas läser dikter", "poang": 3.8, "minnesanteckning": "like fort c 100 pjum", "kommentar": "Lite fort i början"}, {"bild": "P1159162.JPG", "lasare": "Jonas läser dikter, ll.e, eftervantat i rodens, brinnas brinner (c)", "poang": 3.5, "minnesanteckning": "Kom... lag...", "kommentar": ""}, {"bild": "P1159175.JPG", "lasare": "Jonas läser dikter", "poang": 3.5, "minnesanteckning": "UFO:N", "kommentar": "Härlig stuns i rytmen"}, {"bild": "P1159179.JPG", "lasare": "Jonas läser dikter", "poang": 3.5, "minnesanteckning": "Sommar, ljumde, lite smutsit, åskan", "kommentar": "Lite snabbt läst"}, {"bild": "P1159164.JPG", "lasare": "Jonas läser dikter", "poang": 3.2, "minnesanteckning": "Komma ur en depression", "kommentar": "Pratar i bra takt, rolig blandning av allvarligt och skämt"}, {"bild": "P1159187.JPG", "lasare": "Jonas läser dikter", "poang": 3.2, "minnesanteckning": "Ur djup...", "kommentar": "bakåt steg lite oväntat, gav liv till dikten"}, {"bild": "P1159204.JPG", "lasare": "Jonas läser dikter", "poang": 3.2, "minnesanteckning": "kanse ur ren dages... mdmer counter ferbla = fhin.", "kommentar": "Låt lite mer ledsen i början så matchar rösten ordern, nu lät du lite för glad."}, {"bild": "P1159206.JPG", "lasare": "Mach fantastiskt bycke Jonas läser dikter (namn/titel överst). Möjlig kantanteckning: 'god bokskap' eller liknande längst ner.", "poang": 3.2, "minnesanteckning": "Kissa djpr.", "kommentar": "Överraskar"}, {"bild": "P1159161.JPG", "lasare": "Jonas läser dikter", "poang": 3.0, "minnesanteckning": "Om på vissa uttrycksfulla sångar renge jublad", "kommentar": "underhållande, kontraster, smahällskritik, kul rim"}, {"bild": "P1159169.JPG", "lasare": "Lycka till Jonas och så modigt att du ger Jonas läser dikter detta! / Den snarten: Jeniott & Kärleksdiktes", "poang": 3.0, "minnesanteckning": "Kärstril", "kommentar": "Hördes dåligt ibland, intressant berättelse"}, {"bild": "P1159171.JPG", "lasare": "Jonas läser dikter", "poang": 3.0, "minnesanteckning": "Depp", "kommentar": ""}, {"bild": "P1159183.JPG", "lasare": "Jonas läser dikter\nSvårt att inte ge höga betyg. Mycket bra!!! Lycka till! :)", "poang": 3.0, "minnesanteckning": "", "kommentar": "Kul med associationen till Trump"}, {"bild": "P1159184.JPG", "lasare": "Jonas läser dikter", "poang": 3.0, "minnesanteckning": "upp mot välfärd fördel", "kommentar": "För fort"}, {"bild": "P1159196.JPG", "lasare": "Jonas läser dikter", "poang": 3.0, "minnesanteckning": "Om rymden", "kommentar": "Vilken fantasi!"}, {"bild": "P1159207.JPG", "lasare": "Jonas läser dikter", "poang": 3.0, "minnesanteckning": "", "kommentar": "Rolig"}, {"bild": "P1159178.JPG", "lasare": "Jonas läser dikter", "poang": 2.9, "minnesanteckning": "dröm,ningen, vänner", "kommentar": ""}, {"bild": "P1159167.JPG", "lasare": "Jonas läser dikter", "poang": 2.5, "minnesanteckning": "Depression", "kommentar": "lite för fort och slarvigt"}, {"bild": "P1159188.JPG", "lasare": "Jonas läser dikter", "poang": 2.5, "minnesanteckning": "\"eHan\"", "kommentar": ""}, {"bild": "P1159182.JPG", "lasare": "nej, nej: ni vm tri\nJonas läser dikter", "poang": 2.5, "minnesanteckning": "Depression, UFO, längta bort, sin grade/Skövde", "kommentar": "+ vykort"}, {"bild": "P1159198.JPG", "lasare": "Jonas läser dikter. Delis A1", "poang": 2.5, "minnesanteckning": "Cormys rosa, /", "kommentar": ""}, {"bild": "P1159208.JPG", "lasare": "Jonas läser dikter", "poang": 2.5, "minnesanteckning": "Psyket", "kommentar": ""}, {"bild": "P1159209.JPG", "lasare": "Jonas läser dikter", "poang": 2.5, "minnesanteckning": "Depression Rymden", "kommentar": "lästes för snabbt"}, {"bild": "P1159166.JPG", "lasare": "Jonas läser dikter", "poang": 2.3, "minnesanteckning": "Joanna ordsp. Sverige", "kommentar": "Arbeta med flytet, mer känsla. Annars bra. Du hade superflyt emellanåt."}, {"bild": "P1159168.JPG", "lasare": "Jonas läser dikter", "poang": 2.0, "minnesanteckning": "Komma ur depression", "kommentar": ""}, {"bild": "P1159174.JPG", "lasare": "Jonas läser dikter", "poang": 2.0, "minnesanteckning": "", "kommentar": "Pinsamt med piss"}, {"bild": "P1159185.JPG", "lasare": "Jonas läser dikter – lyckat!", "poang": 2.0, "minnesanteckning": "Kässa ngt", "kommentar": "lite rörigt"}, {"bild": "P1159193.JPG", "lasare": "Du är bra, bäst Jonas! ♥ Jonas läser dikter", "poang": 2.0, "minnesanteckning": "", "kommentar": "svårt att hänga med i dikten"}, {"bild": "P1159200.JPG", "lasare": "Jonas läser dikter", "poang": 2.0, "minnesanteckning": "", "kommentar": "Högt tempo"}, {"bild": "P1159199.JPG", "lasare": "Jonas läser dikter", "poang": 2.0, "minnesanteckning": "II", "kommentar": "Lite spretig men lustig, julklappsrim"}, {"bild": "P1159203.JPG", "lasare": "Jonas läser dikter", "poang": 2.0, "minnesanteckning": "Kiss VFO", "kommentar": "Rytmen känns lite off"}, {"bild": "P1159205.JPG", "lasare": "Jonas läser dikter\nDarlu fantastiskt... (kantanteckning i turkos/grön)", "poang": 2.0, "minnesanteckning": "Träslöjden", "kommentar": ""}]}, {"nr": "2", "namn": "Den som väntar på något gott", "antal": 46, "snitt": 3.173, "stddev": 0.881, "total": 145.95, "norm_snitt": 5.772, "norm_stddev": 1.966, "norm_total": 265.5, "favoriter": 4, "samst": 16, "kommentarer": [{"bild": "P1159194.JPG", "lasare": "Jonas läser dikter. Lycka till förda visioner (kantanteckning). Du är... (kantanteckning vänster sida, svårläst)", "poang": 5.0, "minnesanteckning": "Evald Fiman", "kommentar": "Såå fin!!"}, {"bild": "P1159207.JPG", "lasare": "Jonas läser dikter", "poang": 5.0, "minnesanteckning": "", "kommentar": "Vilken häftig tillbakablick!"}, {"bild": "P1159167.JPG", "lasare": "Jonas läser dikter", "poang": 4.5, "minnesanteckning": "Dag vlandade", "kommentar": "lite slarvig artikulation"}, {"bild": "P1159163.JPG", "lasare": "Jonas läser dikter\nBra när du sänder foolye\nBra 'a' sänder foolye\nHur kul a' S-migrants grinner?\nROM (anteckning i övre vänstra hörnet)", "poang": 4.4, "minnesanteckning": "Världshistorien", "kommentar": "Bäst! Fantastisk med världshistorien och ditt egna liv"}, {"bild": "P1159164.JPG", "lasare": "Jonas läser dikter", "poang": 4.1, "minnesanteckning": "att vänta", "kommentar": "gillar uppbyggnaden och temat"}, {"bild": "P1159162.JPG", "lasare": "Jonas läser dikter, ll.e, eftervantat i rodens, brinnas brinner (c)", "poang": 4.0, "minnesanteckning": "värden", "kommentar": ""}, {"bild": "P1159171.JPG", "lasare": "Jonas läser dikter", "poang": 4.0, "minnesanteckning": "Recept", "kommentar": "Kände för den i mitt hjärta"}, {"bild": "P1159197.JPG", "lasare": "Jonas läser dikter", "poang": 4.0, "minnesanteckning": "Förloke", "kommentar": ""}, {"bild": "P1159185.JPG", "lasare": "Jonas läser dikter – lyckat!", "poang": 3.9, "minnesanteckning": "Recept.", "kommentar": ""}, {"bild": "P1159187.JPG", "lasare": "Jonas läser dikter", "poang": 3.8, "minnesanteckning": "Livets utveckl- ing, väntan", "kommentar": "kul twist"}, {"bild": "P1159201.JPG", "lasare": "Jonas läser dikter", "poang": 3.8, "minnesanteckning": "väntade alla år", "kommentar": "fin"}, {"bild": "P1159189.JPG", "lasare": "2 personer arter poem / Jonas läser dikter", "poang": 3.7, "minnesanteckning": "Väntan historiska Månader", "kommentar": ""}, {"bild": "P1159186.JPG", "lasare": "Jonas läser dikter", "poang": 3.55, "minnesanteckning": "Jag väntade", "kommentar": ""}, {"bild": "P1159202.JPG", "lasare": "Allt var förbe bra! Lycka till i Stockholm, Jonas läser dikter", "poang": 3.5, "minnesanteckning": "Växt, krisbrite, 13,5 miljoner, bra h... hundar", "kommentar": "fin"}, {"bild": "P1159209.JPG", "lasare": "Jonas läser dikter", "poang": 3.5, "minnesanteckning": "Jag väntade på ett hålen", "kommentar": ""}, {"bild": "P1159210.JPG", "lasare": "Jonas läser dikter\nDu har verkligen talefs änva? Också...", "poang": 3.5, "minnesanteckning": "Väntan", "kommentar": "till Kalle?"}, {"bild": "P1159178.JPG", "lasare": "Jonas läser dikter", "poang": 3.4, "minnesanteckning": "väntran,ningen, eva, telefonen", "kommentar": ""}, {"bild": "P1159183.JPG", "lasare": "Jonas läser dikter\nSvårt att inte ge höga betyg. Mycket bra!!! Lycka till! :)", "poang": 3.3, "minnesanteckning": "", "kommentar": "Lätt att följa med genom årmiljonerna"}, {"bild": "P1159203.JPG", "lasare": "Jonas läser dikter", "poang": 3.2, "minnesanteckning": "Väntan", "kommentar": "Fin! Gillar rytmen"}, {"bild": "P1159170.JPG", "lasare": "Jonas läser dikter", "poang": 3.0, "minnesanteckning": "- ontens uglicansk", "kommentar": "Informationssrik"}, {"bild": "P1159174.JPG", "lasare": "Jonas läser dikter", "poang": 3.0, "minnesanteckning": "", "kommentar": "mer romartid?"}, {"bild": "P1159179.JPG", "lasare": "Jonas läser dikter", "poang": 3.0, "minnesanteckning": "packter, igen, last varldct, bra", "kommentar": ""}, {"bild": "P1159184.JPG", "lasare": "Jonas läser dikter", "poang": 3.0, "minnesanteckning": "recept", "kommentar": ""}, {"bild": "P1159188.JPG", "lasare": "Jonas läser dikter", "poang": 3.0, "minnesanteckning": "\"Väntan\"", "kommentar": "Fina liknelser"}, {"bild": "P1159195.JPG", "lasare": "Jonas läser dikter", "poang": 3.0, "minnesanteckning": "", "kommentar": "också bra"}, {"bild": "P1159193.JPG", "lasare": "Du är bra, bäst Jonas! ♥ Jonas läser dikter", "poang": 3.0, "minnesanteckning": "", "kommentar": "tycker det går för fort"}, {"bild": "P1159198.JPG", "lasare": "Jonas läser dikter. Delis A1", "poang": 3.0, "minnesanteckning": "Vördna", "kommentar": ""}, {"bild": "P1159208.JPG", "lasare": "Jonas läser dikter", "poang": 3.0, "minnesanteckning": "Jag väntade", "kommentar": ""}, {"bild": "P1159206.JPG", "lasare": "Mach fantastiskt bycke Jonas läser dikter (namn/titel överst). Möjlig kantanteckning: 'god bokskap' eller liknande längst ner.", "poang": 3.0, "minnesanteckning": "Historia väntan", "kommentar": "Dikten växte på mig."}, {"bild": "P1159175.JPG", "lasare": "Jonas läser dikter", "poang": 2.8, "minnesanteckning": "VÄNTAN", "kommentar": ""}, {"bild": "P1159204.JPG", "lasare": "Jonas läser dikter", "poang": 2.8, "minnesanteckning": "Tanker på all fades vantan mellan världarna.", "kommentar": "Förstod aldrig att du startade."}, {"bild": "P1159182.JPG", "lasare": "nej, nej: ni vm tri\nJonas läser dikter", "poang": 2.5, "minnesanteckning": "Tid, sannolikt, ner gyma, NFi?", "kommentar": "+ anaforer, flyt"}, {"bild": "P1159199.JPG", "lasare": "Jonas läser dikter", "poang": 2.5, "minnesanteckning": "II½-", "kommentar": ""}, {"bild": "P1159166.JPG", "lasare": "Jonas läser dikter", "poang": 2.2, "minnesanteckning": "Väntat på det här?", "kommentar": "Exakt... Exakt... Kanon, där var det riktigt bra inlevelse."}, {"bild": "P1159165.JPG", "lasare": "Jonas läser dikter", "poang": 2.0, "minnesanteckning": "Vänta", "kommentar": ""}, {"bild": "P1159161.JPG", "lasare": "Jonas läser dikter", "poang": 2.0, "minnesanteckning": "Haiku littföre och blödigt merc med löshel", "kommentar": "rytm + istid/kristid - (kändes nödrim)"}, {"bild": "P1159169.JPG", "lasare": "Lycka till Jonas och så modigt att du ger Jonas läser dikter detta! / Den snarten: Jeniott & Kärleksdiktes", "poang": 2.0, "minnesanteckning": "Vänta", "kommentar": ""}, {"bild": "P1159196.JPG", "lasare": "Jonas läser dikter", "poang": 2.0, "minnesanteckning": "Sitter vid fönstret fingarna", "kommentar": ""}, {"bild": "P1159200.JPG", "lasare": "Jonas läser dikter", "poang": 2.0, "minnesanteckning": "", "kommentar": "Mycket ord högt tempo"}, {"bild": "P1159205.JPG", "lasare": "Jonas läser dikter\nDarlu fantastiskt... (kantanteckning i turkos/grön)", "poang": 2.0, "minnesanteckning": "Fröken", "kommentar": "Mer melodi och tempo för tryck av mening"}, {"bild": "P1159168.JPG", "lasare": "Jonas läser dikter", "poang": 1.0, "minnesanteckning": "Väntan", "kommentar": "Rörig"}]}, {"nr": "3", "namn": "Ett väldigt bra recept", "antal": 46, "snitt": 3.57, "stddev": 0.697, "total": 164.2, "norm_snitt": 4.63, "norm_stddev": 1.74, "norm_total": 213.0, "favoriter": 3, "samst": 3, "kommentarer": [{"bild": "P1159170.JPG", "lasare": "Jonas läser dikter", "poang": 4.5, "minnesanteckning": "Krcght", "kommentar": "Vacker"}, {"bild": "P1159185.JPG", "lasare": "Jonas läser dikter – lyckat!", "poang": 4.5, "minnesanteckning": "Recept.", "kommentar": "Trevlig, man blir glad"}, {"bild": "P1159194.JPG", "lasare": "Jonas läser dikter. Lycka till förda visioner (kantanteckning). Du är... (kantanteckning vänster sida, svårläst)", "poang": 4.5, "minnesanteckning": "Scecept", "kommentar": "Vissa partier lite för snabba för old folks"}, {"bild": "P1159208.JPG", "lasare": "Jonas läser dikter", "poang": 4.5, "minnesanteckning": "Recept", "kommentar": ""}, {"bild": "P1159183.JPG", "lasare": "Jonas läser dikter\nSvårt att inte ge höga betyg. Mycket bra!!! Lycka till! :)", "poang": 4.4, "minnesanteckning": "", "kommentar": "Toppen"}, {"bild": "P1159189.JPG", "lasare": "2 personer arter poem / Jonas läser dikter", "poang": 4.4, "minnesanteckning": "Accept", "kommentar": ""}, {"bild": "P1159179.JPG", "lasare": "Jonas läser dikter", "poang": 4.3, "minnesanteckning": "så haretig a, kel thinkel, med Blomkvist, m Blanca", "kommentar": "Vacker, fin dikt. Läst väldigt bra."}, {"bild": "P1159164.JPG", "lasare": "Jonas läser dikter", "poang": 4.2, "minnesanteckning": "ett recept", "kommentar": "jättefint, visste inte vad det skulle ara innan det tog slut"}, {"bild": "P1159187.JPG", "lasare": "Jonas läser dikter", "poang": 4.2, "minnesanteckning": "recept", "kommentar": ""}, {"bild": "P1159167.JPG", "lasare": "Jonas läser dikter", "poang": 4.0, "minnesanteckning": "recept soft", "kommentar": "bättre men lite grötrim"}, {"bild": "P1159184.JPG", "lasare": "Jonas läser dikter", "poang": 4.0, "minnesanteckning": "brja mot ord i tider", "kommentar": "bra mimik behaglig röst"}, {"bild": "P1159186.JPG", "lasare": "Jonas läser dikter", "poang": 4.0, "minnesanteckning": "Recept", "kommentar": "vackert slut"}, {"bild": "P1159198.JPG", "lasare": "Jonas läser dikter. Delis A1", "poang": 4.0, "minnesanteckning": "nocent", "kommentar": ""}, {"bild": "P1159204.JPG", "lasare": "Jonas läser dikter", "poang": 4.0, "minnesanteckning": "Styrmsreft.", "kommentar": "Bra flytt i orden. Fin rytmik."}, {"bild": "P1159178.JPG", "lasare": "Jonas läser dikter", "poang": 3.8, "minnesanteckning": "", "kommentar": "matlagning upp"}, {"bild": "P1159210.JPG", "lasare": "Jonas läser dikter\nDu har verkligen talefs änva? Också...", "poang": 3.8, "minnesanteckning": "recept.", "kommentar": "lite Hellsing!"}, {"bild": "P1159201.JPG", "lasare": "Jonas läser dikter", "poang": 3.7, "minnesanteckning": "Recept", "kommentar": "Bra scenspråk"}, {"bild": "P1159206.JPG", "lasare": "Mach fantastiskt bycke Jonas läser dikter (namn/titel överst). Möjlig kantanteckning: 'god bokskap' eller liknande längst ner.", "poang": 3.7, "minnesanteckning": "Förjes dikt", "kommentar": "Till Bebis hjärta"}, {"bild": "P1159209.JPG", "lasare": "Jonas läser dikter", "poang": 3.7, "minnesanteckning": "Recept \"Di bleu da\"", "kommentar": ""}, {"bild": "P1159163.JPG", "lasare": "Jonas läser dikter\nBra när du sänder foolye\nBra 'a' sänder foolye\nHur kul a' S-migrants grinner?\nROM (anteckning i övre vänstra hörnet)", "poang": 3.6, "minnesanteckning": "Recept", "kommentar": ""}, {"bild": "P1159162.JPG", "lasare": "Jonas läser dikter, ll.e, eftervantat i rodens, brinnas brinner (c)", "poang": 3.5, "minnesanteckning": "rusgt", "kommentar": ""}, {"bild": "P1159166.JPG", "lasare": "Jonas läser dikter", "poang": 3.5, "minnesanteckning": "Recept (Hymner)", "kommentar": "1000 k bra tryck på detta stycket"}, {"bild": "P1159169.JPG", "lasare": "Lycka till Jonas och så modigt att du ger Jonas läser dikter detta! / Den snarten: Jeniott & Kärleksdiktes", "poang": 3.5, "minnesanteckning": "Accept", "kommentar": "Gillar oväntat slut"}, {"bild": "P1159171.JPG", "lasare": "Jonas läser dikter", "poang": 3.5, "minnesanteckning": "Läkarbesk", "kommentar": "Rolig"}, {"bild": "P1159188.JPG", "lasare": "Jonas läser dikter", "poang": 3.5, "minnesanteckning": "\"Recept\"", "kommentar": "Imponerande"}, {"bild": "P1159193.JPG", "lasare": "Du är bra, bäst Jonas! ♥ Jonas läser dikter", "poang": 3.5, "minnesanteckning": "\"vänta\"", "kommentar": "Bra och rolig!"}, {"bild": "P1159197.JPG", "lasare": "Jonas läser dikter", "poang": 3.5, "minnesanteckning": "Smel", "kommentar": ""}, {"bild": "P1159205.JPG", "lasare": "Jonas läser dikter\nDarlu fantastiskt... (kantanteckning i turkos/grön)", "poang": 3.5, "minnesanteckning": "Recept", "kommentar": "Kul och fin. Bra tempo."}, {"bild": "P1159202.JPG", "lasare": "Allt var förbe bra! Lycka till i Stockholm, Jonas läser dikter", "poang": 3.2, "minnesanteckning": "kered, DU", "kommentar": ""}, {"bild": "P1159168.JPG", "lasare": "Jonas läser dikter", "poang": 3.0, "minnesanteckning": "Recept", "kommentar": ""}, {"bild": "P1159161.JPG", "lasare": "Jonas läser dikter", "poang": 3.0, "minnesanteckning": "Replik", "kommentar": "rolig, överraskningar"}, {"bild": "P1159175.JPG", "lasare": "Jonas läser dikter", "poang": 3.0, "minnesanteckning": "RECEPT", "kommentar": "Gulligt slut!"}, {"bild": "P1159195.JPG", "lasare": "Jonas läser dikter", "poang": 3.0, "minnesanteckning": "känsigt", "kommentar": "finurlig"}, {"bild": "P1159199.JPG", "lasare": "Jonas läser dikter", "poang": 2.5, "minnesanteckning": "II½", "kommentar": "Söt!"}, {"bild": "P1159203.JPG", "lasare": "Jonas läser dikter", "poang": 2.5, "minnesanteckning": "Recept", "kommentar": ""}, {"bild": "P1159196.JPG", "lasare": "Jonas läser dikter", "poang": 2.0, "minnesanteckning": "Tig med något", "kommentar": ""}, {"bild": "P1159207.JPG", "lasare": "Jonas läser dikter", "poang": 2.0, "minnesanteckning": "", "kommentar": "Lite tråkig"}, {"bild": "P1159182.JPG", "lasare": "nej, nej: ni vm tri\nJonas läser dikter", "poang": 1.9, "minnesanteckning": "reget, du/ fin, kuddar/ nuddar", "kommentar": "- rimmen\n- skriva på näsan"}]}, {"nr": "4", "namn": "Smittsamt", "antal": 46, "snitt": 4.211, "stddev": 0.537, "total": 193.7, "norm_snitt": 2.402, "norm_stddev": 1.182, "norm_total": 110.5, "favoriter": 20, "samst": 0, "kommentarer": [{"bild": "P1159170.JPG", "lasare": "Jonas läser dikter", "poang": 5.0, "minnesanteckning": "l-kelanpsek", "kommentar": "++ Rolig + bra framförande"}, {"bild": "P1159171.JPG", "lasare": "Jonas läser dikter", "poang": 5.0, "minnesanteckning": "", "kommentar": "Jättebra, rolig"}, {"bild": "P1159184.JPG", "lasare": "Jonas läser dikter", "poang": 5.0, "minnesanteckning": "Hake huspå strömmar", "kommentar": "Bra med olika röster"}, {"bild": "P1159186.JPG", "lasare": "Jonas läser dikter", "poang": 5.0, "minnesanteckning": "Läkardesk", "kommentar": "mycket rolig och skrattretande, passande för sjukhuspersonal"}, {"bild": "P1159195.JPG", "lasare": "Jonas läser dikter", "poang": 5.0, "minnesanteckning": "", "kommentar": "vilken inlevelse"}, {"bild": "P1159194.JPG", "lasare": "Jonas läser dikter. Lycka till förda visioner (kantanteckning). Du är... (kantanteckning vänster sida, svårläst)", "poang": 5.0, "minnesanteckning": "Hts dikthem / erfarenso", "kommentar": "Rolig. Mitt i prick."}, {"bild": "P1159207.JPG", "lasare": "Jonas läser dikter", "poang": 5.0, "minnesanteckning": "", "kommentar": "Roligaste jag har hört!"}, {"bild": "P1159185.JPG", "lasare": "Jonas läser dikter – lyckat!", "poang": 4.8, "minnesanteckning": "halvt beslut", "kommentar": "Rolig"}, {"bild": "P1159189.JPG", "lasare": "2 personer arter poem / Jonas läser dikter", "poang": 4.8, "minnesanteckning": "Godarat Humor Entusiasm", "kommentar": "Entusiasm epidemisk."}, {"bild": "P1159187.JPG", "lasare": "Jonas läser dikter", "poang": 4.7, "minnesanteckning": "läkarbesök", "kommentar": "Roligt, gillade dialogen"}, {"bild": "P1159183.JPG", "lasare": "Jonas läser dikter\nSvårt att inte ge höga betyg. Mycket bra!!! Lycka till! :)", "poang": 4.6, "minnesanteckning": "", "kommentar": "Fantastisk"}, {"bild": "P1159162.JPG", "lasare": "Jonas läser dikter, ll.e, eftervantat i rodens, brinnas brinner (c)", "poang": 4.5, "minnesanteckning": "lätartpussik", "kommentar": "Hoppfull - fin"}, {"bild": "P1159163.JPG", "lasare": "Jonas läser dikter\nBra när du sänder foolye\nBra 'a' sänder foolye\nHur kul a' S-migrants grinner?\nROM (anteckning i övre vänstra hörnet)", "poang": 4.5, "minnesanteckning": "Li'kubelsk", "kommentar": "Bäst! Humor, bra med två roller! Bra för variationen"}, {"bild": "P1159188.JPG", "lasare": "Jonas läser dikter", "poang": 4.5, "minnesanteckning": "\"läkarbesök\"", "kommentar": "Glad dikt, rolilg."}, {"bild": "P1159197.JPG", "lasare": "Jonas läser dikter", "poang": 4.5, "minnesanteckning": "Hrs döldeln", "kommentar": ""}, {"bild": "P1159210.JPG", "lasare": "Jonas läser dikter\nDu har verkligen talefs änva? Också...", "poang": 4.5, "minnesanteckning": "läkarbesök", "kommentar": "Kanon!"}, {"bild": "P1159178.JPG", "lasare": "Jonas läser dikter", "poang": 4.3, "minnesanteckning": "", "kommentar": "jobbat på sjukhus"}, {"bild": "P1159166.JPG", "lasare": "Jonas läser dikter", "poang": 4.2, "minnesanteckning": "LALABGSK (Humor)", "kommentar": "Bra flyt, smart med dialog, denna dikt ligger i tiden"}, {"bild": "P1159198.JPG", "lasare": "Jonas läser dikter. Delis A1", "poang": 4.2, "minnesanteckning": "Löjpar besök", "kommentar": ""}, {"bild": "P1159201.JPG", "lasare": "Jonas läser dikter", "poang": 4.2, "minnesanteckning": "Lättbeso", "kommentar": "Bra scenspråk"}, {"bild": "P1159206.JPG", "lasare": "Mach fantastiskt bycke Jonas läser dikter (namn/titel överst). Möjlig kantanteckning: 'god bokskap' eller liknande längst ner.", "poang": 4.1, "minnesanteckning": "entusiaal", "kommentar": "Rolig, spännande, scenspråket!!"}, {"bild": "P1159167.JPG", "lasare": "Jonas läser dikter", "poang": 4.0, "minnesanteckning": "clokhem", "kommentar": "lite för fort för oss men vi kanske är för gamla"}, {"bild": "P1159161.JPG", "lasare": "Jonas läser dikter", "poang": 4.0, "minnesanteckning": "dikt i nagra alts figurer AmPiStjllou", "kommentar": "Rolig, underfundig"}, {"bild": "P1159169.JPG", "lasare": "Lycka till Jonas och så modigt att du ger Jonas läser dikter detta! / Den snarten: Jeniott & Kärleksdiktes", "poang": 4.0, "minnesanteckning": "Lä/kärlekslek", "kommentar": "Gillade dialogen"}, {"bild": "P1159174.JPG", "lasare": "Jonas läser dikter", "poang": 4.0, "minnesanteckning": "", "kommentar": "Ganska kul"}, {"bild": "P1159179.JPG", "lasare": "Jonas läser dikter", "poang": 4.0, "minnesanteckning": "lite rorisig, pangame", "kommentar": "Så härlig och cool vinkel med läkarbesök. Bra slut."}, {"bild": "P1159193.JPG", "lasare": "Du är bra, bäst Jonas! ♥ Jonas läser dikter", "poang": 4.0, "minnesanteckning": "", "kommentar": "Jättebra och rolig!"}, {"bild": "P1159196.JPG", "lasare": "Jonas läser dikter", "poang": 4.0, "minnesanteckning": "Im lutband nåt i nåpot", "kommentar": "Bra uppläst!"}, {"bild": "P1159202.JPG", "lasare": "Allt var förbe bra! Lycka till i Stockholm, Jonas läser dikter", "poang": 4.0, "minnesanteckning": "lärarbesökt, masomit, hida huset stör, barn o ohysna, hem o ohysna", "kommentar": "bra med dialogen, rolig gester"}, {"bild": "P1159209.JPG", "lasare": "Jonas läser dikter", "poang": 4.0, "minnesanteckning": "Läckerbeck Entusiasm", "kommentar": "Älskar innehållet"}, {"bild": "P1159164.JPG", "lasare": "Jonas läser dikter", "poang": 3.9, "minnesanteckning": "läkarbesök", "kommentar": "gillar att det är ett samtal, rimmen var bra"}, {"bild": "P1159175.JPG", "lasare": "Jonas läser dikter", "poang": 3.7, "minnesanteckning": "LÄKARBESÖK", "kommentar": "Ljuvlig!"}, {"bild": "P1159168.JPG", "lasare": "Jonas läser dikter", "poang": 3.5, "minnesanteckning": "läkarbesök", "kommentar": ""}, {"bild": "P1159182.JPG", "lasare": "nej, nej: ni vm tri\nJonas läser dikter", "poang": 3.5, "minnesanteckning": "roligförtsätt, rolig/förtätt, meta-självkänsla, självlyserna", "kommentar": "+\"godartat humör\" hjärta"}, {"bild": "P1159200.JPG", "lasare": "Jonas läser dikter", "poang": 3.5, "minnesanteckning": "", "kommentar": "Mycket bra humor, ironiskt"}, {"bild": "P1159199.JPG", "lasare": "Jonas läser dikter", "poang": 3.5, "minnesanteckning": "III½", "kommentar": "Kul!"}, {"bild": "P1159205.JPG", "lasare": "Jonas läser dikter\nDarlu fantastiskt... (kantanteckning i turkos/grön)", "poang": 3.5, "minnesanteckning": "Epidemi!", "kommentar": "Väl i sin dramaturgi"}, {"bild": "P1159204.JPG", "lasare": "Jonas läser dikter", "poang": 3.5, "minnesanteckning": "Glidde", "kommentar": "Rolig, teatralisk, bra kroppsspråk"}, {"bild": "P1159203.JPG", "lasare": "Jonas läser dikter", "poang": 3.4, "minnesanteckning": "Godolat humor", "kommentar": "Snygga rim, bra rytm"}, {"bild": "P1159208.JPG", "lasare": "Jonas läser dikter", "poang": 2.8, "minnesanteckning": "Nakartesök", "kommentar": ""}]}, {"nr": "5", "namn": "Hela havet stormar", "antal": 46, "snitt": 3.52, "stddev": 0.796, "total": 161.9, "norm_snitt": 4.696, "norm_stddev": 2.215, "norm_total": 216.0, "favoriter": 9, "samst": 8, "kommentarer": [{"bild": "P1159194.JPG", "lasare": "Jonas läser dikter. Lycka till förda visioner (kantanteckning). Du är... (kantanteckning vänster sida, svårläst)", "poang": 5.0, "minnesanteckning": "Existensiel / ao ojest", "kommentar": "Spannande grepp, oväntat grepp, toppen!"}, {"bild": "P1159210.JPG", "lasare": "Jonas läser dikter\nDu har verkligen talefs änva? Också...", "poang": 4.8, "minnesanteckning": "Hela havet stormas", "kommentar": "Kör den här i Sthlm!"}, {"bild": "P1159204.JPG", "lasare": "Jonas läser dikter", "poang": 4.7, "minnesanteckning": "Havet", "kommentar": "Bäst. Den hade ett djuo som berör. Livets klockslag kan alla relatera till."}, {"bild": "P1159189.JPG", "lasare": "2 personer arter poem / Jonas läser dikter", "poang": 4.4, "minnesanteckning": "Skolkravarna Helo ADHD", "kommentar": "→ Rolig"}, {"bild": "P1159201.JPG", "lasare": "Jonas läser dikter", "poang": 4.3, "minnesanteckning": "Hela havet stormar", "kommentar": "Änu bättre scenspråk"}, {"bild": "P1159185.JPG", "lasare": "Jonas läser dikter – lyckat!", "poang": 4.2, "minnesanteckning": "Hola hand Shimmar", "kommentar": ""}, {"bild": "P1159163.JPG", "lasare": "Jonas läser dikter\nBra när du sänder foolye\nBra 'a' sänder foolye\nHur kul a' S-migrants grinner?\nROM (anteckning i övre vänstra hörnet)", "poang": 4.0, "minnesanteckning": "Havet stormar", "kommentar": "Använder kroppen bra!"}, {"bild": "P1159175.JPG", "lasare": "Jonas läser dikter", "poang": 4.0, "minnesanteckning": "KURATORN", "kommentar": "Blev glad!"}, {"bild": "P1159184.JPG", "lasare": "Jonas läser dikter", "poang": 4.0, "minnesanteckning": "Sprätt pelican", "kommentar": ""}, {"bild": "P1159188.JPG", "lasare": "Jonas läser dikter", "poang": 4.0, "minnesanteckning": "\"shotruths\"", "kommentar": "Bra"}, {"bild": "P1159193.JPG", "lasare": "Du är bra, bäst Jonas! ♥ Jonas läser dikter", "poang": 4.0, "minnesanteckning": "", "kommentar": "Åh så bra!"}, {"bild": "P1159197.JPG", "lasare": "Jonas läser dikter", "poang": 4.0, "minnesanteckning": "Hel. kurvet Stämmer", "kommentar": ""}, {"bild": "P1159199.JPG", "lasare": "Jonas läser dikter", "poang": 4.0, "minnesanteckning": "IIII", "kommentar": "Bra vändning"}, {"bild": "P1159203.JPG", "lasare": "Jonas läser dikter", "poang": 4.0, "minnesanteckning": "Hela bad stormar", "kommentar": "Wow! Häftig."}, {"bild": "P1159205.JPG", "lasare": "Jonas läser dikter\nDarlu fantastiskt... (kantanteckning i turkos/grön)", "poang": 4.0, "minnesanteckning": "Uthuset stämmer", "kommentar": "Väckte känslor. Den bra sorten!"}, {"bild": "P1159207.JPG", "lasare": "Jonas läser dikter", "poang": 4.0, "minnesanteckning": "5 på samma det", "kommentar": "Spännande"}, {"bild": "P1159206.JPG", "lasare": "Mach fantastiskt bycke Jonas läser dikter (namn/titel överst). Möjlig kantanteckning: 'god bokskap' eller liknande längst ner.", "poang": 4.0, "minnesanteckning": "förklilla sis till livet", "kommentar": "intensivt, berörande"}, {"bild": "P1159187.JPG", "lasare": "Jonas läser dikter", "poang": 3.9, "minnesanteckning": "hela havet stormar", "kommentar": ""}, {"bild": "P1159182.JPG", "lasare": "nej, nej: ni vm tri\nJonas läser dikter", "poang": 3.7, "minnesanteckning": "fyka posten, kaiser", "kommentar": "mer teater!"}, {"bild": "P1159198.JPG", "lasare": "Jonas läser dikter. Delis A1", "poang": 3.7, "minnesanteckning": "Let", "kommentar": ""}, {"bild": "P1159169.JPG", "lasare": "Lycka till Jonas och så modigt att du ger Jonas läser dikter detta! / Den snarten: Jeniott & Kärleksdiktes", "poang": 3.5, "minnesanteckning": "Hela havet shimmar", "kommentar": "Fint avslut"}, {"bild": "P1159171.JPG", "lasare": "Jonas läser dikter", "poang": 3.5, "minnesanteckning": "Hos karaktom", "kommentar": ""}, {"bild": "P1159178.JPG", "lasare": "Jonas läser dikter", "poang": 3.5, "minnesanteckning": "", "kommentar": "Tacksamhet"}, {"bild": "P1159209.JPG", "lasare": "Jonas läser dikter", "poang": 3.5, "minnesanteckning": "Hela havut sfärman Språklunarater *", "kommentar": ""}, {"bild": "P1159164.JPG", "lasare": "Jonas läser dikter", "poang": 3.4, "minnesanteckning": "Språkpolisen", "kommentar": "gillar blandningen på ämnena men ibland lite förvirrande"}, {"bild": "P1159167.JPG", "lasare": "Jonas läser dikter", "poang": 3.0, "minnesanteckning": "\"nac/as var liten\"", "kommentar": ""}, {"bild": "P1159162.JPG", "lasare": "Jonas läser dikter, ll.e, eftervantat i rodens, brinnas brinner (c)", "poang": 3.0, "minnesanteckning": "tkolleraton", "kommentar": ""}, {"bild": "P1159161.JPG", "lasare": "Jonas läser dikter", "poang": 3.0, "minnesanteckning": "John Word Stenvar skolkurs på enfur", "kommentar": ""}, {"bild": "P1159170.JPG", "lasare": "Jonas läser dikter", "poang": 3.0, "minnesanteckning": "Kiabarn", "kommentar": ""}, {"bild": "P1159179.JPG", "lasare": "Jonas läser dikter", "poang": 3.0, "minnesanteckning": "Spacepeace, mer läser in 2, poese mer förstär, mullitet", "kommentar": "Lite rörigare men många poänger"}, {"bild": "P1159195.JPG", "lasare": "Jonas läser dikter", "poang": 3.0, "minnesanteckning": "", "kommentar": "mycket bra"}, {"bild": "P1159196.JPG", "lasare": "Jonas läser dikter", "poang": 3.0, "minnesanteckning": "Starkhandströmer 3", "kommentar": "Fantasi!"}, {"bild": "P1159202.JPG", "lasare": "Allt var förbe bra! Lycka till i Stockholm, Jonas läser dikter", "poang": 3.0, "minnesanteckning": "språkpalism, tack", "kommentar": ""}, {"bild": "P1159166.JPG", "lasare": "Jonas läser dikter", "poang": 2.5, "minnesanteckning": "Jov jag var här.", "kommentar": "Ta ett russin. Bra paus! Bra innehåll (tryck till)"}, {"bild": "P1159168.JPG", "lasare": "Jonas läser dikter", "poang": 2.0, "minnesanteckning": "Hela havet stormar", "kommentar": ""}, {"bild": "P1159186.JPG", "lasare": "Jonas läser dikter", "poang": 2.0, "minnesanteckning": "Hela havet Stormar", "kommentar": "Dramatisk, lösning av problem"}, {"bild": "P1159208.JPG", "lasare": "Jonas läser dikter", "poang": 1.5, "minnesanteckning": "Huvudstormar häpfärmer", "kommentar": ""}]}, {"nr": "6", "namn": "Förnuft och känsla", "antal": 46, "snitt": 3.74, "stddev": 0.779, "total": 172.05, "norm_snitt": 4.022, "norm_stddev": 2.224, "norm_total": 185.0, "favoriter": 12, "samst": 8, "kommentarer": [{"bild": "P1159188.JPG", "lasare": "Jonas läser dikter", "poang": 5.0, "minnesanteckning": "\"Polisen\"", "kommentar": "Bäst hittills! Rolig"}, {"bild": "P1159207.JPG", "lasare": "Jonas läser dikter", "poang": 5.0, "minnesanteckning": "", "kommentar": "Häftiga ordvitsar"}, {"bild": "P1159185.JPG", "lasare": "Jonas läser dikter – lyckat!", "poang": 4.9, "minnesanteckning": "Spökapolis", "kommentar": ""}, {"bild": "P1159189.JPG", "lasare": "2 personer arter poem / Jonas läser dikter", "poang": 4.9, "minnesanteckning": "Språk- polisen", "kommentar": "Roligare. Bli skådespelare, komiker"}, {"bild": "P1159183.JPG", "lasare": "Jonas läser dikter\nSvårt att inte ge höga betyg. Mycket bra!!! Lycka till! :)", "poang": 4.7, "minnesanteckning": "", "kommentar": "Lustig/Lustfylld"}, {"bild": "P1159187.JPG", "lasare": "Jonas läser dikter", "poang": 4.5, "minnesanteckning": "språk pen(nan)", "kommentar": "variation i tonfallet var bra!"}, {"bild": "P1159190.JPG", "lasare": "Jonas läser dikter", "poang": 4.5, "minnesanteckning": "", "kommentar": "bra inlevelse"}, {"bild": "P1159197.JPG", "lasare": "Jonas läser dikter", "poang": 4.5, "minnesanteckning": "Lä's e. bom", "kommentar": ""}, {"bild": "P1159186.JPG", "lasare": "Jonas läser dikter", "poang": 4.4, "minnesanteckning": "Språkpolisen", "kommentar": "kul, underfundis rivig fartfyllt, kroppsinlevelse"}, {"bild": "P1159169.JPG", "lasare": "Lycka till Jonas och så modigt att du ger Jonas läser dikter detta! / Den snarten: Jeniott & Kärleksdiktes", "poang": 4.25, "minnesanteckning": "Språkpoliser", "kommentar": "Blev snuten - genialt! Gillar att du ändrade rösten, finurligt"}, {"bild": "P1159164.JPG", "lasare": "Jonas läser dikter", "poang": 4.1, "minnesanteckning": "Måla dina ögon", "kommentar": "roliga ordvitsar, slutet var lite långt"}, {"bild": "P1159168.JPG", "lasare": "Jonas läser dikter", "poang": 4.0, "minnesanteckning": "Jägad", "kommentar": ""}, {"bild": "P1159170.JPG", "lasare": "Jonas läser dikter", "poang": 4.0, "minnesanteckning": "Blisen", "kommentar": ""}, {"bild": "P1159171.JPG", "lasare": "Jonas läser dikter", "poang": 4.0, "minnesanteckning": "Polisen", "kommentar": ""}, {"bild": "P1159194.JPG", "lasare": "Jonas läser dikter. Lycka till förda visioner (kantanteckning). Du är... (kantanteckning vänster sida, svårläst)", "poang": 4.0, "minnesanteckning": "Språkpobus", "kommentar": ""}, {"bild": "P1159196.JPG", "lasare": "Jonas läser dikter", "poang": 4.0, "minnesanteckning": "Ströktycken", "kommentar": "Rolig"}, {"bild": "P1159199.JPG", "lasare": "Jonas läser dikter", "poang": 4.0, "minnesanteckning": "VII", "kommentar": ""}, {"bild": "P1159202.JPG", "lasare": "Allt var förbe bra! Lycka till i Stockholm, Jonas läser dikter", "poang": 4.0, "minnesanteckning": "hida huset stör, barnafoster, tack", "kommentar": "Bra"}, {"bild": "P1159209.JPG", "lasare": "Jonas läser dikter", "poang": 4.0, "minnesanteckning": "Språkpolitiken", "kommentar": "Fantastiskt framfört"}, {"bild": "P1159210.JPG", "lasare": "Jonas läser dikter\nDu har verkligen talefs änva? Också...", "poang": 4.0, "minnesanteckning": "Spökpolisen", "kommentar": "Kul m rösterna!"}, {"bild": "P1159166.JPG", "lasare": "Jonas läser dikter", "poang": 3.9, "minnesanteckning": "Polisen", "kommentar": "Bra med dynamik med rösten"}, {"bild": "P1159163.JPG", "lasare": "Jonas läser dikter\nBra när du sänder foolye\nBra 'a' sänder foolye\nHur kul a' S-migrants grinner?\nROM (anteckning i övre vänstra hörnet)", "poang": 3.9, "minnesanteckning": "Språkpolisen", "kommentar": "3 röster, bra variation"}, {"bild": "P1159184.JPG", "lasare": "Jonas läser dikter", "poang": 3.9, "minnesanteckning": "Mäkter om mig", "kommentar": ""}, {"bild": "P1159206.JPG", "lasare": "Mach fantastiskt bycke Jonas läser dikter (namn/titel överst). Möjlig kantanteckning: 'god bokskap' eller liknande längst ner.", "poang": 3.8, "minnesanteckning": "epnak", "kommentar": "ordvitsande, roligt, skådespelartalang"}, {"bild": "P1159205.JPG", "lasare": "Jonas läser dikter\nDarlu fantastiskt... (kantanteckning i turkos/grön)", "poang": 3.7, "minnesanteckning": "Ordpolerna", "kommentar": "Fånigt, finurlig och kul."}, {"bild": "P1159162.JPG", "lasare": "Jonas läser dikter, ll.e, eftervantat i rodens, brinnas brinner (c)", "poang": 3.5, "minnesanteckning": "cykelkpolis", "kommentar": "Kul!"}, {"bild": "P1159161.JPG", "lasare": "Jonas läser dikter", "poang": 3.5, "minnesanteckning": "Spröd express dMillin", "kommentar": "kul ordlekar, originellt, rösten gör en uppmärksam"}, {"bild": "P1159200.JPG", "lasare": "Jonas läser dikter", "poang": 3.5, "minnesanteckning": "", "kommentar": "Bra humor ordlek"}, {"bild": "P1159195.JPG", "lasare": "Jonas läser dikter", "poang": 3.0, "minnesanteckning": "", "kommentar": "bra"}, {"bild": "P1159201.JPG", "lasare": "Jonas läser dikter", "poang": 3.0, "minnesanteckning": "Språngpolisen", "kommentar": ""}, {"bild": "P1159203.JPG", "lasare": "Jonas läser dikter", "poang": 3.0, "minnesanteckning": "Sträktpolis", "kommentar": ""}, {"bild": "P1159208.JPG", "lasare": "Jonas läser dikter", "poang": 3.0, "minnesanteckning": "Spökpokesin", "kommentar": ""}, {"bild": "P1159182.JPG", "lasare": "nej, nej: ni vm tri\nJonas läser dikter", "poang": 2.7, "minnesanteckning": "polisen i ideon, djurets beteende, ölet en bam bak", "kommentar": "+bra karaktärer -förklemande slut - slutet + framförande"}, {"bild": "P1159175.JPG", "lasare": "Jonas läser dikter", "poang": 2.6, "minnesanteckning": "POLIS", "kommentar": "Bra framförande"}, {"bild": "P1159167.JPG", "lasare": "Jonas läser dikter", "poang": 2.5, "minnesanteckning": "\"språk poisen\"", "kommentar": "mer ståupp än poesi, smårolig ändå"}, {"bild": "P1159178.JPG", "lasare": "Jonas läser dikter", "poang": 2.5, "minnesanteckning": "polisen", "kommentar": "mer teater än poesi"}, {"bild": "P1159179.JPG", "lasare": "Jonas läser dikter", "poang": 2.5, "minnesanteckning": "Var levrsdlet, pa herict, att pa ast", "kommentar": "Mer teater än poesi. Bättre på slutet."}, {"bild": "P1159193.JPG", "lasare": "Du är bra, bäst Jonas! ♥ Jonas läser dikter", "poang": 2.5, "minnesanteckning": "", "kommentar": "Hängde inte med! Svår"}, {"bild": "P1159204.JPG", "lasare": "Jonas läser dikter", "poang": 2.5, "minnesanteckning": "Stenpelisen", "kommentar": "Rolig, kul med ordvitsar, lite göteborgsskämt-aura."}]}, {"nr": "7", "namn": "Konstvärk", "antal": 46, "snitt": 3.504, "stddev": 0.812, "total": 161.2, "norm_snitt": 5.011, "norm_stddev": 2.081, "norm_total": 230.5, "favoriter": 7, "samst": 8, "kommentarer": [{"bild": "P1159171.JPG", "lasare": "Jonas läser dikter", "poang": 5.0, "minnesanteckning": "Kärlek", "kommentar": ""}, {"bild": "P1159174.JPG", "lasare": "Jonas läser dikter", "poang": 5.0, "minnesanteckning": "", "kommentar": "Äntligen lite romantik"}, {"bild": "P1159188.JPG", "lasare": "Jonas läser dikter", "poang": 5.0, "minnesanteckning": "\"Haloné\"", "kommentar": "Du läser bra!"}, {"bild": "P1159189.JPG", "lasare": "2 personer arter poem / Jonas läser dikter", "poang": 4.7, "minnesanteckning": "KÄR", "kommentar": "Sensmoral, nu vågar ingen bli kär"}, {"bild": "P1159179.JPG", "lasare": "Jonas läser dikter", "poang": 4.5, "minnesanteckning": "ickling, ondamibbles, o som afst", "kommentar": "Kärleksdikt på härligt sätt. Bra läst."}, {"bild": "P1159199.JPG", "lasare": "Jonas läser dikter", "poang": 4.5, "minnesanteckning": "IIII½", "kommentar": "Romantisk. Superbra."}, {"bild": "P1159210.JPG", "lasare": "Jonas läser dikter\nDu har verkligen talefs änva? Också...", "poang": 4.2, "minnesanteckning": "Drunkna instrument", "kommentar": ""}, {"bild": "P1159164.JPG", "lasare": "Jonas läser dikter", "poang": 4.0, "minnesanteckning": "", "kommentar": "Fin grund med skämt runt om"}, {"bild": "P1159166.JPG", "lasare": "Jonas läser dikter", "poang": 4.0, "minnesanteckning": "KÄR", "kommentar": "uppochner bakofram, bra flyt"}, {"bild": "P1159195.JPG", "lasare": "Jonas läser dikter", "poang": 4.0, "minnesanteckning": "", "kommentar": "fantastiskt att leka med ord"}, {"bild": "P1159194.JPG", "lasare": "Jonas läser dikter. Lycka till förda visioner (kantanteckning). Du är... (kantanteckning vänster sida, svårläst)", "poang": 4.0, "minnesanteckning": "Kd", "kommentar": "Underbara rim"}, {"bild": "P1159196.JPG", "lasare": "Jonas läser dikter", "poang": 4.0, "minnesanteckning": "Lekabelit", "kommentar": ""}, {"bild": "P1159206.JPG", "lasare": "Mach fantastiskt bycke Jonas läser dikter (namn/titel överst). Möjlig kantanteckning: 'god bokskap' eller liknande längst ner.", "poang": 3.9, "minnesanteckning": "", "kommentar": "Svindlande kärlek"}, {"bild": "P1159201.JPG", "lasare": "Jonas läser dikter", "poang": 3.8, "minnesanteckning": "Kö 1", "kommentar": ""}, {"bild": "P1159178.JPG", "lasare": "Jonas läser dikter", "poang": 3.6, "minnesanteckning": "", "kommentar": "kärlek"}, {"bild": "P1159163.JPG", "lasare": "Jonas läser dikter\nBra när du sänder foolye\nBra 'a' sänder foolye\nHur kul a' S-migrants grinner?\nROM (anteckning i övre vänstra hörnet)", "poang": 3.5, "minnesanteckning": "Målaren", "kommentar": "\"Drunkna i ögon\" är en sliten bild"}, {"bild": "P1159170.JPG", "lasare": "Jonas läser dikter", "poang": 3.5, "minnesanteckning": "Kärlek", "kommentar": ""}, {"bild": "P1159185.JPG", "lasare": "Jonas läser dikter – lyckat!", "poang": 3.5, "minnesanteckning": "Naila av", "kommentar": ""}, {"bild": "P1159187.JPG", "lasare": "Jonas läser dikter", "poang": 3.5, "minnesanteckning": "kärlek", "kommentar": "känsla av kärleksrus"}, {"bild": "P1159186.JPG", "lasare": "Jonas läser dikter", "poang": 3.5, "minnesanteckning": "Mäla av", "kommentar": ""}, {"bild": "P1159208.JPG", "lasare": "Jonas läser dikter", "poang": 3.5, "minnesanteckning": "Häla och dig", "kommentar": ""}, {"bild": "P1159168.JPG", "lasare": "Jonas läser dikter", "poang": 3.0, "minnesanteckning": "Mölning", "kommentar": ""}, {"bild": "P1159167.JPG", "lasare": "Jonas läser dikter", "poang": 3.0, "minnesanteckning": "miäla ur dig", "kommentar": ""}, {"bild": "P1159162.JPG", "lasare": "Jonas läser dikter, ll.e, eftervantat i rodens, brinnas brinner (c)", "poang": 3.0, "minnesanteckning": "Mälen", "kommentar": ""}, {"bild": "P1159184.JPG", "lasare": "Jonas läser dikter", "poang": 3.0, "minnesanteckning": "slagsmål i möjlighet note", "kommentar": "alltiit"}, {"bild": "P1159200.JPG", "lasare": "Jonas läser dikter", "poang": 3.0, "minnesanteckning": "", "kommentar": "Vackra tankar"}, {"bild": "P1159202.JPG", "lasare": "Allt var förbe bra! Lycka till i Stockholm, Jonas läser dikter", "poang": 3.0, "minnesanteckning": "hök av höguman, t kö", "kommentar": ""}, {"bild": "P1159207.JPG", "lasare": "Jonas läser dikter", "poang": 3.0, "minnesanteckning": "", "kommentar": "Ganska kul"}, {"bild": "P1159204.JPG", "lasare": "Jonas läser dikter", "poang": 3.0, "minnesanteckning": "Kär", "kommentar": ""}, {"bild": "P1159209.JPG", "lasare": "Jonas läser dikter", "poang": 3.0, "minnesanteckning": "\"Jag ville nåla så dig\" *", "kommentar": ""}, {"bild": "P1159161.JPG", "lasare": "Jonas läser dikter", "poang": 2.5, "minnesanteckning": "einglines i Dicklan", "kommentar": "Tempot bra"}, {"bild": "P1159169.JPG", "lasare": "Lycka till Jonas och så modigt att du ger Jonas läser dikter detta! / Den snarten: Jeniott & Kärleksdiktes", "poang": 2.5, "minnesanteckning": "Kärleksdiktes", "kommentar": "Annorlunda kärleksförklaring"}, {"bild": "P1159175.JPG", "lasare": "Jonas läser dikter", "poang": 2.5, "minnesanteckning": "KÄR", "kommentar": ""}, {"bild": "P1159193.JPG", "lasare": "Du är bra, bäst Jonas! ♥ Jonas läser dikter", "poang": 2.5, "minnesanteckning": "", "kommentar": "Hängde inte med!"}, {"bild": "P1159205.JPG", "lasare": "Jonas läser dikter\nDarlu fantastiskt... (kantanteckning i turkos/grön)", "poang": 2.5, "minnesanteckning": "Min vardag", "kommentar": "Starkt avslut däremot."}, {"bild": "P1159203.JPG", "lasare": "Jonas läser dikter", "poang": 2.0, "minnesanteckning": "Kärck", "kommentar": ""}, {"bild": "P1159182.JPG", "lasare": "nej, nej: ni vm tri\nJonas läser dikter", "poang": 1.7, "minnesanteckning": "katek, självkänsla, toarulls?, \"k.\"", "kommentar": "För mycket repetition"}]}, {"nr": "8", "namn": "Ultraviolens", "antal": 46, "snitt": 3.843, "stddev": 0.776, "total": 176.8, "norm_snitt": 3.609, "norm_stddev": 1.902, "norm_total": 166.0, "favoriter": 14, "samst": 2, "kommentarer": [{"bild": "P1159170.JPG", "lasare": "Jonas läser dikter", "poang": 5.0, "minnesanteckning": "Slagsmål", "kommentar": "Toppenavslutning"}, {"bild": "P1159171.JPG", "lasare": "Jonas läser dikter", "poang": 5.0, "minnesanteckning": "Bortwmma", "kommentar": ""}, {"bild": "P1159188.JPG", "lasare": "Jonas läser dikter", "poang": 5.0, "minnesanteckning": "\"En man\"", "kommentar": "mkt trevlig!"}, {"bild": "P1159198.JPG", "lasare": "Jonas läser dikter. Delis A1", "poang": 5.0, "minnesanteckning": "", "kommentar": "Rolig! =)"}, {"bild": "P1159207.JPG", "lasare": "Jonas läser dikter", "poang": 5.0, "minnesanteckning": "", "kommentar": "Så roligt Jonas! Bäst!"}, {"bild": "P1159164.JPG", "lasare": "Jonas läser dikter", "poang": 4.8, "minnesanteckning": "att göra om allt ont till fint", "kommentar": "väldigt roligt och fint. Den bästa!"}, {"bild": "P1159187.JPG", "lasare": "Jonas läser dikter", "poang": 4.8, "minnesanteckning": "slangek", "kommentar": "kvick"}, {"bild": "P1159161.JPG", "lasare": "Jonas läser dikter", "poang": 4.5, "minnesanteckning": "Hörd vad genus dikter kärt 1/5", "kommentar": "Bra performance, Bra flyt, gillar ordlekar"}, {"bild": "P1159189.JPG", "lasare": "2 personer arter poem / Jonas läser dikter", "poang": 4.5, "minnesanteckning": "Barnedd- ens", "kommentar": ""}, {"bild": "P1159194.JPG", "lasare": "Jonas läser dikter. Lycka till förda visioner (kantanteckning). Du är... (kantanteckning vänster sida, svårläst)", "poang": 4.5, "minnesanteckning": "Thecka srej", "kommentar": "Mycket humor"}, {"bild": "P1159199.JPG", "lasare": "Jonas läser dikter", "poang": 4.5, "minnesanteckning": "IIII½", "kommentar": "Det är bra! Lekfullt! Allvar?"}, {"bild": "P1159201.JPG", "lasare": "Jonas läser dikter", "poang": 4.5, "minnesanteckning": "Micka går", "kommentar": ""}, {"bild": "P1159202.JPG", "lasare": "Allt var förbe bra! Lycka till i Stockholm, Jonas läser dikter", "poang": 4.5, "minnesanteckning": "bretos, åla m...", "kommentar": "bra ordvits + bra avslut"}, {"bild": "P1159210.JPG", "lasare": "Jonas läser dikter\nDu har verkligen talefs änva? Också...", "poang": 4.3, "minnesanteckning": "Nu måste", "kommentar": "Jonas lade in denna"}, {"bild": "P1159163.JPG", "lasare": "Jonas läser dikter\nBra när du sänder foolye\nBra 'a' sänder foolye\nHur kul a' S-migrants grinner?\nROM (anteckning i övre vänstra hörnet)", "poang": 4.2, "minnesanteckning": "Kamrat proben inhlogen", "kommentar": "Bra \"fall\"-sekvens! Bra med tempoväxlingarna. Bra avslutningsmening"}, {"bild": "P1159204.JPG", "lasare": "Jonas läser dikter", "poang": 4.2, "minnesanteckning": "Polla", "kommentar": ""}, {"bild": "P1159174.JPG", "lasare": "Jonas läser dikter", "poang": 4.0, "minnesanteckning": "", "kommentar": "Bra"}, {"bild": "P1159179.JPG", "lasare": "Jonas läser dikter", "poang": 4.0, "minnesanteckning": "= wlota ore", "kommentar": "Klurig, orddribbleri och som oftast smart slut"}, {"bild": "P1159195.JPG", "lasare": "Jonas läser dikter", "poang": 4.0, "minnesanteckning": "", "kommentar": "mycket bra man blir stum"}, {"bild": "P1159196.JPG", "lasare": "Jonas läser dikter", "poang": 4.0, "minnesanteckning": "Supmodets kierr silit", "kommentar": ""}, {"bild": "P1159186.JPG", "lasare": "Jonas läser dikter", "poang": 3.9, "minnesanteckning": "Kommandel Slagsmål", "kommentar": "Problemlösning, ordet är starkare än svärdet"}, {"bild": "P1159203.JPG", "lasare": "Jonas läser dikter", "poang": 3.8, "minnesanteckning": "SLÅ", "kommentar": ""}, {"bild": "P1159206.JPG", "lasare": "Mach fantastiskt bycke Jonas läser dikter (namn/titel överst). Möjlig kantanteckning: 'god bokskap' eller liknande längst ner.", "poang": 3.6, "minnesanteckning": "", "kommentar": "Ord! Klokskap!"}, {"bild": "P1159168.JPG", "lasare": "Jonas läser dikter", "poang": 3.5, "minnesanteckning": "Stegsmal", "kommentar": ""}, {"bild": "P1159166.JPG", "lasare": "Jonas läser dikter", "poang": 3.5, "minnesanteckning": "Berusad Pock", "kommentar": ""}, {"bild": "P1159175.JPG", "lasare": "Jonas läser dikter", "poang": 3.2, "minnesanteckning": "GRÄL", "kommentar": ""}, {"bild": "P1159185.JPG", "lasare": "Jonas läser dikter – lyckat!", "poang": 3.2, "minnesanteckning": "En man", "kommentar": "Många poäng i denna i dagens läge"}, {"bild": "P1159162.JPG", "lasare": "Jonas läser dikter, ll.e, eftervantat i rodens, brinnas brinner (c)", "poang": 3.0, "minnesanteckning": "tylle", "kommentar": ""}, {"bild": "P1159169.JPG", "lasare": "Lycka till Jonas och så modigt att du ger Jonas läser dikter detta! / Den snarten: Jeniott & Kärleksdiktes", "poang": 3.0, "minnesanteckning": "Bröllstale", "kommentar": ""}, {"bild": "P1159193.JPG", "lasare": "Du är bra, bäst Jonas! ♥ Jonas läser dikter", "poang": 3.0, "minnesanteckning": "", "kommentar": "Går för fort ibland"}, {"bild": "P1159205.JPG", "lasare": "Jonas läser dikter\nDarlu fantastiskt... (kantanteckning i turkos/grön)", "poang": 3.0, "minnesanteckning": "Slagsmål", "kommentar": "Intelligent"}, {"bild": "P1159209.JPG", "lasare": "Jonas läser dikter", "poang": 3.0, "minnesanteckning": "Träffade en man", "kommentar": "Lite tråkigt framfört men bra innehåll"}, {"bild": "P1159182.JPG", "lasare": "nej, nej: ni vm tri\nJonas läser dikter", "poang": 2.5, "minnesanteckning": "Stryk av sig själv? origin story", "kommentar": "+ dynamisk volym! +framförandet!"}, {"bild": "P1159208.JPG", "lasare": "Jonas läser dikter", "poang": 2.0, "minnesanteckning": "Berusad man", "kommentar": ""}]}];
 
-// Compute ranks (1 = best). Total: highest is best. Norm: lowest is best.
 function computeRanks() {
-  const byTotal = [...ROWS].sort((a, b) => b.total - a.total);
+  const byTotal = [...ROWS].sort((a, b) => b.snitt - a.snitt);
   byTotal.forEach((r, i) => r.rank_total = i + 1);
   const byNorm = [...ROWS].sort((a, b) => a.norm_snitt - b.norm_snitt);
   byNorm.forEach((r, i) => r.rank_norm = i + 1);
@@ -82,15 +185,38 @@ function computeRanks() {
 computeRanks();
 
 let sortKey = 'snitt';
-let sortDir = -1; // -1 desc, +1 asc
+let sortDir = -1;
 
-function fmt(v, decimals = 2) {
+function fmt(v, d = 2) {
   if (v === null || v === undefined || v === '') return '';
-  if (typeof v === 'number') return v.toFixed(decimals);
+  if (typeof v === 'number') return v.toFixed(d);
   return v;
 }
 
-function render() {
+function escapeHtml(s) {
+  if (s === null || s === undefined) return '';
+  return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+function renderPodium() {
+  const top3 = [...ROWS].sort((a, b) => b.snitt - a.snitt).slice(0, 3);
+  const order = [top3[1], top3[0], top3[2]];
+  const tier = ['silver', 'gold', 'bronze'];
+  const medal = ['🥈', '🥇', '🥉'];
+  const place = ['Andra plats', 'Första plats', 'Tredje plats'];
+  document.getElementById('podium').innerHTML = order.map((r, i) => `
+    <div class="pod ${tier[i]}" data-nr="${r.nr}">
+      <div class="medal">${medal[i]}</div>
+      <div class="place">${place[i]}</div>
+      <div class="pname">${escapeHtml(r.namn)}</div>
+      <div class="pscore">${r.snitt.toFixed(2)}</div>
+      <div class="pmeta">snitt · ${r.favoriter} favoriter</div>
+    </div>
+  `).join('');
+  document.querySelectorAll('.pod').forEach(el => el.addEventListener('click', () => showComments(el.dataset.nr)));
+}
+
+function renderMain() {
   const tbody = document.querySelector('#main-table tbody');
   const sorted = [...ROWS].sort((a, b) => {
     let av = a[sortKey], bv = b[sortKey];
@@ -99,28 +225,51 @@ function render() {
   });
   tbody.innerHTML = sorted.map(r => `
     <tr class="poem" data-nr="${r.nr}">
-      <td class="num nr">${r.nr}</td>
+      <td class="nr num">${r.nr}</td>
       <td class="name">${escapeHtml(r.namn)}</td>
-      <td class="num">${r.antal}</td>
       <td class="num">${fmt(r.snitt)}</td>
       <td class="num">${fmt(r.stddev)}</td>
       <td class="num">${fmt(r.total, 1)}</td>
-      <td class="num">${fmt(r.norm_snitt)}</td>
-      <td class="num">${fmt(r.norm_stddev)}</td>
-      <td class="num">${fmt(r.norm_total, 1)}</td>
       <td class="num">${r.favoriter}</td>
       <td class="num">${r.samst}</td>
-      <td class="num"><span class="rank">${r.rank_total}</span></td>
-      <td class="num"><span class="rank">${r.rank_norm}</span></td>
     </tr>
   `).join('');
-  document.querySelectorAll('th').forEach(th => {
+  document.querySelectorAll('#main-table th.sortable').forEach(th => {
     th.classList.remove('sort-asc', 'sort-desc');
     if (th.dataset.key === sortKey) th.classList.add(sortDir < 0 ? 'sort-desc' : 'sort-asc');
   });
   document.querySelectorAll('tr.poem').forEach(tr => {
     tr.addEventListener('click', () => showComments(tr.dataset.nr));
   });
+}
+
+function renderBars(elId, key, cls) {
+  const sorted = [...ROWS].sort((a, b) => b[key] - a[key]);
+  const max = Math.max(...sorted.map(r => r[key])) || 1;
+  document.getElementById(elId).innerHTML = sorted.map(r => `
+    <div class="bar-row" data-nr="${r.nr}" style="cursor:pointer; padding:.35rem 0;">
+      <div class="label"><span class="nr">${r.nr}.</span>${escapeHtml(r.namn)}</div>
+      <div class="bar-track"><div class="bar-fill ${cls}" style="width:${(r[key] / max * 100).toFixed(1)}%"></div></div>
+      <div class="count">${r[key]}</div>
+    </div>
+  `).join('');
+  document.querySelectorAll('#' + elId + ' .bar-row').forEach(el =>
+    el.addEventListener('click', () => showComments(el.dataset.nr)));
+}
+
+function renderNorm() {
+  const sorted = [...ROWS].sort((a, b) => a.norm_snitt - b.norm_snitt);
+  document.querySelector('#norm-table tbody').innerHTML = sorted.map((r, i) => `
+    <tr class="poem" data-nr="${r.nr}">
+      <td class="rank">${i + 1}</td>
+      <td class="name"><span class="nr" style="color:#8a8a96; margin-right:.4em">${r.nr}.</span>${escapeHtml(r.namn)}</td>
+      <td class="num">${r.norm_snitt.toFixed(2)}</td>
+      <td class="num">${r.norm_stddev.toFixed(2)}</td>
+      <td class="num">${r.norm_total.toFixed(1)}</td>
+    </tr>
+  `).join('');
+  document.querySelectorAll('#norm-table tr.poem').forEach(tr =>
+    tr.addEventListener('click', () => showComments(tr.dataset.nr)));
 }
 
 function showComments(nr) {
@@ -130,41 +279,38 @@ function showComments(nr) {
   document.getElementById('comment-header').textContent = `Kommentarer — ${nr}. ${row.namn} (${row.kommentarer.length} st)`;
   if (row.kommentarer.length === 0) {
     div.className = 'empty';
-    div.textContent = 'Inga kommentarer eller minnesanteckningar för denna dikt.';
-    return;
-  }
-  div.className = '';
-  div.innerHTML = row.kommentarer.map(c => `
-    <div class="comment">
-      <div class="comment-head">
-        <span class="reader">${escapeHtml(c.lasare || '(okänd läsare)')}</span>
-        <span class="score">${c.poang.toFixed(1)} p</span>
-        <span class="img">${escapeHtml(c.bild)}</span>
-      </div>
-      <div class="comment-body">
-        ${c.minnesanteckning ? `<div class="minne">Minne: ${escapeHtml(c.minnesanteckning)}</div>` : ''}
+    div.innerHTML = '<div class="empty-msg">Inga kommentarer eller minnesanteckningar för denna dikt.</div>';
+  } else {
+    div.className = '';
+    div.innerHTML = row.kommentarer.map(c => `
+      <div class="comment">
+        <div class="comment-head">
+          <span class="reader">${escapeHtml(c.lasare || '(okänd läsare)')}</span>
+          <span class="score">${c.poang.toFixed(1)}</span>
+          <span class="img">${escapeHtml(c.bild)}</span>
+        </div>
+        ${c.minnesanteckning ? `<div class="minne">${escapeHtml(c.minnesanteckning)}</div>` : ''}
         ${c.kommentar ? `<div>${escapeHtml(c.kommentar)}</div>` : ''}
       </div>
-    </div>
-  `).join('');
+    `).join('');
+  }
   document.getElementById('comment-header').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
-function escapeHtml(s) {
-  if (s === null || s === undefined) return '';
-  return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-}
-
-document.querySelectorAll('th').forEach(th => {
+document.querySelectorAll('th.sortable').forEach(th => {
   th.addEventListener('click', () => {
     const key = th.dataset.key;
     if (sortKey === key) sortDir = -sortDir;
     else { sortKey = key; sortDir = th.dataset.default === 'asc' ? 1 : -1; }
-    render();
+    renderMain();
   });
 });
 
-render();
+renderPodium();
+renderMain();
+renderBars('fav-bars', 'favoriter', 'fav');
+renderBars('worst-bars', 'samst', 'worst');
+renderNorm();
 </script>
 </body>
 </html>
