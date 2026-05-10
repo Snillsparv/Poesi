@@ -66,6 +66,8 @@ def main() -> None:
     per_score: dict[str, list[float]] = {k: [] for k in DIKT_NAMES}
     per_norm: dict[str, list[float]] = {k: [] for k in DIKT_NAMES}
     per_comments: dict[str, list[dict]] = {k: [] for k in DIKT_NAMES}
+    fav_count: dict[str, int] = {k: 0 for k in DIKT_NAMES}
+    worst_count: dict[str, int] = {k: 0 for k in DIKT_NAMES}
 
     for img, entry in data.items():
         ovrig = entry.get("ovrig_text") or ""
@@ -89,6 +91,14 @@ def main() -> None:
                 })
         for d, rk in fractional_ranks(form_scores).items():
             per_norm[d].append(rk)
+        if form_scores:
+            top = max(s for _, s in form_scores)
+            bot = min(s for _, s in form_scores)
+            for d, s in form_scores:
+                if s == top:
+                    fav_count[d] += 1
+                if s == bot:
+                    worst_count[d] += 1
 
     rows = []
     for nr, namn in DIKT_NAMES.items():
@@ -104,6 +114,8 @@ def main() -> None:
             "norm_snitt": round(mean(nrm), 3) if nrm else None,
             "norm_stddev": round(pstdev(nrm), 3) if len(nrm) > 1 else 0,
             "norm_total": round(sum(nrm), 2),
+            "favoriter": fav_count[nr],
+            "samst": worst_count[nr],
             "kommentarer": sorted(per_comments[nr], key=lambda c: -c["poang"]),
         })
 
@@ -172,6 +184,8 @@ HTML_TEMPLATE = r"""<!doctype html>
     <th data-key="norm_snitt" class="num">Norm. snitt</th>
     <th data-key="norm_stddev" class="num">Norm. std.avv.</th>
     <th data-key="norm_total" class="num">Norm. total</th>
+    <th data-key="favoriter" class="num" title="Antal formulär där dikten fick högsta poängen (delade förstaplatser räknas)">★ Favorit</th>
+    <th data-key="samst" class="num" title="Antal formulär där dikten fick lägsta poängen (delade sistaplatser räknas)">▼ Sämst</th>
     <th data-key="rank_total" class="num">Rang (total)</th>
     <th data-key="rank_norm" class="num">Rang (norm.)</th>
   </tr></thead>
@@ -180,7 +194,8 @@ HTML_TEMPLATE = r"""<!doctype html>
 
 <div class="info">
   <strong>Snitt/Std.avv./Total:</strong> baserat på den officiella poängen (1–5) per röst.<br>
-  <strong>Normaliserad:</strong> i varje formulär ersätts poängen med diktens placering 1–8 (1 = bäst, lika poäng → medelplacering). Lägre värde är bättre.
+  <strong>Normaliserad:</strong> i varje formulär ersätts poängen med diktens placering 1–8 (1 = bäst, lika poäng → medelplacering). Lägre värde är bättre.<br>
+  <strong>★ Favorit / ▼ Sämst:</strong> antal formulär där dikten fick formulärets högsta respektive lägsta poäng. Vid delade poäng räknas alla på den platsen.
 </div>
 
 <h2 id="comment-header">Kommentarer</h2>
@@ -225,6 +240,8 @@ function render() {
       <td class="num">${fmt(r.norm_snitt)}</td>
       <td class="num">${fmt(r.norm_stddev)}</td>
       <td class="num">${fmt(r.norm_total, 1)}</td>
+      <td class="num">${r.favoriter}</td>
+      <td class="num">${r.samst}</td>
       <td class="num"><span class="rank">${r.rank_total}</span></td>
       <td class="num"><span class="rank">${r.rank_norm}</span></td>
     </tr>
