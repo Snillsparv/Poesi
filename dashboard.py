@@ -45,11 +45,14 @@ ROUNDS = [
 ]
 
 
+SCORE_MULTIPLIER = 2  # Skala om från 1-5 till 2-10 för jämförelse med riktig tävling
+
+
 def parse_score(s):
     if s is None:
         return None
     try:
-        return float(str(s).strip().replace(",", "."))
+        return float(str(s).strip().replace(",", ".")) * SCORE_MULTIPLIER
     except ValueError:
         return None
 
@@ -398,7 +401,7 @@ function renderPanel(panel, tab) {
         <tbody></tbody>
       </table>
       <div class="info">
-        <strong>Varför två sätt?</strong> Snitt-rankningen mäter absolut uppskattning (4.2 av 5). Den normaliserade ignorerar att olika personer betygsätter olika hårt — bara ordningen inom varje formulär räknas. När båda pekar åt samma håll är resultatet stabilt.
+        <strong>Varför två sätt?</strong> Snitt-rankningen mäter absolut uppskattning (poäng på en 2–10-skala). Den normaliserade ignorerar att olika personer betygsätter olika hårt — bara ordningen inom varje formulär räknas. När båda pekar åt samma håll är resultatet stabilt.
       </div>
     </section>
     <section class="comments-section">
