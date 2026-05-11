@@ -1,0 +1,4167 @@
+{
+  "P1169219.JPG": {
+    "ovrig_text": "Jonas läser dikter",
+    "rader": [
+      {
+        "diktnummer": "1",
+        "minnesanteckning": null,
+        "poang_officiell": "4",
+        "poang_alla": [
+          "4"
+        ],
+        "kommentar": null,
+        "confidence": 0.85
+      },
+      {
+        "diktnummer": "2",
+        "minnesanteckning": null,
+        "poang_officiell": "4",
+        "poang_alla": [
+          "4"
+        ],
+        "kommentar": null,
+        "confidence": 0.85
+      },
+      {
+        "diktnummer": "3",
+        "minnesanteckning": null,
+        "poang_officiell": "4",
+        "poang_alla": [
+          "4"
+        ],
+        "kommentar": null,
+        "confidence": 0.8
+      },
+      {
+        "diktnummer": "4",
+        "minnesanteckning": "Doktorn",
+        "poang_officiell": "3",
+        "poang_alla": [
+          "3"
+        ],
+        "kommentar": "lite för snabbt",
+        "confidence": 0.75
+      },
+      {
+        "diktnummer": "5",
+        "minnesanteckning": null,
+        "poang_officiell": "5",
+        "poang_alla": [
+          "5"
+        ],
+        "kommentar": null,
+        "confidence": 0.8
+      },
+      {
+        "diktnummer": "6",
+        "minnesanteckning": null,
+        "poang_officiell": "3",
+        "poang_alla": [
+          "3"
+        ],
+        "kommentar": null,
+        "confidence": 0.8
+      },
+      {
+        "diktnummer": "7",
+        "minnesanteckning": "Recept",
+        "poang_officiell": "4",
+        "poang_alla": [
+          "4"
+        ],
+        "kommentar": null,
+        "confidence": 0.8
+      },
+      {
+        "diktnummer": "8",
+        "minnesanteckning": "Språkpolis",
+        "poang_officiell": "5",
+        "poang_alla": [
+          "5"
+        ],
+        "kommentar": null,
+        "confidence": 0.75
+      }
+    ]
+  },
+  "P1169216.JPG": {
+    "ovrig_text": "Jonas läser dikter",
+    "rader": [
+      {
+        "diktnummer": "1",
+        "minnesanteckning": null,
+        "poang_officiell": "3",
+        "poang_alla": [
+          "3"
+        ],
+        "kommentar": null,
+        "confidence": 0.85
+      },
+      {
+        "diktnummer": "2",
+        "minnesanteckning": null,
+        "poang_officiell": "3",
+        "poang_alla": [
+          "3"
+        ],
+        "kommentar": null,
+        "confidence": 0.85
+      },
+      {
+        "diktnummer": "3",
+        "minnesanteckning": null,
+        "poang_officiell": "4",
+        "poang_alla": [
+          "4"
+        ],
+        "kommentar": null,
+        "confidence": 0.85
+      },
+      {
+        "diktnummer": "4",
+        "minnesanteckning": "STORM",
+        "poang_officiell": "3",
+        "poang_alla": [
+          "3"
+        ],
+        "kommentar": "",
+        "confidence": 0.8
+      },
+      {
+        "diktnummer": "5",
+        "minnesanteckning": "DOKTORN",
+        "poang_officiell": "4",
+        "poang_alla": [
+          "4"
+        ],
+        "kommentar": null,
+        "confidence": 0.8
+      },
+      {
+        "diktnummer": "6",
+        "minnesanteckning": "VÄNTAN",
+        "poang_officiell": "4,5",
+        "poang_alla": [
+          "4,5"
+        ],
+        "kommentar": null,
+        "confidence": 0.8
+      },
+      {
+        "diktnummer": "7",
+        "minnesanteckning": "RECEPT",
+        "poang_officiell": "4",
+        "poang_alla": [
+          "4"
+        ],
+        "kommentar": null,
+        "confidence": 0.8
+      },
+      {
+        "diktnummer": "8",
+        "minnesanteckning": "SPRÅK",
+        "poang_officiell": "4",
+        "poang_alla": [
+          "4"
+        ],
+        "kommentar": null,
+        "confidence": 0.8
+      }
+    ]
+  },
+  "P1169215.JPG": {
+    "ovrig_text": "Jonas läser dikter",
+    "rader": [
+      {
+        "diktnummer": "1",
+        "minnesanteckning": "iSke",
+        "poang_officiell": "4",
+        "poang_alla": [
+          "4"
+        ],
+        "kommentar": null,
+        "confidence": 0.6
+      },
+      {
+        "diktnummer": "2",
+        "minnesanteckning": "Ur Djupshow",
+        "poang_officiell": "3",
+        "poang_alla": [
+          "3"
+        ],
+        "kommentar": "",
+        "confidence": 0.5
+      },
+      {
+        "diktnummer": "3",
+        "minnesanteckning": "Tillkärlek",
+        "poang_officiell": "2",
+        "poang_alla": [
+          "2"
+        ],
+        "kommentar": "",
+        "confidence": 0.5
+      },
+      {
+        "diktnummer": "4",
+        "minnesanteckning": "Experiment",
+        "poang_officiell": "4",
+        "poang_alla": [
+          "4"
+        ],
+        "kommentar": "Spännande",
+        "confidence": 0.5
+      },
+      {
+        "diktnummer": "5",
+        "minnesanteckning": "Doktorn",
+        "poang_officiell": "4",
+        "poang_alla": [
+          "4"
+        ],
+        "kommentar": null,
+        "confidence": 0.6
+      },
+      {
+        "diktnummer": "6",
+        "minnesanteckning": "Vänta",
+        "poang_officiell": "5",
+        "poang_alla": [
+          "5"
+        ],
+        "kommentar": "Bra innehåll",
+        "confidence": 0.5
+      },
+      {
+        "diktnummer": "7",
+        "minnesanteckning": "Tillågning",
+        "poang_officiell": "5",
+        "poang_alla": [
+          "5"
+        ],
+        "kommentar": "Finurlig",
+        "confidence": 0.5
+      },
+      {
+        "diktnummer": "8",
+        "minnesanteckning": "rådgge",
+        "poang_officiell": "5",
+        "poang_alla": [
+          "5"
+        ],
+        "kommentar": null,
+        "confidence": 0.4
+      }
+    ]
+  },
+  "P1169213.JPG": {
+    "ovrig_text": "von Essen Jonas läser dikter",
+    "rader": [
+      {
+        "diktnummer": "1",
+        "minnesanteckning": null,
+        "poang_officiell": "3",
+        "poang_alla": [
+          "3"
+        ],
+        "kommentar": "Lite för snabbt, rörig",
+        "confidence": 0.5
+      },
+      {
+        "diktnummer": "2",
+        "minnesanteckning": null,
+        "poang_officiell": "5",
+        "poang_alla": [
+          "5"
+        ],
+        "kommentar": "Jättebra!",
+        "confidence": 0.8
+      },
+      {
+        "diktnummer": "3",
+        "minnesanteckning": null,
+        "poang_officiell": "5",
+        "poang_alla": [
+          "5"
+        ],
+        "kommentar": null,
+        "confidence": 0.85
+      },
+      {
+        "diktnummer": "4",
+        "minnesanteckning": null,
+        "poang_officiell": "4",
+        "poang_alla": [
+          "4"
+        ],
+        "kommentar": null,
+        "confidence": 0.85
+      },
+      {
+        "diktnummer": "5",
+        "minnesanteckning": "God ordtolkt humor",
+        "poang_officiell": "5",
+        "poang_alla": [
+          "5"
+        ],
+        "kommentar": "Rolig",
+        "confidence": 0.55
+      },
+      {
+        "diktnummer": "6",
+        "minnesanteckning": "\"Väntan\"",
+        "poang_officiell": "4",
+        "poang_alla": [
+          "4"
+        ],
+        "kommentar": "Underfundig",
+        "confidence": 0.75
+      },
+      {
+        "diktnummer": "7",
+        "minnesanteckning": null,
+        "poang_officiell": "4",
+        "poang_alla": [
+          "4"
+        ],
+        "kommentar": null,
+        "confidence": 0.8
+      },
+      {
+        "diktnummer": "8",
+        "minnesanteckning": "Spök polska",
+        "poang_officiell": "5",
+        "poang_alla": [
+          "5"
+        ],
+        "kommentar": null,
+        "confidence": 0.5
+      }
+    ]
+  },
+  "P1169218.JPG": {
+    "ovrig_text": "Jonas läser dikter",
+    "rader": [
+      {
+        "diktnummer": "1",
+        "minnesanteckning": "Poetskog nn",
+        "poang_officiell": "5",
+        "poang_alla": [
+          "5"
+        ],
+        "kommentar": "Fyndig engagerat",
+        "confidence": 0.5
+      },
+      {
+        "diktnummer": "2",
+        "minnesanteckning": "Störtfall",
+        "poang_officiell": "4",
+        "poang_alla": [
+          "4"
+        ],
+        "kommentar": "Fyndig",
+        "confidence": 0.55
+      },
+      {
+        "diktnummer": "3",
+        "minnesanteckning": "djupu",
+        "poang_officiell": "4",
+        "poang_alla": [
+          "4"
+        ],
+        "kommentar": "Fantasi Lustig",
+        "confidence": 0.5
+      },
+      {
+        "diktnummer": "4",
+        "minnesanteckning": "Tale",
+        "poang_officiell": "3",
+        "poang_alla": [
+          "3"
+        ],
+        "kommentar": null,
+        "confidence": 0.6
+      },
+      {
+        "diktnummer": "5",
+        "minnesanteckning": "Operaten",
+        "poang_officiell": "4",
+        "poang_alla": [
+          "4"
+        ],
+        "kommentar": null,
+        "confidence": 0.55
+      },
+      {
+        "diktnummer": "6",
+        "minnesanteckning": "stämm",
+        "poang_officiell": "2",
+        "poang_alla": [
+          "2"
+        ],
+        "kommentar": null,
+        "confidence": 0.5
+      },
+      {
+        "diktnummer": "7",
+        "minnesanteckning": "Du",
+        "poang_officiell": "3",
+        "poang_alla": [
+          "3"
+        ],
+        "kommentar": null,
+        "confidence": 0.6
+      },
+      {
+        "diktnummer": "8",
+        "minnesanteckning": "Språkpolis",
+        "poang_officiell": "5",
+        "poang_alla": [
+          "5"
+        ],
+        "kommentar": null,
+        "confidence": 0.55
+      }
+    ]
+  },
+  "P1169220.JPG": {
+    "ovrig_text": "Jonas läser dikter",
+    "rader": [
+      {
+        "diktnummer": "1",
+        "minnesanteckning": "Galaxen",
+        "poang_officiell": "4.5",
+        "poang_alla": [
+          "4.5"
+        ],
+        "kommentar": "Helt fantastisk",
+        "confidence": 0.55
+      },
+      {
+        "diktnummer": "2",
+        "minnesanteckning": "Galaxen",
+        "poang_officiell": "4.0",
+        "poang_alla": [
+          "4.0"
+        ],
+        "kommentar": "",
+        "confidence": 0.45
+      },
+      {
+        "diktnummer": "3",
+        "minnesanteckning": "Kärleksdiktet",
+        "poang_officiell": "3.7",
+        "poang_alla": [
+          "3.7"
+        ],
+        "kommentar": null,
+        "confidence": 0.6
+      },
+      {
+        "diktnummer": "4",
+        "minnesanteckning": "Kupé från",
+        "poang_officiell": "4.5",
+        "poang_alla": [
+          "4.5"
+        ],
+        "kommentar": null,
+        "confidence": 0.5
+      },
+      {
+        "diktnummer": "5",
+        "minnesanteckning": "Doktorn, anthmagt",
+        "poang_officiell": "5",
+        "poang_alla": [
+          "5"
+        ],
+        "kommentar": "",
+        "confidence": 0.45
+      },
+      {
+        "diktnummer": "6",
+        "minnesanteckning": "Linsrenndam",
+        "poang_officiell": "4",
+        "poang_alla": [
+          "4"
+        ],
+        "kommentar": "",
+        "confidence": 0.35
+      },
+      {
+        "diktnummer": "7",
+        "minnesanteckning": "Kecesl",
+        "poang_officiell": "5",
+        "poang_alla": [
+          "5"
+        ],
+        "kommentar": null,
+        "confidence": 0.4
+      },
+      {
+        "diktnummer": "8",
+        "minnesanteckning": "Töfes",
+        "poang_officiell": "5",
+        "poang_alla": [
+          "5"
+        ],
+        "kommentar": "Ordvrickeri",
+        "confidence": 0.35
+      }
+    ]
+  },
+  "P1169217.JPG": {
+    "ovrig_text": "Jonas läser dikter",
+    "rader": [
+      {
+        "diktnummer": "1",
+        "minnesanteckning": "Slayed",
+        "poang_officiell": "3",
+        "poang_alla": [
+          "3"
+        ],
+        "kommentar": "Speed, kurva",
+        "confidence": 0.5
+      },
+      {
+        "diktnummer": "2",
+        "minnesanteckning": "Deprehen",
+        "poang_officiell": "3",
+        "poang_alla": [
+          "3"
+        ],
+        "kommentar": "tråd ++",
+        "confidence": 0.4
+      },
+      {
+        "diktnummer": "3",
+        "minnesanteckning": "Måla är",
+        "poang_officiell": "4",
+        "poang_alla": [
+          "4"
+        ],
+        "kommentar": "",
+        "confidence": 0.4
+      },
+      {
+        "diktnummer": "4",
+        "minnesanteckning": "Annerkunter",
+        "poang_officiell": "3",
+        "poang_alla": [
+          "3"
+        ],
+        "kommentar": "kroppen g ttit",
+        "confidence": 0.3
+      },
+      {
+        "diktnummer": "5",
+        "minnesanteckning": "Dde hena",
+        "poang_officiell": "4",
+        "poang_alla": [
+          "4"
+        ],
+        "kommentar": "",
+        "confidence": 0.3
+      },
+      {
+        "diktnummer": "6",
+        "minnesanteckning": "Glad elision här",
+        "poang_officiell": "2",
+        "poang_alla": [
+          "2"
+        ],
+        "kommentar": "",
+        "confidence": 0.4
+      },
+      {
+        "diktnummer": "7",
+        "minnesanteckning": "Recept",
+        "poang_officiell": "3",
+        "poang_alla": [
+          "3"
+        ],
+        "kommentar": "",
+        "confidence": 0.4
+      },
+      {
+        "diktnummer": "8",
+        "minnesanteckning": "språkpolitirs",
+        "poang_officiell": "5",
+        "poang_alla": [
+          "5"
+        ],
+        "kommentar": "",
+        "confidence": 0.3
+      }
+    ]
+  },
+  "P1169214.JPG": {
+    "ovrig_text": "Jonas läser dikter",
+    "rader": [
+      {
+        "diktnummer": "1",
+        "minnesanteckning": "Skattläraren",
+        "poang_officiell": "3",
+        "poang_alla": [
+          "3"
+        ],
+        "kommentar": "",
+        "confidence": 0.45
+      },
+      {
+        "diktnummer": "2",
+        "minnesanteckning": "ur en dieptsribn",
+        "poang_officiell": "4.5",
+        "poang_alla": [
+          "4.5"
+        ],
+        "kommentar": "Jag kände hur kissnödig personene var",
+        "confidence": 0.35
+      },
+      {
+        "diktnummer": "3",
+        "minnesanteckning": "Wulhmetdaus",
+        "poang_officiell": "5",
+        "poang_alla": [
+          "5"
+        ],
+        "kommentar": "Fantasifull",
+        "confidence": 0.4
+      },
+      {
+        "diktnummer": "4",
+        "minnesanteckning": "Mit Karel stimer",
+        "poang_officiell": "4",
+        "poang_alla": [
+          "4"
+        ],
+        "kommentar": "läser med inlerelse",
+        "confidence": 0.4
+      },
+      {
+        "diktnummer": "5",
+        "minnesanteckning": "bevol has dikta",
+        "poang_officiell": "5",
+        "poang_alla": [
+          "5"
+        ],
+        "kommentar": "rolig, fyndig, positiv",
+        "confidence": 0.4
+      },
+      {
+        "diktnummer": "6",
+        "minnesanteckning": "utveckling rymkdeläsen dikta",
+        "poang_officiell": "5",
+        "poang_alla": [
+          "5"
+        ],
+        "kommentar": "tolkar den som utvecklingen tills du föddes",
+        "confidence": 0.3
+      },
+      {
+        "diktnummer": "7",
+        "minnesanteckning": "recept",
+        "poang_officiell": "4.5",
+        "poang_alla": [
+          "4.5"
+        ],
+        "kommentar": "Oväntat slut",
+        "confidence": 0.5
+      },
+      {
+        "diktnummer": "8",
+        "minnesanteckning": "Språkplatsen",
+        "poang_officiell": "5",
+        "poang_alla": [
+          "5"
+        ],
+        "kommentar": "ordvitsar",
+        "confidence": 0.55
+      }
+    ]
+  },
+  "P1169224.JPG": {
+    "ovrig_text": "Jonas läser dikter",
+    "rader": [
+      {
+        "diktnummer": "1",
+        "minnesanteckning": null,
+        "poang_officiell": "3",
+        "poang_alla": [
+          "3"
+        ],
+        "kommentar": null,
+        "confidence": 0.6
+      },
+      {
+        "diktnummer": "2",
+        "minnesanteckning": null,
+        "poang_officiell": "4",
+        "poang_alla": [
+          "4"
+        ],
+        "kommentar": null,
+        "confidence": 0.7
+      },
+      {
+        "diktnummer": "3",
+        "minnesanteckning": null,
+        "poang_officiell": "4",
+        "poang_alla": [
+          "4"
+        ],
+        "kommentar": null,
+        "confidence": 0.7
+      },
+      {
+        "diktnummer": "4",
+        "minnesanteckning": null,
+        "poang_officiell": "4,5",
+        "poang_alla": [
+          "4,5"
+        ],
+        "kommentar": null,
+        "confidence": 0.6
+      },
+      {
+        "diktnummer": "5",
+        "minnesanteckning": null,
+        "poang_officiell": "4,5",
+        "poang_alla": [
+          "4,5"
+        ],
+        "kommentar": null,
+        "confidence": 0.6
+      },
+      {
+        "diktnummer": "6",
+        "minnesanteckning": null,
+        "poang_officiell": "5",
+        "poang_alla": [
+          "5"
+        ],
+        "kommentar": null,
+        "confidence": 0.7
+      },
+      {
+        "diktnummer": "7",
+        "minnesanteckning": null,
+        "poang_officiell": "4,5",
+        "poang_alla": [
+          "4,5"
+        ],
+        "kommentar": null,
+        "confidence": 0.6
+      },
+      {
+        "diktnummer": "8",
+        "minnesanteckning": null,
+        "poang_officiell": "5",
+        "poang_alla": [
+          "5"
+        ],
+        "kommentar": null,
+        "confidence": 0.7
+      }
+    ]
+  },
+  "P1169221.JPG": {
+    "ovrig_text": "Jonas läser dikter",
+    "rader": [
+      {
+        "diktnummer": "1",
+        "minnesanteckning": null,
+        "poang_officiell": "3",
+        "poang_alla": [
+          "3"
+        ],
+        "kommentar": null,
+        "confidence": 0.9
+      },
+      {
+        "diktnummer": "2",
+        "minnesanteckning": null,
+        "poang_officiell": "4",
+        "poang_alla": [
+          "4"
+        ],
+        "kommentar": null,
+        "confidence": 0.85
+      },
+      {
+        "diktnummer": "3",
+        "minnesanteckning": null,
+        "poang_officiell": "2",
+        "poang_alla": [
+          "2"
+        ],
+        "kommentar": null,
+        "confidence": 0.9
+      },
+      {
+        "diktnummer": "4",
+        "minnesanteckning": null,
+        "poang_officiell": "4",
+        "poang_alla": [
+          "4"
+        ],
+        "kommentar": null,
+        "confidence": 0.9
+      },
+      {
+        "diktnummer": "5",
+        "minnesanteckning": "Enthusiasm",
+        "poang_officiell": "5",
+        "poang_alla": [
+          "5"
+        ],
+        "kommentar": null,
+        "confidence": 0.7
+      },
+      {
+        "diktnummer": "6",
+        "minnesanteckning": "10nksel",
+        "poang_officiell": "4",
+        "poang_alla": [
+          "4"
+        ],
+        "kommentar": null,
+        "confidence": 0.55
+      },
+      {
+        "diktnummer": "7",
+        "minnesanteckning": null,
+        "poang_officiell": "3",
+        "poang_alla": [
+          "3"
+        ],
+        "kommentar": null,
+        "confidence": 0.9
+      },
+      {
+        "diktnummer": "8",
+        "minnesanteckning": null,
+        "poang_officiell": "4,1",
+        "poang_alla": [
+          "4,1"
+        ],
+        "kommentar": null,
+        "confidence": 0.9
+      }
+    ]
+  },
+  "P1169225.JPG": {
+    "ovrig_text": "Jonas läser dikter",
+    "rader": [
+      {
+        "diktnummer": "1",
+        "minnesanteckning": null,
+        "poang_officiell": "3,5",
+        "poang_alla": [
+          "3,5"
+        ],
+        "kommentar": null,
+        "confidence": 0.9
+      },
+      {
+        "diktnummer": "2",
+        "minnesanteckning": null,
+        "poang_officiell": "4,4",
+        "poang_alla": [
+          "4,4"
+        ],
+        "kommentar": null,
+        "confidence": 0.95
+      },
+      {
+        "diktnummer": "3",
+        "minnesanteckning": null,
+        "poang_officiell": "4,6",
+        "poang_alla": [
+          "4,6"
+        ],
+        "kommentar": null,
+        "confidence": 0.95
+      },
+      {
+        "diktnummer": "4",
+        "minnesanteckning": null,
+        "poang_officiell": "3",
+        "poang_alla": [
+          "3"
+        ],
+        "kommentar": "svårt att höra vad du sao (ibland)",
+        "confidence": 0.75
+      },
+      {
+        "diktnummer": "5",
+        "minnesanteckning": null,
+        "poang_officiell": "4,8",
+        "poang_alla": [
+          "4,8"
+        ],
+        "kommentar": "underbar!!",
+        "confidence": 0.85
+      },
+      {
+        "diktnummer": "6",
+        "minnesanteckning": null,
+        "poang_officiell": "4",
+        "poang_alla": [
+          "4"
+        ],
+        "kommentar": null,
+        "confidence": 0.95
+      },
+      {
+        "diktnummer": "7",
+        "minnesanteckning": null,
+        "poang_officiell": "3,25",
+        "poang_alla": [
+          "3,25"
+        ],
+        "kommentar": null,
+        "confidence": 0.9
+      },
+      {
+        "diktnummer": "8",
+        "minnesanteckning": null,
+        "poang_officiell": "5",
+        "poang_alla": [
+          "5"
+        ],
+        "kommentar": null,
+        "confidence": 0.9
+      }
+    ]
+  },
+  "P1169222.JPG": {
+    "ovrig_text": "Jonas läser dikter",
+    "rader": [
+      {
+        "diktnummer": "1",
+        "minnesanteckning": "Stegklänge",
+        "poang_officiell": "4,9",
+        "poang_alla": [
+          "4,9"
+        ],
+        "kommentar": null,
+        "confidence": 0.7
+      },
+      {
+        "diktnummer": "2",
+        "minnesanteckning": "Rinneln",
+        "poang_officiell": "3.5",
+        "poang_alla": [
+          "3.5"
+        ],
+        "kommentar": null,
+        "confidence": 0.6
+      },
+      {
+        "diktnummer": "3",
+        "minnesanteckning": "kandidat-Mt",
+        "poang_officiell": "4.0",
+        "poang_alla": [
+          "4.0"
+        ],
+        "kommentar": null,
+        "confidence": 0.5
+      },
+      {
+        "diktnummer": "4",
+        "minnesanteckning": "kannin",
+        "poang_officiell": "4.6",
+        "poang_alla": [
+          "4.6"
+        ],
+        "kommentar": "lite snabbt tal",
+        "confidence": 0.5
+      },
+      {
+        "diktnummer": "5",
+        "minnesanteckning": "Delsim",
+        "poang_officiell": "4.8",
+        "poang_alla": [
+          "4.8"
+        ],
+        "kommentar": null,
+        "confidence": 0.5
+      },
+      {
+        "diktnummer": "6",
+        "minnesanteckning": null,
+        "poang_officiell": "4.95",
+        "poang_alla": [
+          "4.95"
+        ],
+        "kommentar": null,
+        "confidence": 0.6
+      },
+      {
+        "diktnummer": "7",
+        "minnesanteckning": null,
+        "poang_officiell": "4.3",
+        "poang_alla": [
+          "4.3"
+        ],
+        "kommentar": null,
+        "confidence": 0.7
+      },
+      {
+        "diktnummer": "8",
+        "minnesanteckning": null,
+        "poang_officiell": "5",
+        "poang_alla": [
+          "5"
+        ],
+        "kommentar": null,
+        "confidence": 0.5
+      }
+    ]
+  },
+  "P1169228.JPG": {
+    "ovrig_text": "Jonas läser dikter",
+    "rader": [
+      {
+        "diktnummer": "1",
+        "minnesanteckning": null,
+        "poang_officiell": "3",
+        "poang_alla": [
+          "3"
+        ],
+        "kommentar": null,
+        "confidence": 0.8
+      },
+      {
+        "diktnummer": "2",
+        "minnesanteckning": null,
+        "poang_officiell": "3",
+        "poang_alla": [
+          "3"
+        ],
+        "kommentar": null,
+        "confidence": 0.8
+      },
+      {
+        "diktnummer": "3",
+        "minnesanteckning": null,
+        "poang_officiell": "4",
+        "poang_alla": [
+          "4"
+        ],
+        "kommentar": null,
+        "confidence": 0.8
+      },
+      {
+        "diktnummer": "4",
+        "minnesanteckning": null,
+        "poang_officiell": "4",
+        "poang_alla": [
+          "4"
+        ],
+        "kommentar": null,
+        "confidence": 0.8
+      },
+      {
+        "diktnummer": "5",
+        "minnesanteckning": null,
+        "poang_officiell": "4",
+        "poang_alla": [
+          "4"
+        ],
+        "kommentar": null,
+        "confidence": 0.8
+      },
+      {
+        "diktnummer": "6",
+        "minnesanteckning": null,
+        "poang_officiell": "4",
+        "poang_alla": [
+          "4"
+        ],
+        "kommentar": null,
+        "confidence": 0.8
+      },
+      {
+        "diktnummer": "7",
+        "minnesanteckning": null,
+        "poang_officiell": "4",
+        "poang_alla": [
+          "4"
+        ],
+        "kommentar": null,
+        "confidence": 0.8
+      },
+      {
+        "diktnummer": "8",
+        "minnesanteckning": null,
+        "poang_officiell": "4",
+        "poang_alla": [
+          "4"
+        ],
+        "kommentar": null,
+        "confidence": 0.75
+      }
+    ]
+  },
+  "P1169226.JPG": {
+    "ovrig_text": "Jonas läser dikter",
+    "rader": [
+      {
+        "diktnummer": "1",
+        "minnesanteckning": "Mannen som förändler",
+        "poang_officiell": "4",
+        "poang_alla": [
+          "4"
+        ],
+        "kommentar": null,
+        "confidence": 0.6
+      },
+      {
+        "diktnummer": "2",
+        "minnesanteckning": "Mannen i huset",
+        "poang_officiell": "4.5",
+        "poang_alla": [
+          "4.5"
+        ],
+        "kommentar": null,
+        "confidence": 0.7
+      },
+      {
+        "diktnummer": "3",
+        "minnesanteckning": "Kärlet o tankar i",
+        "poang_officiell": "4.5",
+        "poang_alla": [
+          "4.5"
+        ],
+        "kommentar": null,
+        "confidence": 0.6
+      },
+      {
+        "diktnummer": "4",
+        "minnesanteckning": "Depressionen",
+        "poang_officiell": "3",
+        "poang_alla": [
+          "3"
+        ],
+        "kommentar": null,
+        "confidence": 0.7
+      },
+      {
+        "diktnummer": "5",
+        "minnesanteckning": "Dotson godartigt humor",
+        "poang_officiell": "5",
+        "poang_alla": [
+          "5"
+        ],
+        "kommentar": null,
+        "confidence": 0.5
+      },
+      {
+        "diktnummer": "6",
+        "minnesanteckning": "Väntar på livet",
+        "poang_officiell": "4",
+        "poang_alla": [
+          "4"
+        ],
+        "kommentar": null,
+        "confidence": 0.7
+      },
+      {
+        "diktnummer": "7",
+        "minnesanteckning": "Väntan",
+        "poang_officiell": "3",
+        "poang_alla": [
+          "3"
+        ],
+        "kommentar": null,
+        "confidence": 0.8
+      },
+      {
+        "diktnummer": "8",
+        "minnesanteckning": "Språkpolis",
+        "poang_officiell": "4.5",
+        "poang_alla": [
+          "4.5"
+        ],
+        "kommentar": null,
+        "confidence": 0.75
+      }
+    ]
+  },
+  "P1169227.JPG": {
+    "ovrig_text": "Jonas läser dikter",
+    "rader": [
+      {
+        "diktnummer": "1",
+        "minnesanteckning": "slussmål",
+        "poang_officiell": "5",
+        "poang_alla": [
+          "5"
+        ],
+        "kommentar": "",
+        "confidence": 0.7
+      },
+      {
+        "diktnummer": "2",
+        "minnesanteckning": "Rymden",
+        "poang_officiell": "3",
+        "poang_alla": [
+          "3"
+        ],
+        "kommentar": null,
+        "confidence": 0.8
+      },
+      {
+        "diktnummer": "3",
+        "minnesanteckning": "utan arm o tarm",
+        "poang_officiell": "4",
+        "poang_alla": [
+          "4"
+        ],
+        "kommentar": null,
+        "confidence": 0.75
+      },
+      {
+        "diktnummer": "4",
+        "minnesanteckning": "hela havet stormar",
+        "poang_officiell": "3",
+        "poang_alla": [
+          "3"
+        ],
+        "kommentar": null,
+        "confidence": 0.8
+      },
+      {
+        "diktnummer": "5",
+        "minnesanteckning": "hos doktorn",
+        "poang_officiell": "3,1",
+        "poang_alla": [
+          "3,1"
+        ],
+        "kommentar": null,
+        "confidence": 0.7
+      },
+      {
+        "diktnummer": "6",
+        "minnesanteckning": "jag väntade",
+        "poang_officiell": "3,2",
+        "poang_alla": [
+          "3,2"
+        ],
+        "kommentar": null,
+        "confidence": 0.75
+      },
+      {
+        "diktnummer": "7",
+        "minnesanteckning": "recept",
+        "poang_officiell": "3,5",
+        "poang_alla": [
+          "3,5"
+        ],
+        "kommentar": null,
+        "confidence": 0.8
+      },
+      {
+        "diktnummer": "8",
+        "minnesanteckning": "polisen",
+        "poang_officiell": "4",
+        "poang_alla": [
+          "4"
+        ],
+        "kommentar": null,
+        "confidence": 0.8
+      }
+    ]
+  },
+  "P1169223.JPG": {
+    "ovrig_text": "Jonas läser dikter. Vilken bra föreställning",
+    "rader": [
+      {
+        "diktnummer": "1",
+        "minnesanteckning": "mycket skön och ordvision",
+        "poang_officiell": "4",
+        "poang_alla": [
+          "4"
+        ],
+        "kommentar": "skicklig ordvitsar, bra läst",
+        "confidence": 0.45
+      },
+      {
+        "diktnummer": "2",
+        "minnesanteckning": null,
+        "poang_officiell": "3",
+        "poang_alla": [
+          "3"
+        ],
+        "kommentar": "fantastiskt att få ihop alla ord till poesi",
+        "confidence": 0.4
+      },
+      {
+        "diktnummer": "3",
+        "minnesanteckning": null,
+        "poang_officiell": "4",
+        "poang_alla": [
+          "4"
+        ],
+        "kommentar": "en finstämd dikt",
+        "confidence": 0.45
+      },
+      {
+        "diktnummer": "4",
+        "minnesanteckning": null,
+        "poang_officiell": "2",
+        "poang_alla": [
+          "2"
+        ],
+        "kommentar": "för mig lite svår att ta till mig",
+        "confidence": 0.4
+      },
+      {
+        "diktnummer": "5",
+        "minnesanteckning": null,
+        "poang_officiell": "5",
+        "poang_alla": [
+          "5"
+        ],
+        "kommentar": "riktig bra dikt.",
+        "confidence": 0.5
+      },
+      {
+        "diktnummer": "6",
+        "minnesanteckning": null,
+        "poang_officiell": "3",
+        "poang_alla": [
+          "3"
+        ],
+        "kommentar": "otroligt att få med alla händelser så i en dikt",
+        "confidence": 0.4
+      },
+      {
+        "diktnummer": "7",
+        "minnesanteckning": null,
+        "poang_officiell": "4",
+        "poang_alla": [
+          "4"
+        ],
+        "kommentar": "fint recept",
+        "confidence": 0.45
+      },
+      {
+        "diktnummer": "8",
+        "minnesanteckning": null,
+        "poang_officiell": "5",
+        "poang_alla": [
+          "5"
+        ],
+        "kommentar": "Måste ses",
+        "confidence": 0.5
+      }
+    ]
+  },
+  "P1169229.JPG": {
+    "ovrig_text": "Jonas läser dikter, sida 1",
+    "rader": [
+      {
+        "diktnummer": "1",
+        "minnesanteckning": null,
+        "poang_officiell": "3.8",
+        "poang_alla": [
+          "3.8"
+        ],
+        "kommentar": null,
+        "confidence": 0.85
+      },
+      {
+        "diktnummer": "2",
+        "minnesanteckning": null,
+        "poang_officiell": "3.0",
+        "poang_alla": [
+          "3.0"
+        ],
+        "kommentar": null,
+        "confidence": 0.8
+      },
+      {
+        "diktnummer": "3",
+        "minnesanteckning": null,
+        "poang_officiell": "4.2",
+        "poang_alla": [
+          "4.2"
+        ],
+        "kommentar": null,
+        "confidence": 0.8
+      },
+      {
+        "diktnummer": "4",
+        "minnesanteckning": null,
+        "poang_officiell": "3.2",
+        "poang_alla": [
+          "3.2"
+        ],
+        "kommentar": null,
+        "confidence": 0.8
+      },
+      {
+        "diktnummer": "5",
+        "minnesanteckning": null,
+        "poang_officiell": "4.5",
+        "poang_alla": [
+          "4.5"
+        ],
+        "kommentar": null,
+        "confidence": 0.8
+      },
+      {
+        "diktnummer": "6",
+        "minnesanteckning": null,
+        "poang_officiell": "2.9",
+        "poang_alla": [
+          "2.9"
+        ],
+        "kommentar": null,
+        "confidence": 0.8
+      },
+      {
+        "diktnummer": "7",
+        "minnesanteckning": null,
+        "poang_officiell": "2.7",
+        "poang_alla": [
+          "2.7"
+        ],
+        "kommentar": null,
+        "confidence": 0.8
+      },
+      {
+        "diktnummer": "8",
+        "minnesanteckning": null,
+        "poang_officiell": "4.8",
+        "poang_alla": [
+          "4.8"
+        ],
+        "kommentar": null,
+        "confidence": 0.8
+      }
+    ]
+  },
+  "P1169231.JPG": {
+    "ovrig_text": "Jonas läser dikter",
+    "rader": [
+      {
+        "diktnummer": "1",
+        "minnesanteckning": null,
+        "poang_officiell": "5",
+        "poang_alla": [
+          "5"
+        ],
+        "kommentar": "Bra inne-håll",
+        "confidence": 0.8
+      },
+      {
+        "diktnummer": "2",
+        "minnesanteckning": null,
+        "poang_officiell": "4",
+        "poang_alla": [
+          "4"
+        ],
+        "kommentar": null,
+        "confidence": 0.9
+      },
+      {
+        "diktnummer": "3",
+        "minnesanteckning": null,
+        "poang_officiell": "5",
+        "poang_alla": [
+          "5"
+        ],
+        "kommentar": "Rolig.",
+        "confidence": 0.8
+      },
+      {
+        "diktnummer": "4",
+        "minnesanteckning": null,
+        "poang_officiell": "4",
+        "poang_alla": [
+          "4"
+        ],
+        "kommentar": null,
+        "confidence": 0.9
+      },
+      {
+        "diktnummer": "5",
+        "minnesanteckning": null,
+        "poang_officiell": "5",
+        "poang_alla": [
+          "5"
+        ],
+        "kommentar": null,
+        "confidence": 0.9
+      },
+      {
+        "diktnummer": "6",
+        "minnesanteckning": null,
+        "poang_officiell": "5",
+        "poang_alla": [
+          "5"
+        ],
+        "kommentar": "",
+        "confidence": 0.6
+      },
+      {
+        "diktnummer": "7",
+        "minnesanteckning": null,
+        "poang_officiell": "4",
+        "poang_alla": [
+          "4"
+        ],
+        "kommentar": null,
+        "confidence": 0.85
+      },
+      {
+        "diktnummer": "8",
+        "minnesanteckning": "Religiös",
+        "poang_officiell": "5",
+        "poang_alla": [
+          "5"
+        ],
+        "kommentar": "Roligast",
+        "confidence": 0.65
+      }
+    ]
+  },
+  "P1169230.JPG": {
+    "ovrig_text": "Jonas läser dikter",
+    "rader": [
+      {
+        "diktnummer": "1",
+        "minnesanteckning": "Bla' innehåll",
+        "poang_officiell": "4",
+        "poang_alla": [
+          "4"
+        ],
+        "kommentar": "Vissa partier snabbt",
+        "confidence": 0.6
+      },
+      {
+        "diktnummer": "2",
+        "minnesanteckning": "Yasman",
+        "poang_officiell": "4,5",
+        "poang_alla": [
+          "4,5"
+        ],
+        "kommentar": "Rolig fast kanske tragisk",
+        "confidence": 0.55
+      },
+      {
+        "diktnummer": "3",
+        "minnesanteckning": null,
+        "poang_officiell": "4,7",
+        "poang_alla": [
+          "4,7"
+        ],
+        "kommentar": "Roligt fantasifull",
+        "confidence": 0.6
+      },
+      {
+        "diktnummer": "4",
+        "minnesanteckning": null,
+        "poang_officiell": "4,9",
+        "poang_alla": [
+          "4,9"
+        ],
+        "kommentar": "Många härliga ord i en och samma dikt",
+        "confidence": 0.5
+      },
+      {
+        "diktnummer": "5",
+        "minnesanteckning": null,
+        "poang_officiell": "4,95",
+        "poang_alla": [
+          "4,95"
+        ],
+        "kommentar": "Rolig",
+        "confidence": 0.55
+      },
+      {
+        "diktnummer": "6",
+        "minnesanteckning": null,
+        "poang_officiell": "4,95",
+        "poang_alla": [
+          "4,95"
+        ],
+        "kommentar": "Tänkvärd",
+        "confidence": 0.65
+      },
+      {
+        "diktnummer": "7",
+        "minnesanteckning": null,
+        "poang_officiell": "4,95",
+        "poang_alla": [
+          "4,95"
+        ],
+        "kommentar": "Väldigt fint",
+        "confidence": 0.6
+      },
+      {
+        "diktnummer": "8",
+        "minnesanteckning": null,
+        "poang_officiell": "5",
+        "poang_alla": [
+          "5"
+        ],
+        "kommentar": "Perfekt 'ordbajsare'",
+        "confidence": 0.5
+      }
+    ]
+  },
+  "P1169236.JPG": {
+    "ovrig_text": "Jonas läser dikter",
+    "rader": [
+      {
+        "diktnummer": "1",
+        "minnesanteckning": null,
+        "poang_officiell": "4",
+        "poang_alla": [
+          "4"
+        ],
+        "kommentar": "Lite för snabb",
+        "confidence": 0.5
+      },
+      {
+        "diktnummer": "2",
+        "minnesanteckning": null,
+        "poang_officiell": "4",
+        "poang_alla": [
+          "4"
+        ],
+        "kommentar": "Lite för snabb",
+        "confidence": 0.6
+      },
+      {
+        "diktnummer": "3",
+        "minnesanteckning": "hällde",
+        "poang_officiell": "5",
+        "poang_alla": [
+          "5"
+        ],
+        "kommentar": "",
+        "confidence": 0.3
+      },
+      {
+        "diktnummer": "4",
+        "minnesanteckning": null,
+        "poang_officiell": "3",
+        "poang_alla": [
+          "3"
+        ],
+        "kommentar": "Psykologi",
+        "confidence": 0.6
+      },
+      {
+        "diktnummer": "5",
+        "minnesanteckning": null,
+        "poang_officiell": "4",
+        "poang_alla": [
+          "4"
+        ],
+        "kommentar": null,
+        "confidence": 0.7
+      },
+      {
+        "diktnummer": "6",
+        "minnesanteckning": null,
+        "poang_officiell": "4",
+        "poang_alla": [
+          "4"
+        ],
+        "kommentar": null,
+        "confidence": 0.7
+      },
+      {
+        "diktnummer": "7",
+        "minnesanteckning": null,
+        "poang_officiell": "5",
+        "poang_alla": [
+          "5"
+        ],
+        "kommentar": null,
+        "confidence": 0.7
+      },
+      {
+        "diktnummer": "8",
+        "minnesanteckning": null,
+        "poang_officiell": "5",
+        "poang_alla": [
+          "5"
+        ],
+        "kommentar": null,
+        "confidence": 0.7
+      }
+    ]
+  },
+  "P1169234.JPG": {
+    "ovrig_text": "Jonas läser dikter v",
+    "rader": [
+      {
+        "diktnummer": "1",
+        "minnesanteckning": null,
+        "poang_officiell": "4,5",
+        "poang_alla": [
+          "4,5"
+        ],
+        "kommentar": "Kärlek",
+        "confidence": 0.8
+      },
+      {
+        "diktnummer": "2",
+        "minnesanteckning": null,
+        "poang_officiell": "2,5",
+        "poang_alla": [
+          "2,5"
+        ],
+        "kommentar": "-",
+        "confidence": 0.5
+      },
+      {
+        "diktnummer": "3",
+        "minnesanteckning": null,
+        "poang_officiell": "5",
+        "poang_alla": [
+          "5"
+        ],
+        "kommentar": "Underbar",
+        "confidence": 0.8
+      },
+      {
+        "diktnummer": "4",
+        "minnesanteckning": null,
+        "poang_officiell": "3",
+        "poang_alla": [
+          "3"
+        ],
+        "kommentar": "",
+        "confidence": 0.8
+      },
+      {
+        "diktnummer": "5",
+        "minnesanteckning": null,
+        "poang_officiell": "5",
+        "poang_alla": [
+          "5"
+        ],
+        "kommentar": "Roligt",
+        "confidence": 0.8
+      },
+      {
+        "diktnummer": "6",
+        "minnesanteckning": null,
+        "poang_officiell": "4,6",
+        "poang_alla": [
+          "4,6"
+        ],
+        "kommentar": "",
+        "confidence": 0.75
+      },
+      {
+        "diktnummer": "7",
+        "minnesanteckning": null,
+        "poang_officiell": "4,3",
+        "poang_alla": [
+          "4,3"
+        ],
+        "kommentar": "",
+        "confidence": 0.75
+      },
+      {
+        "diktnummer": "8",
+        "minnesanteckning": null,
+        "poang_officiell": "5",
+        "poang_alla": [
+          "5"
+        ],
+        "kommentar": "Riktigt bra",
+        "confidence": 0.7
+      }
+    ]
+  },
+  "P1169235.JPG": {
+    "ovrig_text": "Jonas läser dikter",
+    "rader": [
+      {
+        "diktnummer": "1",
+        "minnesanteckning": null,
+        "poang_officiell": "3",
+        "poang_alla": [
+          "3"
+        ],
+        "kommentar": "Bra framförande",
+        "confidence": 0.8
+      },
+      {
+        "diktnummer": "2",
+        "minnesanteckning": null,
+        "poang_officiell": "3.5",
+        "poang_alla": [
+          "3.5"
+        ],
+        "kommentar": "",
+        "confidence": 0.75
+      },
+      {
+        "diktnummer": "3",
+        "minnesanteckning": null,
+        "poang_officiell": "3",
+        "poang_alla": [
+          "3"
+        ],
+        "kommentar": "",
+        "confidence": 0.75
+      },
+      {
+        "diktnummer": "4",
+        "minnesanteckning": null,
+        "poang_officiell": "3.8",
+        "poang_alla": [
+          "3.8"
+        ],
+        "kommentar": "",
+        "confidence": 0.75
+      },
+      {
+        "diktnummer": "5",
+        "minnesanteckning": null,
+        "poang_officiell": "4",
+        "poang_alla": [
+          "4"
+        ],
+        "kommentar": "",
+        "confidence": 0.75
+      },
+      {
+        "diktnummer": "6",
+        "minnesanteckning": null,
+        "poang_officiell": "3",
+        "poang_alla": [
+          "3"
+        ],
+        "kommentar": "",
+        "confidence": 0.75
+      },
+      {
+        "diktnummer": "7",
+        "minnesanteckning": null,
+        "poang_officiell": "3",
+        "poang_alla": [
+          "3"
+        ],
+        "kommentar": "",
+        "confidence": 0.7
+      },
+      {
+        "diktnummer": "8",
+        "minnesanteckning": "Mycket bra",
+        "poang_officiell": "4,2",
+        "poang_alla": [
+          "4,2"
+        ],
+        "kommentar": "Mycket bra framförande",
+        "confidence": 0.75
+      }
+    ]
+  },
+  "P1169232.JPG": {
+    "ovrig_text": "Jonas läser dikter",
+    "rader": [
+      {
+        "diktnummer": "1",
+        "minnesanteckning": "Depression",
+        "poang_officiell": "5",
+        "poang_alla": [
+          "5"
+        ],
+        "kommentar": "Bra budskap",
+        "confidence": 0.85
+      },
+      {
+        "diktnummer": "2",
+        "minnesanteckning": "Kärleksdikt",
+        "poang_officiell": "3",
+        "poang_alla": [
+          "3"
+        ],
+        "kommentar": "",
+        "confidence": 0.7
+      },
+      {
+        "diktnummer": "3",
+        "minnesanteckning": "Kärleksdikt",
+        "poang_officiell": "5",
+        "poang_alla": [
+          "5"
+        ],
+        "kommentar": "Härlig, rolig, speglar stor osäkerhet och vilja",
+        "confidence": 0.75
+      },
+      {
+        "diktnummer": "4",
+        "minnesanteckning": "Positivt ur barnasaga",
+        "poang_officiell": "4",
+        "poang_alla": [
+          "4"
+        ],
+        "kommentar": "Bra slut, visar barns situation idag",
+        "confidence": 0.75
+      },
+      {
+        "diktnummer": "5",
+        "minnesanteckning": "Sjukdom",
+        "poang_officiell": "3",
+        "poang_alla": [
+          "3"
+        ],
+        "kommentar": "Bra rim, roligt innehåll",
+        "confidence": 0.75
+      },
+      {
+        "diktnummer": "6",
+        "minnesanteckning": "Utanför, lavan",
+        "poang_officiell": "5",
+        "poang_alla": [
+          "5"
+        ],
+        "kommentar": "Fantastisk. Hela väntan på att födas",
+        "confidence": 0.55
+      },
+      {
+        "diktnummer": "7",
+        "minnesanteckning": "Positiva förslag",
+        "poang_officiell": "4",
+        "poang_alla": [
+          "4"
+        ],
+        "kommentar": "Bra framfört",
+        "confidence": 0.65
+      },
+      {
+        "diktnummer": "8",
+        "minnesanteckning": "Kriminalitet",
+        "poang_officiell": "5",
+        "poang_alla": [
+          "5"
+        ],
+        "kommentar": "Vitsigt, fantastiskt framfört",
+        "confidence": 0.7
+      }
+    ]
+  },
+  "P1169233.JPG": {
+    "ovrig_text": "Jonas läser dikter",
+    "rader": [
+      {
+        "diktnummer": "1",
+        "minnesanteckning": "Tyllefors",
+        "poang_officiell": "3.5",
+        "poang_alla": [
+          "3.5"
+        ],
+        "kommentar": "Rolig",
+        "confidence": 0.6
+      },
+      {
+        "diktnummer": "2",
+        "minnesanteckning": "Kinnakit",
+        "poang_officiell": "4.0",
+        "poang_alla": [
+          "4.0"
+        ],
+        "kommentar": "Roligare",
+        "confidence": 0.5
+      },
+      {
+        "diktnummer": "3",
+        "minnesanteckning": null,
+        "poang_officiell": "4.3",
+        "poang_alla": [
+          "4.3"
+        ],
+        "kommentar": "",
+        "confidence": 0.5
+      },
+      {
+        "diktnummer": "4",
+        "minnesanteckning": null,
+        "poang_officiell": "4.0",
+        "poang_alla": [
+          "4.0"
+        ],
+        "kommentar": null,
+        "confidence": 0.7
+      },
+      {
+        "diktnummer": "5",
+        "minnesanteckning": null,
+        "poang_officiell": "5.0",
+        "poang_alla": [
+          "5.0"
+        ],
+        "kommentar": null,
+        "confidence": 0.7
+      },
+      {
+        "diktnummer": "6",
+        "minnesanteckning": null,
+        "poang_officiell": "4.9",
+        "poang_alla": [
+          "4.9"
+        ],
+        "kommentar": null,
+        "confidence": 0.7
+      },
+      {
+        "diktnummer": "7",
+        "minnesanteckning": null,
+        "poang_officiell": "3,9",
+        "poang_alla": [
+          "3,9"
+        ],
+        "kommentar": null,
+        "confidence": 0.7
+      },
+      {
+        "diktnummer": "8",
+        "minnesanteckning": null,
+        "poang_officiell": "5.0",
+        "poang_alla": [
+          "5.0"
+        ],
+        "kommentar": null,
+        "confidence": 0.7
+      }
+    ]
+  },
+  "P1169239.JPG": {
+    "ovrig_text": "Jonas läser dikter",
+    "rader": [
+      {
+        "diktnummer": "1",
+        "minnesanteckning": "Nåt om Götet?",
+        "poang_officiell": "3.8",
+        "poang_alla": [
+          "3.8"
+        ],
+        "kommentar": null,
+        "confidence": 0.5
+      },
+      {
+        "diktnummer": "2",
+        "minnesanteckning": null,
+        "poang_officiell": "3.6",
+        "poang_alla": [
+          "3.6"
+        ],
+        "kommentar": null,
+        "confidence": 0.8
+      },
+      {
+        "diktnummer": "3",
+        "minnesanteckning": null,
+        "poang_officiell": "3.7",
+        "poang_alla": [
+          "3.7"
+        ],
+        "kommentar": null,
+        "confidence": 0.75
+      },
+      {
+        "diktnummer": "4",
+        "minnesanteckning": null,
+        "poang_officiell": "4",
+        "poang_alla": [
+          "4"
+        ],
+        "kommentar": null,
+        "confidence": 0.85
+      },
+      {
+        "diktnummer": "5",
+        "minnesanteckning": null,
+        "poang_officiell": "4.3",
+        "poang_alla": [
+          "4.3"
+        ],
+        "kommentar": null,
+        "confidence": 0.85
+      },
+      {
+        "diktnummer": "6",
+        "minnesanteckning": null,
+        "poang_officiell": "3.5",
+        "poang_alla": [
+          "3.5"
+        ],
+        "kommentar": null,
+        "confidence": 0.8
+      },
+      {
+        "diktnummer": "7",
+        "minnesanteckning": null,
+        "poang_officiell": "3.2",
+        "poang_alla": [
+          "3.2"
+        ],
+        "kommentar": null,
+        "confidence": 0.8
+      },
+      {
+        "diktnummer": "8",
+        "minnesanteckning": null,
+        "poang_officiell": "4.6",
+        "poang_alla": [
+          "4.6"
+        ],
+        "kommentar": null,
+        "confidence": 0.85
+      }
+    ]
+  },
+  "P1169238.JPG": {
+    "ovrig_text": "Jonas läser dikter",
+    "rader": [
+      {
+        "diktnummer": "1",
+        "minnesanteckning": "Sommar",
+        "poang_officiell": "4",
+        "poang_alla": [
+          "4"
+        ],
+        "kommentar": "Agerar sp vra",
+        "confidence": 0.45
+      },
+      {
+        "diktnummer": "2",
+        "minnesanteckning": "Kär",
+        "poang_officiell": "4",
+        "poang_alla": [
+          "4"
+        ],
+        "kommentar": "Agerar så bra",
+        "confidence": 0.4
+      },
+      {
+        "diktnummer": "3",
+        "minnesanteckning": "Tacle",
+        "poang_officiell": "5",
+        "poang_alla": [
+          "5"
+        ],
+        "kommentar": null,
+        "confidence": 0.35
+      },
+      {
+        "diktnummer": "4",
+        "minnesanteckning": "Harmoni",
+        "poang_officiell": "5",
+        "poang_alla": [
+          "5"
+        ],
+        "kommentar": "",
+        "confidence": 0.4
+      },
+      {
+        "diktnummer": "5",
+        "minnesanteckning": "Fäkte",
+        "poang_officiell": "5",
+        "poang_alla": [
+          "5"
+        ],
+        "kommentar": "Rolig",
+        "confidence": 0.35
+      },
+      {
+        "diktnummer": "6",
+        "minnesanteckning": "nodleno ol",
+        "poang_officiell": "4",
+        "poang_alla": [
+          "4"
+        ],
+        "kommentar": "Tänkvörd",
+        "confidence": 0.3
+      },
+      {
+        "diktnummer": "7",
+        "minnesanteckning": "Fre?",
+        "poang_officiell": "4",
+        "poang_alla": [
+          "4"
+        ],
+        "kommentar": "Så fin",
+        "confidence": 0.35
+      },
+      {
+        "diktnummer": "8",
+        "minnesanteckning": null,
+        "poang_officiell": "5",
+        "poang_alla": [
+          "5"
+        ],
+        "kommentar": "Rolig",
+        "confidence": 0.35
+      }
+    ]
+  },
+  "P1169237.JPG": {
+    "ovrig_text": "Jonas läser dikter",
+    "rader": [
+      {
+        "diktnummer": "1",
+        "minnesanteckning": "kejlen som vette slåg",
+        "poang_officiell": "4",
+        "poang_alla": [
+          "4"
+        ],
+        "kommentar": "Intressant innehåll",
+        "confidence": 0.5
+      },
+      {
+        "diktnummer": "2",
+        "minnesanteckning": "Cosmos",
+        "poang_officiell": "3,5",
+        "poang_alla": [
+          "3,5"
+        ],
+        "kommentar": "spännande",
+        "confidence": 0.4
+      },
+      {
+        "diktnummer": "3",
+        "minnesanteckning": "berättå, återberättning",
+        "poang_officiell": "4,5",
+        "poang_alla": [
+          "4,5"
+        ],
+        "kommentar": "",
+        "confidence": 0.4
+      },
+      {
+        "diktnummer": "4",
+        "minnesanteckning": "hela havet stormade",
+        "poang_officiell": "3,5",
+        "poang_alla": [
+          "3,5"
+        ],
+        "kommentar": "",
+        "confidence": 0.5
+      },
+      {
+        "diktnummer": "5",
+        "minnesanteckning": "Mrs doktor",
+        "poang_officiell": "5",
+        "poang_alla": [
+          "5"
+        ],
+        "kommentar": "innehållsrik",
+        "confidence": 0.4
+      },
+      {
+        "diktnummer": "6",
+        "minnesanteckning": "Vaufhani",
+        "poang_officiell": "3",
+        "poang_alla": [
+          "3"
+        ],
+        "kommentar": "",
+        "confidence": 0.4
+      },
+      {
+        "diktnummer": "7",
+        "minnesanteckning": "Recept",
+        "poang_officiell": "4",
+        "poang_alla": [
+          "4"
+        ],
+        "kommentar": "",
+        "confidence": 0.5
+      },
+      {
+        "diktnummer": "8",
+        "minnesanteckning": "Reisene",
+        "poang_officiell": "4",
+        "poang_alla": [
+          "4"
+        ],
+        "kommentar": "många roliga inslag",
+        "confidence": 0.4
+      }
+    ]
+  },
+  "P1169242.JPG": {
+    "ovrig_text": "Jonas läser dikter",
+    "rader": [
+      {
+        "diktnummer": "1",
+        "minnesanteckning": "Slagsmål",
+        "poang_officiell": "4",
+        "poang_alla": [
+          "4"
+        ],
+        "kommentar": null,
+        "confidence": 0.85
+      },
+      {
+        "diktnummer": "2",
+        "minnesanteckning": "Komma ur depression",
+        "poang_officiell": "4",
+        "poang_alla": [
+          "4"
+        ],
+        "kommentar": null,
+        "confidence": 0.8
+      },
+      {
+        "diktnummer": "3",
+        "minnesanteckning": "Delar på vapen",
+        "poang_officiell": "5",
+        "poang_alla": [
+          "5"
+        ],
+        "kommentar": null,
+        "confidence": 0.75
+      },
+      {
+        "diktnummer": "4",
+        "minnesanteckning": "Skolkundom",
+        "poang_officiell": "3",
+        "poang_alla": [
+          "3"
+        ],
+        "kommentar": null,
+        "confidence": 0.7
+      },
+      {
+        "diktnummer": "5",
+        "minnesanteckning": "Dolsborn",
+        "poang_officiell": "5",
+        "poang_alla": [
+          "5"
+        ],
+        "kommentar": null,
+        "confidence": 0.65
+      },
+      {
+        "diktnummer": "6",
+        "minnesanteckning": "Väntan",
+        "poang_officiell": "3",
+        "poang_alla": [
+          "3"
+        ],
+        "kommentar": null,
+        "confidence": 0.8
+      },
+      {
+        "diktnummer": "7",
+        "minnesanteckning": "Recept",
+        "poang_officiell": "3",
+        "poang_alla": [
+          "3"
+        ],
+        "kommentar": null,
+        "confidence": 0.8
+      },
+      {
+        "diktnummer": "8",
+        "minnesanteckning": "Språkpolisen",
+        "poang_officiell": "4",
+        "poang_alla": [
+          "4"
+        ],
+        "kommentar": null,
+        "confidence": 0.85
+      }
+    ]
+  },
+  "P1169240.JPG": {
+    "ovrig_text": "Jonas läser dikter",
+    "rader": [
+      {
+        "diktnummer": "1",
+        "minnesanteckning": "Dråkdiktet",
+        "poang_officiell": "3",
+        "poang_alla": [
+          "3"
+        ],
+        "kommentar": null,
+        "confidence": 0.7
+      },
+      {
+        "diktnummer": "2",
+        "minnesanteckning": "Sujen kua kan skymtia",
+        "poang_officiell": "4",
+        "poang_alla": [
+          "4"
+        ],
+        "kommentar": null,
+        "confidence": 0.4
+      },
+      {
+        "diktnummer": "3",
+        "minnesanteckning": "Mälla av dig, inte iden, camperfam",
+        "poang_officiell": "5",
+        "poang_alla": [
+          "5"
+        ],
+        "kommentar": null,
+        "confidence": 0.4
+      },
+      {
+        "diktnummer": "4",
+        "minnesanteckning": "Strovader, Kysse, Kijoue",
+        "poang_officiell": "4",
+        "poang_alla": [
+          "4"
+        ],
+        "kommentar": null,
+        "confidence": 0.4
+      },
+      {
+        "diktnummer": "5",
+        "minnesanteckning": "Has Doston",
+        "poang_officiell": "5",
+        "poang_alla": [
+          "5"
+        ],
+        "kommentar": null,
+        "confidence": 0.6
+      },
+      {
+        "diktnummer": "6",
+        "minnesanteckning": "Hesferik med Julia",
+        "poang_officiell": "3",
+        "poang_alla": [
+          "3"
+        ],
+        "kommentar": null,
+        "confidence": 0.6
+      },
+      {
+        "diktnummer": "7",
+        "minnesanteckning": "Asterix Mit m. del",
+        "poang_officiell": "3",
+        "poang_alla": [
+          "3"
+        ],
+        "kommentar": null,
+        "confidence": 0.5
+      },
+      {
+        "diktnummer": "8",
+        "minnesanteckning": "Pillsen vid kärnblick",
+        "poang_officiell": "4",
+        "poang_alla": [
+          "4"
+        ],
+        "kommentar": null,
+        "confidence": 0.5
+      }
+    ]
+  },
+  "P1169241.JPG": {
+    "ovrig_text": "Jonas läser dikter, v (rosa), u (gul)",
+    "rader": [
+      {
+        "diktnummer": "1",
+        "minnesanteckning": null,
+        "poang_officiell": "3",
+        "poang_alla": [
+          "3"
+        ],
+        "kommentar": null,
+        "confidence": 0.95
+      },
+      {
+        "diktnummer": "2",
+        "minnesanteckning": null,
+        "poang_officiell": "2",
+        "poang_alla": [
+          "2"
+        ],
+        "kommentar": null,
+        "confidence": 0.9
+      },
+      {
+        "diktnummer": "3",
+        "minnesanteckning": null,
+        "poang_officiell": "4",
+        "poang_alla": [
+          "4"
+        ],
+        "kommentar": null,
+        "confidence": 0.95
+      },
+      {
+        "diktnummer": "4",
+        "minnesanteckning": null,
+        "poang_officiell": "4",
+        "poang_alla": [
+          "4"
+        ],
+        "kommentar": null,
+        "confidence": 0.95
+      },
+      {
+        "diktnummer": "5",
+        "minnesanteckning": null,
+        "poang_officiell": "4,5",
+        "poang_alla": [
+          "4,5"
+        ],
+        "kommentar": null,
+        "confidence": 0.95
+      },
+      {
+        "diktnummer": "6",
+        "minnesanteckning": null,
+        "poang_officiell": "4,5",
+        "poang_alla": [
+          "4,5"
+        ],
+        "kommentar": null,
+        "confidence": 0.9
+      },
+      {
+        "diktnummer": "7",
+        "minnesanteckning": null,
+        "poang_officiell": "4",
+        "poang_alla": [
+          "4"
+        ],
+        "kommentar": null,
+        "confidence": 0.95
+      },
+      {
+        "diktnummer": "8",
+        "minnesanteckning": null,
+        "poang_officiell": "5",
+        "poang_alla": [
+          "5"
+        ],
+        "kommentar": null,
+        "confidence": 0.9
+      }
+    ]
+  },
+  "P1169243.JPG": {
+    "ovrig_text": "Jonas läser dikter",
+    "rader": [
+      {
+        "diktnummer": "1",
+        "minnesanteckning": "Rytm, mingel, kroppslig",
+        "poang_officiell": "3.5",
+        "poang_alla": [
+          "3.5"
+        ],
+        "kommentar": "Bra story",
+        "confidence": 0.5
+      },
+      {
+        "diktnummer": "2",
+        "minnesanteckning": "k..kommer",
+        "poang_officiell": "2,8",
+        "poang_alla": [
+          "2,8"
+        ],
+        "kommentar": "",
+        "confidence": 0.3
+      },
+      {
+        "diktnummer": "3",
+        "minnesanteckning": "Inspireras hur dyt...",
+        "poang_officiell": "2",
+        "poang_alla": [
+          "2"
+        ],
+        "kommentar": "",
+        "confidence": 0.3
+      },
+      {
+        "diktnummer": "4",
+        "minnesanteckning": "Holis hur se z...mer",
+        "poang_officiell": "3.1",
+        "poang_alla": [
+          "3.1"
+        ],
+        "kommentar": "",
+        "confidence": 0.3
+      },
+      {
+        "diktnummer": "5",
+        "minnesanteckning": "Surrabad hor",
+        "poang_officiell": "4.1",
+        "poang_alla": [
+          "4.1"
+        ],
+        "kommentar": "",
+        "confidence": 0.35
+      },
+      {
+        "diktnummer": "6",
+        "minnesanteckning": "Vit...",
+        "poang_officiell": "4.5",
+        "poang_alla": [
+          "4.5"
+        ],
+        "kommentar": "Bra tempo",
+        "confidence": 0.3
+      },
+      {
+        "diktnummer": "7",
+        "minnesanteckning": "Receptfons",
+        "poang_officiell": "3,8",
+        "poang_alla": [
+          "3,8"
+        ],
+        "kommentar": "",
+        "confidence": 0.35
+      },
+      {
+        "diktnummer": "8",
+        "minnesanteckning": "Flyktfens",
+        "poang_officiell": "4,8",
+        "poang_alla": [
+          "4,8"
+        ],
+        "kommentar": "",
+        "confidence": 0.3
+      }
+    ]
+  },
+  "P1169246.JPG": {
+    "ovrig_text": "Jonas läser dikter. Kantanteckning: Geniala texter samtliga",
+    "rader": [
+      {
+        "diktnummer": "1",
+        "minnesanteckning": null,
+        "poang_officiell": "4",
+        "poang_alla": [
+          "4"
+        ],
+        "kommentar": "lite väl fort",
+        "confidence": 0.7
+      },
+      {
+        "diktnummer": "2",
+        "minnesanteckning": null,
+        "poang_officiell": "4",
+        "poang_alla": [
+          "4"
+        ],
+        "kommentar": "för fort, KUL",
+        "confidence": 0.5
+      },
+      {
+        "diktnummer": "3",
+        "minnesanteckning": null,
+        "poang_officiell": "5",
+        "poang_alla": [
+          "5"
+        ],
+        "kommentar": "Bra framförande och betoning",
+        "confidence": 0.5
+      },
+      {
+        "diktnummer": "4",
+        "minnesanteckning": null,
+        "poang_officiell": "3",
+        "poang_alla": [
+          "3"
+        ],
+        "kommentar": null,
+        "confidence": 0.6
+      },
+      {
+        "diktnummer": "5",
+        "minnesanteckning": null,
+        "poang_officiell": "5",
+        "poang_alla": [
+          "5"
+        ],
+        "kommentar": "",
+        "confidence": 0.4
+      },
+      {
+        "diktnummer": "6",
+        "minnesanteckning": null,
+        "poang_officiell": "4",
+        "poang_alla": [
+          "4"
+        ],
+        "kommentar": "",
+        "confidence": 0.6
+      },
+      {
+        "diktnummer": "7",
+        "minnesanteckning": null,
+        "poang_officiell": "3",
+        "poang_alla": [
+          "3"
+        ],
+        "kommentar": "",
+        "confidence": 0.6
+      },
+      {
+        "diktnummer": "8",
+        "minnesanteckning": null,
+        "poang_officiell": "4",
+        "poang_alla": [
+          "4"
+        ],
+        "kommentar": "",
+        "confidence": 0.5
+      }
+    ]
+  },
+  "P1169245.JPG": {
+    "ovrig_text": "Jonas läser dikter",
+    "rader": [
+      {
+        "diktnummer": "1",
+        "minnesanteckning": "Sluk'poet'",
+        "poang_officiell": "5",
+        "poang_alla": [
+          "5"
+        ],
+        "kommentar": "Överraskande, mycket bra",
+        "confidence": 0.45
+      },
+      {
+        "diktnummer": "2",
+        "minnesanteckning": "Rymdfäret",
+        "poang_officiell": "4",
+        "poang_alla": [
+          "4"
+        ],
+        "kommentar": "Tänkvärd",
+        "confidence": 0.4
+      },
+      {
+        "diktnummer": "3",
+        "minnesanteckning": "Här poet",
+        "poang_officiell": "4",
+        "poang_alla": [
+          "4"
+        ],
+        "kommentar": "Underfundig",
+        "confidence": 0.4
+      },
+      {
+        "diktnummer": "4",
+        "minnesanteckning": "Hela minnet store mig",
+        "poang_officiell": "5",
+        "poang_alla": [
+          "5"
+        ],
+        "kommentar": "Lite ledsam",
+        "confidence": 0.4
+      },
+      {
+        "diktnummer": "5",
+        "minnesanteckning": "Länkeson",
+        "poang_officiell": "4,2",
+        "poang_alla": [
+          "4,2"
+        ],
+        "kommentar": "Positiv vändning",
+        "confidence": 0.4
+      },
+      {
+        "diktnummer": "6",
+        "minnesanteckning": "Väntmal",
+        "poang_officiell": "4",
+        "poang_alla": [
+          "4"
+        ],
+        "kommentar": "Spännande",
+        "confidence": 0.45
+      },
+      {
+        "diktnummer": "7",
+        "minnesanteckning": "Relefs",
+        "poang_officiell": "4",
+        "poang_alla": [
+          "4"
+        ],
+        "kommentar": "Säger mycket",
+        "confidence": 0.5
+      },
+      {
+        "diktnummer": "8",
+        "minnesanteckning": "Prenimays",
+        "poang_officiell": "4,8",
+        "poang_alla": [
+          "4,8"
+        ],
+        "kommentar": "Rolig",
+        "confidence": 0.35
+      }
+    ]
+  },
+  "P1169248.JPG": {
+    "ovrig_text": "Jonas läser dikter",
+    "rader": [
+      {
+        "diktnummer": "1",
+        "minnesanteckning": null,
+        "poang_officiell": "3",
+        "poang_alla": [
+          "3"
+        ],
+        "kommentar": "Lite snabbt på ngt ställe",
+        "confidence": 0.4
+      },
+      {
+        "diktnummer": "2",
+        "minnesanteckning": null,
+        "poang_officiell": "4,5",
+        "poang_alla": [
+          "4,5"
+        ],
+        "kommentar": "rolig",
+        "confidence": 0.5
+      },
+      {
+        "diktnummer": "3",
+        "minnesanteckning": null,
+        "poang_officiell": "4,5",
+        "poang_alla": [
+          "4,5"
+        ],
+        "kommentar": "spännande rar",
+        "confidence": 0.4
+      },
+      {
+        "diktnummer": "4",
+        "minnesanteckning": null,
+        "poang_officiell": "4",
+        "poang_alla": [
+          "4"
+        ],
+        "kommentar": "bra slut",
+        "confidence": 0.5
+      },
+      {
+        "diktnummer": "5",
+        "minnesanteckning": null,
+        "poang_officiell": "5",
+        "poang_alla": [
+          "5"
+        ],
+        "kommentar": "Jättemycket humor",
+        "confidence": 0.35
+      },
+      {
+        "diktnummer": "6",
+        "minnesanteckning": null,
+        "poang_officiell": "4",
+        "poang_alla": [
+          "4"
+        ],
+        "kommentar": "Historiskt kunnig",
+        "confidence": 0.4
+      },
+      {
+        "diktnummer": "7",
+        "minnesanteckning": null,
+        "poang_officiell": "4",
+        "poang_alla": [
+          "4"
+        ],
+        "kommentar": null,
+        "confidence": 0.5
+      },
+      {
+        "diktnummer": "8",
+        "minnesanteckning": null,
+        "poang_officiell": "4,5",
+        "poang_alla": [
+          "4,5"
+        ],
+        "kommentar": null,
+        "confidence": 0.5
+      }
+    ]
+  },
+  "P1169247.JPG": {
+    "ovrig_text": "Jonas läser dikter",
+    "rader": [
+      {
+        "diktnummer": "1",
+        "minnesanteckning": "Välkänd man",
+        "poang_officiell": "5",
+        "poang_alla": [
+          "5"
+        ],
+        "kommentar": "Annorlunda spänning",
+        "confidence": 0.5
+      },
+      {
+        "diktnummer": "2",
+        "minnesanteckning": "public",
+        "poang_officiell": "4,5",
+        "poang_alla": [
+          "4,5"
+        ],
+        "kommentar": null,
+        "confidence": 0.5
+      },
+      {
+        "diktnummer": "3",
+        "minnesanteckning": "public",
+        "poang_officiell": "5",
+        "poang_alla": [
+          "5"
+        ],
+        "kommentar": "",
+        "confidence": 0.55
+      },
+      {
+        "diktnummer": "4",
+        "minnesanteckning": "Hela havet stormar!",
+        "poang_officiell": "5",
+        "poang_alla": [
+          "5"
+        ],
+        "kommentar": "Fantastiskt framförande, Bra story",
+        "confidence": 0.6
+      },
+      {
+        "diktnummer": "5",
+        "minnesanteckning": "Entusiasm",
+        "poang_officiell": "4,5",
+        "poang_alla": [
+          "4,5"
+        ],
+        "kommentar": "Glädje",
+        "confidence": 0.5
+      },
+      {
+        "diktnummer": "6",
+        "minnesanteckning": "Väntin",
+        "poang_officiell": "5",
+        "poang_alla": [
+          "5"
+        ],
+        "kommentar": "",
+        "confidence": 0.4
+      },
+      {
+        "diktnummer": "7",
+        "minnesanteckning": "Recept",
+        "poang_officiell": "5",
+        "poang_alla": [
+          "5"
+        ],
+        "kommentar": "Bra skådespelare",
+        "confidence": 0.45
+      },
+      {
+        "diktnummer": "8",
+        "minnesanteckning": "Språk-politik",
+        "poang_officiell": "5",
+        "poang_alla": [
+          "5"
+        ],
+        "kommentar": "Spännande, vilken inlevelse",
+        "confidence": 0.4
+      }
+    ]
+  },
+  "P1169249.JPG": {
+    "ovrig_text": "Jonas läser dikter",
+    "rader": [
+      {
+        "diktnummer": "1",
+        "minnesanteckning": "Mellody butter",
+        "poang_officiell": "4",
+        "poang_alla": [
+          "4"
+        ],
+        "kommentar": "",
+        "confidence": 0.5
+      },
+      {
+        "diktnummer": "2",
+        "minnesanteckning": "Kvinna a. vl. av depression",
+        "poang_officiell": "3",
+        "poang_alla": [
+          "3"
+        ],
+        "kommentar": "",
+        "confidence": 0.45
+      },
+      {
+        "diktnummer": "3",
+        "minnesanteckning": "Intervju dig",
+        "poang_officiell": "4",
+        "poang_alla": [
+          "4"
+        ],
+        "kommentar": "",
+        "confidence": 0.4
+      },
+      {
+        "diktnummer": "4",
+        "minnesanteckning": "Nanfos från aldrig",
+        "poang_officiell": "2.5",
+        "poang_alla": [
+          "2.5"
+        ],
+        "kommentar": "Lite rörig",
+        "confidence": 0.4
+      },
+      {
+        "diktnummer": "5",
+        "minnesanteckning": "Tar den doktor",
+        "poang_officiell": "5",
+        "poang_alla": [
+          "5"
+        ],
+        "kommentar": "Mkt bra framfört",
+        "confidence": 0.35
+      },
+      {
+        "diktnummer": "6",
+        "minnesanteckning": "Gladgren, a.34-ama a. hej",
+        "poang_officiell": "4",
+        "poang_alla": [
+          "4"
+        ],
+        "kommentar": "",
+        "confidence": 0.3
+      },
+      {
+        "diktnummer": "7",
+        "minnesanteckning": "Recept",
+        "poang_officiell": "2.5",
+        "poang_alla": [
+          "2.5"
+        ],
+        "kommentar": "Gick fort",
+        "confidence": 0.35
+      },
+      {
+        "diktnummer": "8",
+        "minnesanteckning": "Speie polisel",
+        "poang_officiell": "5",
+        "poang_alla": [
+          "5"
+        ],
+        "kommentar": "Bäst",
+        "confidence": 0.3
+      }
+    ]
+  },
+  "P1169254.JPG": {
+    "ovrig_text": "Jonas läser dikter",
+    "rader": [
+      {
+        "diktnummer": "1",
+        "minnesanteckning": null,
+        "poang_officiell": "3",
+        "poang_alla": [
+          "3"
+        ],
+        "kommentar": "Du framförde den så inlevelsefullt",
+        "confidence": 0.6
+      },
+      {
+        "diktnummer": "2",
+        "minnesanteckning": null,
+        "poang_officiell": "4",
+        "poang_alla": [
+          "4"
+        ],
+        "kommentar": null,
+        "confidence": 0.85
+      },
+      {
+        "diktnummer": "3",
+        "minnesanteckning": null,
+        "poang_officiell": "5",
+        "poang_alla": [
+          "5"
+        ],
+        "kommentar": "Så fin och rolig dikt",
+        "confidence": 0.75
+      },
+      {
+        "diktnummer": "4",
+        "minnesanteckning": null,
+        "poang_officiell": "4",
+        "poang_alla": [
+          "4"
+        ],
+        "kommentar": null,
+        "confidence": 0.85
+      },
+      {
+        "diktnummer": "5",
+        "minnesanteckning": null,
+        "poang_officiell": "3.5",
+        "poang_alla": [
+          "3.5"
+        ],
+        "kommentar": null,
+        "confidence": 0.8
+      },
+      {
+        "diktnummer": "6",
+        "minnesanteckning": null,
+        "poang_officiell": "3.5",
+        "poang_alla": [
+          "3.5"
+        ],
+        "kommentar": null,
+        "confidence": 0.8
+      },
+      {
+        "diktnummer": "7",
+        "minnesanteckning": null,
+        "poang_officiell": "5",
+        "poang_alla": [
+          "5"
+        ],
+        "kommentar": null,
+        "confidence": 0.8
+      },
+      {
+        "diktnummer": "8",
+        "minnesanteckning": null,
+        "poang_officiell": "5",
+        "poang_alla": [
+          "5"
+        ],
+        "kommentar": "Rolig dikt",
+        "confidence": 0.75
+      }
+    ]
+  },
+  "P1169250.JPG": {
+    "ovrig_text": "Jonas läser dikter\nT: [oläsligt]\nS: [oläsligt]",
+    "rader": [
+      {
+        "diktnummer": "1",
+        "minnesanteckning": "Stop mani, Valdson, Ond tillställs till, Bra hantning",
+        "poang_officiell": "3",
+        "poang_alla": [
+          "3"
+        ],
+        "kommentar": null,
+        "confidence": 0.4
+      },
+      {
+        "diktnummer": "2",
+        "minnesanteckning": "Komma in i depression, Kosmos, nymåne",
+        "poang_officiell": "2",
+        "poang_alla": [
+          "2"
+        ],
+        "kommentar": null,
+        "confidence": 0.5
+      },
+      {
+        "diktnummer": "3",
+        "minnesanteckning": "Gallt oraun, Smärtslig, Hoppast bär",
+        "poang_officiell": "4",
+        "poang_alla": [
+          "4"
+        ],
+        "kommentar": "Fantasifullt med lustigheter, underhållande",
+        "confidence": 0.4
+      },
+      {
+        "diktnummer": "4",
+        "minnesanteckning": "Havet storm, Vinaton",
+        "poang_officiell": "3",
+        "poang_alla": [
+          "3"
+        ],
+        "kommentar": "Existensiellt",
+        "confidence": 0.5
+      },
+      {
+        "diktnummer": "5",
+        "minnesanteckning": "Ont i magen, hos doktorn, Salen minimering",
+        "poang_officiell": "5",
+        "poang_alla": [
+          "5"
+        ],
+        "kommentar": "Rolig och Positiv, Häftiga vändningar",
+        "confidence": 0.5
+      },
+      {
+        "diktnummer": "6",
+        "minnesanteckning": "Evolutionran, Kroppen Välsig, Armare Naplen",
+        "poang_officiell": "3",
+        "poang_alla": [
+          "3"
+        ],
+        "kommentar": null,
+        "confidence": 0.4
+      },
+      {
+        "diktnummer": "7",
+        "minnesanteckning": "Recept",
+        "poang_officiell": "3",
+        "poang_alla": [
+          "3"
+        ],
+        "kommentar": null,
+        "confidence": 0.6
+      },
+      {
+        "diktnummer": "8",
+        "minnesanteckning": "Spegelrum",
+        "poang_officiell": "5",
+        "poang_alla": [
+          "5"
+        ],
+        "kommentar": null,
+        "confidence": 0.5
+      }
+    ]
+  },
+  "P1169251.JPG": {
+    "ovrig_text": "Jonas läser dikter 1-5",
+    "rader": [
+      {
+        "diktnummer": "1",
+        "minnesanteckning": "Slagtampen",
+        "poang_officiell": "4",
+        "poang_alla": [
+          "4"
+        ],
+        "kommentar": "Spännande – hur ska detta sluta? Bra framförande",
+        "confidence": 0.7
+      },
+      {
+        "diktnummer": "2",
+        "minnesanteckning": "Strålen",
+        "poang_officiell": "3",
+        "poang_alla": [
+          "3"
+        ],
+        "kommentar": "Spretig",
+        "confidence": 0.7
+      },
+      {
+        "diktnummer": "3",
+        "minnesanteckning": "Kärleksdikter",
+        "poang_officiell": "5",
+        "poang_alla": [
+          "5"
+        ],
+        "kommentar": "Kreativ Vacker",
+        "confidence": 0.7
+      },
+      {
+        "diktnummer": "4",
+        "minnesanteckning": "Kuratorsamtal",
+        "poang_officiell": "3",
+        "poang_alla": [
+          "3"
+        ],
+        "kommentar": "Målande",
+        "confidence": 0.75
+      },
+      {
+        "diktnummer": "5",
+        "minnesanteckning": "Kroppen",
+        "poang_officiell": "5",
+        "poang_alla": [
+          "5"
+        ],
+        "kommentar": "Vill bara att den inte ska ta slut. Berätta mer och mer!",
+        "confidence": 0.7
+      },
+      {
+        "diktnummer": "6",
+        "minnesanteckning": "Väntan",
+        "poang_officiell": "2",
+        "poang_alla": [
+          "2"
+        ],
+        "kommentar": null,
+        "confidence": 0.8
+      },
+      {
+        "diktnummer": "7",
+        "minnesanteckning": "Receptet",
+        "poang_officiell": "3",
+        "poang_alla": [
+          "3"
+        ],
+        "kommentar": null,
+        "confidence": 0.8
+      },
+      {
+        "diktnummer": "8",
+        "minnesanteckning": "Språkpulsen",
+        "poang_officiell": "4",
+        "poang_alla": [
+          "4"
+        ],
+        "kommentar": null,
+        "confidence": 0.75
+      }
+    ]
+  },
+  "P1169252.JPG": {
+    "ovrig_text": "Jonas läser dikter",
+    "rader": [
+      {
+        "diktnummer": "1",
+        "minnesanteckning": null,
+        "poang_officiell": "2",
+        "poang_alla": [
+          "2"
+        ],
+        "kommentar": "Finurligt slut",
+        "confidence": 0.7
+      },
+      {
+        "diktnummer": "2",
+        "minnesanteckning": null,
+        "poang_officiell": "2",
+        "poang_alla": [
+          "2"
+        ],
+        "kommentar": "Lite spretigt",
+        "confidence": 0.75
+      },
+      {
+        "diktnummer": "3",
+        "minnesanteckning": null,
+        "poang_officiell": "3",
+        "poang_alla": [
+          "3"
+        ],
+        "kommentar": "Dramatiskt!!",
+        "confidence": 0.7
+      },
+      {
+        "diktnummer": "4",
+        "minnesanteckning": null,
+        "poang_officiell": "4",
+        "poang_alla": [
+          "4"
+        ],
+        "kommentar": "Bra story och slut",
+        "confidence": 0.55
+      },
+      {
+        "diktnummer": "5",
+        "minnesanteckning": null,
+        "poang_officiell": "5",
+        "poang_alla": [
+          "5"
+        ],
+        "kommentar": "Sammanhållen berättelse, känns bra!",
+        "confidence": 0.65
+      },
+      {
+        "diktnummer": "6",
+        "minnesanteckning": null,
+        "poang_officiell": "2",
+        "poang_alla": [
+          "2"
+        ],
+        "kommentar": "Berättelsen?",
+        "confidence": 0.55
+      },
+      {
+        "diktnummer": "7",
+        "minnesanteckning": null,
+        "poang_officiell": "4",
+        "poang_alla": [
+          "4"
+        ],
+        "kommentar": "Bra historia, rim och slut",
+        "confidence": 0.4
+      },
+      {
+        "diktnummer": "8",
+        "minnesanteckning": null,
+        "poang_officiell": "5",
+        "poang_alla": [
+          "5"
+        ],
+        "kommentar": "Fyndig berättelse, bra ordlekar, bra slut",
+        "confidence": 0.7
+      }
+    ]
+  },
+  "P1169253.JPG": {
+    "ovrig_text": "Jonas läser dikter",
+    "rader": [
+      {
+        "diktnummer": "1",
+        "minnesanteckning": "känsla teta, medlsuna man",
+        "poang_officiell": "4,7",
+        "poang_alla": [
+          "4,7"
+        ],
+        "kommentar": "Skorrar i mina hörapparater",
+        "confidence": 0.4
+      },
+      {
+        "diktnummer": "2",
+        "minnesanteckning": "upp å kima wll nsellen dig",
+        "poang_officiell": "4,3",
+        "poang_alla": [
+          "4,3"
+        ],
+        "kommentar": "",
+        "confidence": 0.4
+      },
+      {
+        "diktnummer": "3",
+        "minnesanteckning": "hela av dig",
+        "poang_officiell": "4,9",
+        "poang_alla": [
+          "4,9"
+        ],
+        "kommentar": "",
+        "confidence": 0.5
+      },
+      {
+        "diktnummer": "4",
+        "minnesanteckning": "Hela havet stormar",
+        "poang_officiell": "4,1",
+        "poang_alla": [
+          "4,1"
+        ],
+        "kommentar": "",
+        "confidence": 0.6
+      },
+      {
+        "diktnummer": "5",
+        "minnesanteckning": "Eständingen hin ötelniv",
+        "poang_officiell": "5,0",
+        "poang_alla": [
+          "5,0"
+        ],
+        "kommentar": "",
+        "confidence": 0.3
+      },
+      {
+        "diktnummer": "6",
+        "minnesanteckning": "banden hin öletniv",
+        "poang_officiell": "3,7",
+        "poang_alla": [
+          "3,7"
+        ],
+        "kommentar": null,
+        "confidence": 0.3
+      },
+      {
+        "diktnummer": "7",
+        "minnesanteckning": "Recept den komma",
+        "poang_officiell": "3,5",
+        "poang_alla": [
+          "3,5"
+        ],
+        "kommentar": null,
+        "confidence": 0.4
+      },
+      {
+        "diktnummer": "8",
+        "minnesanteckning": "Språk",
+        "poang_officiell": "4,2",
+        "poang_alla": [
+          "4,2"
+        ],
+        "kommentar": null,
+        "confidence": 0.7
+      }
+    ]
+  },
+  "P1169256.JPG": {
+    "ovrig_text": "Jonas läser dikter",
+    "rader": [
+      {
+        "diktnummer": "1",
+        "minnesanteckning": null,
+        "poang_officiell": "3",
+        "poang_alla": [
+          "3"
+        ],
+        "kommentar": null,
+        "confidence": 0.8
+      },
+      {
+        "diktnummer": "2",
+        "minnesanteckning": null,
+        "poang_officiell": "2",
+        "poang_alla": [
+          "2"
+        ],
+        "kommentar": null,
+        "confidence": 0.85
+      },
+      {
+        "diktnummer": "3",
+        "minnesanteckning": null,
+        "poang_officiell": "3,2",
+        "poang_alla": [
+          "3,2"
+        ],
+        "kommentar": null,
+        "confidence": 0.8
+      },
+      {
+        "diktnummer": "4",
+        "minnesanteckning": null,
+        "poang_officiell": "3,5",
+        "poang_alla": [
+          "3,5"
+        ],
+        "kommentar": null,
+        "confidence": 0.8
+      },
+      {
+        "diktnummer": "5",
+        "minnesanteckning": null,
+        "poang_officiell": "4,0",
+        "poang_alla": [
+          "4,0"
+        ],
+        "kommentar": null,
+        "confidence": 0.85
+      },
+      {
+        "diktnummer": "6",
+        "minnesanteckning": null,
+        "poang_officiell": "4,5",
+        "poang_alla": [
+          "4,5"
+        ],
+        "kommentar": null,
+        "confidence": 0.8
+      },
+      {
+        "diktnummer": "7",
+        "minnesanteckning": null,
+        "poang_officiell": "4,1",
+        "poang_alla": [
+          "4,1"
+        ],
+        "kommentar": null,
+        "confidence": 0.8
+      },
+      {
+        "diktnummer": "8",
+        "minnesanteckning": null,
+        "poang_officiell": "4,5",
+        "poang_alla": [
+          "4,5"
+        ],
+        "kommentar": null,
+        "confidence": 0.8
+      }
+    ]
+  },
+  "P1169259.JPG": {
+    "ovrig_text": "Jonas läser dikter",
+    "rader": [
+      {
+        "diktnummer": "1",
+        "minnesanteckning": null,
+        "poang_officiell": "4,5",
+        "poang_alla": [
+          "4,5"
+        ],
+        "kommentar": null,
+        "confidence": 0.85
+      },
+      {
+        "diktnummer": "2",
+        "minnesanteckning": null,
+        "poang_officiell": "3,5",
+        "poang_alla": [
+          "3,5"
+        ],
+        "kommentar": null,
+        "confidence": 0.85
+      },
+      {
+        "diktnummer": "3",
+        "minnesanteckning": null,
+        "poang_officiell": "3,5",
+        "poang_alla": [
+          "3,5"
+        ],
+        "kommentar": null,
+        "confidence": 0.85
+      },
+      {
+        "diktnummer": "4",
+        "minnesanteckning": null,
+        "poang_officiell": "3",
+        "poang_alla": [
+          "3"
+        ],
+        "kommentar": null,
+        "confidence": 0.85
+      },
+      {
+        "diktnummer": "5",
+        "minnesanteckning": null,
+        "poang_officiell": "4",
+        "poang_alla": [
+          "4"
+        ],
+        "kommentar": null,
+        "confidence": 0.85
+      },
+      {
+        "diktnummer": "6",
+        "minnesanteckning": null,
+        "poang_officiell": "4,5",
+        "poang_alla": [
+          "4,5"
+        ],
+        "kommentar": null,
+        "confidence": 0.85
+      },
+      {
+        "diktnummer": "7",
+        "minnesanteckning": null,
+        "poang_officiell": "3,5",
+        "poang_alla": [
+          "3,5"
+        ],
+        "kommentar": null,
+        "confidence": 0.85
+      },
+      {
+        "diktnummer": "8",
+        "minnesanteckning": null,
+        "poang_officiell": "4,5",
+        "poang_alla": [
+          "4,5"
+        ],
+        "kommentar": null,
+        "confidence": 0.85
+      }
+    ]
+  },
+  "P1169255.JPG": {
+    "ovrig_text": "Jonas läser dikter",
+    "rader": [
+      {
+        "diktnummer": "1",
+        "minnesanteckning": "Poeten /",
+        "poang_officiell": "4,5",
+        "poang_alla": [
+          "4,5"
+        ],
+        "kommentar": "Härlig lek med ord. Oväntade rader, läs ej för fort",
+        "confidence": 0.45
+      },
+      {
+        "diktnummer": "2",
+        "minnesanteckning": "Depression",
+        "poang_officiell": "3,7",
+        "poang_alla": [
+          "3,7"
+        ],
+        "kommentar": "",
+        "confidence": 0.4
+      },
+      {
+        "diktnummer": "3",
+        "minnesanteckning": "Håla ögon",
+        "poang_officiell": "3,9",
+        "poang_alla": [
+          "3,9"
+        ],
+        "kommentar": "Bra läst. Tydligt. Blir glad över det oväntade.",
+        "confidence": 0.4
+      },
+      {
+        "diktnummer": "4",
+        "minnesanteckning": "Kuransen / bron",
+        "poang_officiell": "4,0",
+        "poang_alla": [
+          "4,0"
+        ],
+        "kommentar": "Annorlunda än de andra tre. Fascineras ändå.",
+        "confidence": 0.4
+      },
+      {
+        "diktnummer": "5",
+        "minnesanteckning": "Delben / Säg",
+        "poang_officiell": "4,1",
+        "poang_alla": [
+          "4,1"
+        ],
+        "kommentar": "Växte",
+        "confidence": 0.4
+      },
+      {
+        "diktnummer": "6",
+        "minnesanteckning": "Udulrat Tunnel/Lio",
+        "poang_officiell": "3,9",
+        "poang_alla": [
+          "3,9"
+        ],
+        "kommentar": "Rösten lite ansträngd, trött",
+        "confidence": 0.35
+      },
+      {
+        "diktnummer": "7",
+        "minnesanteckning": "Re capt",
+        "poang_officiell": "4,9",
+        "poang_alla": [
+          "4,9"
+        ],
+        "kommentar": "Gillade ditt sätt att läsa dikten. Gillade receptet.",
+        "confidence": 0.35
+      },
+      {
+        "diktnummer": "8",
+        "minnesanteckning": "Spralipolis",
+        "poang_officiell": "4,3",
+        "poang_alla": [
+          "4,3"
+        ],
+        "kommentar": "Gillade temat med ordklasser.",
+        "confidence": 0.5
+      }
+    ]
+  },
+  "P1169257.JPG": {
+    "ovrig_text": "Jonas läser dikter",
+    "rader": [
+      {
+        "diktnummer": "1",
+        "minnesanteckning": "man mtr i buse",
+        "poang_officiell": "3",
+        "poang_alla": [
+          "3"
+        ],
+        "kommentar": "lite snabbt tidvis",
+        "confidence": 0.55
+      },
+      {
+        "diktnummer": "2",
+        "minnesanteckning": "Mjöqvt",
+        "poang_officiell": "3,7",
+        "poang_alla": [
+          "3,7"
+        ],
+        "kommentar": null,
+        "confidence": 0.45
+      },
+      {
+        "diktnummer": "3",
+        "minnesanteckning": "Mjöqvt",
+        "poang_officiell": "3,8",
+        "poang_alla": [
+          "3,8"
+        ],
+        "kommentar": null,
+        "confidence": 0.45
+      },
+      {
+        "diktnummer": "4",
+        "minnesanteckning": "och tursnic hela kropp eförn",
+        "poang_officiell": "3,8",
+        "poang_alla": [
+          "3,8"
+        ],
+        "kommentar": null,
+        "confidence": 0.4
+      },
+      {
+        "diktnummer": "5",
+        "minnesanteckning": "Dok hva",
+        "poang_officiell": "3,9",
+        "poang_alla": [
+          "3,9"
+        ],
+        "kommentar": null,
+        "confidence": 0.45
+      },
+      {
+        "diktnummer": "6",
+        "minnesanteckning": "Vänbu-",
+        "poang_officiell": "4",
+        "poang_alla": [
+          "4"
+        ],
+        "kommentar": null,
+        "confidence": 0.5
+      },
+      {
+        "diktnummer": "7",
+        "minnesanteckning": "kreqpt",
+        "poang_officiell": "4",
+        "poang_alla": [
+          "4"
+        ],
+        "kommentar": null,
+        "confidence": 0.4
+      },
+      {
+        "diktnummer": "8",
+        "minnesanteckning": "Språkarts",
+        "poang_officiell": "4,1",
+        "poang_alla": [
+          "4,1"
+        ],
+        "kommentar": null,
+        "confidence": 0.45
+      }
+    ]
+  },
+  "P1169258.JPG": {
+    "ovrig_text": "Jonas läser dikter",
+    "rader": [
+      {
+        "diktnummer": "1",
+        "minnesanteckning": "GÄLLET",
+        "poang_officiell": "3,8",
+        "poang_alla": [
+          "3,8"
+        ],
+        "kommentar": "FÖR SNABBT IBLAND",
+        "confidence": 0.75
+      },
+      {
+        "diktnummer": "2",
+        "minnesanteckning": "UFO STJÄRNTU",
+        "poang_officiell": "4,2",
+        "poang_alla": [
+          "4,2"
+        ],
+        "kommentar": null,
+        "confidence": 0.6
+      },
+      {
+        "diktnummer": "3",
+        "minnesanteckning": "IHOPPLÖST KÄR",
+        "poang_officiell": "4,4",
+        "poang_alla": [
+          "4,4"
+        ],
+        "kommentar": null,
+        "confidence": 0.65
+      },
+      {
+        "diktnummer": "4",
+        "minnesanteckning": "HELA HAVET STORMAR",
+        "poang_officiell": "3,5",
+        "poang_alla": [
+          "3,5"
+        ],
+        "kommentar": null,
+        "confidence": 0.8
+      },
+      {
+        "diktnummer": "5",
+        "minnesanteckning": "ONT I MAGEN",
+        "poang_officiell": "4,6",
+        "poang_alla": [
+          "4,6"
+        ],
+        "kommentar": null,
+        "confidence": 0.8
+      },
+      {
+        "diktnummer": "6",
+        "minnesanteckning": "UNIVERSUM",
+        "poang_officiell": "4,0",
+        "poang_alla": [
+          "4,0"
+        ],
+        "kommentar": "",
+        "confidence": 0.75
+      },
+      {
+        "diktnummer": "7",
+        "minnesanteckning": "MATRECEPT",
+        "poang_officiell": "3,8",
+        "poang_alla": [
+          "3,8"
+        ],
+        "kommentar": "Kortare",
+        "confidence": 0.75
+      },
+      {
+        "diktnummer": "8",
+        "minnesanteckning": "SPRÅKPOLIS",
+        "poang_officiell": "4,4",
+        "poang_alla": [
+          "4,4"
+        ],
+        "kommentar": "",
+        "confidence": 0.7
+      }
+    ]
+  },
+  "P1169261.JPG": {
+    "ovrig_text": "Jonas läser dikter\nPoeten shan",
+    "rader": [
+      {
+        "diktnummer": "1",
+        "minnesanteckning": "Fröjda äpplen-cider, mun\nhemma man",
+        "poang_officiell": "4",
+        "poang_alla": [
+          "4"
+        ],
+        "kommentar": "Bra associationer",
+        "confidence": 0.6
+      },
+      {
+        "diktnummer": "2",
+        "minnesanteckning": "utphstion ufo",
+        "poang_officiell": "2",
+        "poang_alla": [
+          "2"
+        ],
+        "kommentar": "väldig fantasi",
+        "confidence": 0.55
+      },
+      {
+        "diktnummer": "3",
+        "minnesanteckning": "malt av",
+        "poang_officiell": "2",
+        "poang_alla": [
+          "2"
+        ],
+        "kommentar": "",
+        "confidence": 0.5
+      },
+      {
+        "diktnummer": "4",
+        "minnesanteckning": "hela havet stormar",
+        "poang_officiell": "1",
+        "poang_alla": [
+          "1"
+        ],
+        "kommentar": "Svårbedömd rörig",
+        "confidence": 0.6
+      },
+      {
+        "diktnummer": "5",
+        "minnesanteckning": "ont i magen",
+        "poang_officiell": "4",
+        "poang_alla": [
+          "4"
+        ],
+        "kommentar": "",
+        "confidence": 0.45
+      },
+      {
+        "diktnummer": "6",
+        "minnesanteckning": "'jordens fjubse'",
+        "poang_officiell": "3",
+        "poang_alla": [
+          "3"
+        ],
+        "kommentar": "underfundig",
+        "confidence": 0.45
+      },
+      {
+        "diktnummer": "7",
+        "minnesanteckning": "Recept",
+        "poang_officiell": "2",
+        "poang_alla": [
+          "2"
+        ],
+        "kommentar": null,
+        "confidence": 0.5
+      },
+      {
+        "diktnummer": "8",
+        "minnesanteckning": "Späk persen",
+        "poang_officiell": "5",
+        "poang_alla": [
+          "5"
+        ],
+        "kommentar": "Mkt underfundig med en portion sanning",
+        "confidence": 0.55
+      }
+    ]
+  },
+  "P1169260.JPG": {
+    "ovrig_text": "Poetry Slam CCC framförande rökt-ennt / Jonas läser dikter",
+    "rader": [
+      {
+        "diktnummer": "1",
+        "minnesanteckning": "berosadman blommor slö hjot Muckapräln post",
+        "poang_officiell": "4",
+        "poang_alla": [
+          "4"
+        ],
+        "kommentar": "Överraskande slut – lite svårt att höra allt",
+        "confidence": 0.55
+      },
+      {
+        "diktnummer": "2",
+        "minnesanteckning": "Uppe Kissar Ufo",
+        "poang_officiell": "3,5",
+        "poang_alla": [
+          "3,5"
+        ],
+        "kommentar": null,
+        "confidence": 0.7
+      },
+      {
+        "diktnummer": "3",
+        "minnesanteckning": "Hila av ögen blev instrument musik dikt målning",
+        "poang_officiell": "5",
+        "poang_alla": [
+          "5"
+        ],
+        "kommentar": "",
+        "confidence": 0.65
+      },
+      {
+        "diktnummer": "4",
+        "minnesanteckning": "exist. ångest hela havet barn olika lekar",
+        "poang_officiell": "3,7",
+        "poang_alla": [
+          "3,7"
+        ],
+        "kommentar": "Barnperspektiv!",
+        "confidence": 0.6
+      },
+      {
+        "diktnummer": "5",
+        "minnesanteckning": "Doktorn människor i kroppen",
+        "poang_officiell": "4,7",
+        "poang_alla": [
+          "4,7"
+        ],
+        "kommentar": "Entusiasm Frihet",
+        "confidence": 0.7
+      },
+      {
+        "diktnummer": "6",
+        "minnesanteckning": "Historisk expose Födelse",
+        "poang_officiell": "4,8",
+        "poang_alla": [
+          "4,8"
+        ],
+        "kommentar": "",
+        "confidence": 0.55
+      },
+      {
+        "diktnummer": "7",
+        "minnesanteckning": "Recept Universum Nebulosor",
+        "poang_officiell": "3,2",
+        "poang_alla": [
+          "3,2"
+        ],
+        "kommentar": "",
+        "confidence": 0.6
+      },
+      {
+        "diktnummer": "8",
+        "minnesanteckning": "Språkpolisen Grammatik",
+        "poang_officiell": "3",
+        "poang_alla": [
+          "3"
+        ],
+        "kommentar": null,
+        "confidence": 0.7
+      }
+    ]
+  },
+  "P1169262.JPG": {
+    "ovrig_text": "Jonas läser dikter / (namn i övre hörn: möjligen 'Cockburn' eller liknande)",
+    "rader": [
+      {
+        "diktnummer": "1",
+        "minnesanteckning": "note mellan han / mote mellan han",
+        "poang_officiell": "4.3",
+        "poang_alla": [
+          "4.3"
+        ],
+        "kommentar": "Härligt fartfyllt! Ngt fort framfört",
+        "confidence": 0.4
+      },
+      {
+        "diktnummer": "2",
+        "minnesanteckning": "Attligs beslut i dlemmer / Nättligs beslut i dilemmen",
+        "poang_officiell": "2,2",
+        "poang_alla": [
+          "2,2"
+        ],
+        "kommentar": "Lite otydligt ibland men roligt!",
+        "confidence": 0.4
+      },
+      {
+        "diktnummer": "3",
+        "minnesanteckning": "Kärlesfost på öldduls / Kärleksfost på öldduls",
+        "poang_officiell": "2",
+        "poang_alla": [
+          "2"
+        ],
+        "kommentar": "Nja",
+        "confidence": 0.45
+      },
+      {
+        "diktnummer": "4",
+        "minnesanteckning": null,
+        "poang_officiell": "1.5",
+        "poang_alla": [
+          "1.5"
+        ],
+        "kommentar": "?",
+        "confidence": 0.5
+      },
+      {
+        "diktnummer": "5",
+        "minnesanteckning": "sklearlbesle på wagbesar / på wagbesar",
+        "poang_officiell": "2,3",
+        "poang_alla": [
+          "2,3"
+        ],
+        "kommentar": "Roliga tankar",
+        "confidence": 0.4
+      },
+      {
+        "diktnummer": "6",
+        "minnesanteckning": "Vaultan ill ellipskey clotes / hitsresa",
+        "poang_officiell": "4.0",
+        "poang_alla": [
+          "4.0"
+        ],
+        "kommentar": "En intressant livsresa",
+        "confidence": 0.4
+      },
+      {
+        "diktnummer": "7",
+        "minnesanteckning": "Recep på klarelogi / klartologi",
+        "poang_officiell": "2",
+        "poang_alla": [
+          "2"
+        ],
+        "kommentar": null,
+        "confidence": 0.35
+      },
+      {
+        "diktnummer": "8",
+        "minnesanteckning": "tapet on tåkiga / Spice police",
+        "poang_officiell": "4.5",
+        "poang_alla": [
+          "4.5"
+        ],
+        "kommentar": "Roligt och tydligt framfört på dialekt, kul",
+        "confidence": 0.4
+      }
+    ]
+  }
+}

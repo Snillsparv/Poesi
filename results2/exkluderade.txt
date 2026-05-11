@@ -1,0 +1,7 @@
+Originalfil: raw_korrigerad.json
+Behållna: 49 formulär
+Exkluderade: 3 formulär
+
+P1169244.JPG: saknar poäng på dikt 1, 2, 3, 4, 5, 6, 7, 8
+P1169264.JPG: saknar poäng på dikt (inga rader)
+P1169263.JPG: saknar poäng på dikt 1, 2, 3, 4, 5, 6, 7, 8

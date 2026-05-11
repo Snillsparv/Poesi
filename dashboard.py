@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""Generera en HTML-dashboard över diktbedömningarna.
+"""Generera en HTML-dashboard över alla omgångar av diktbedömningar.
 
-Läser results/raw_komplett.json och skriver results/dashboard.html.
-Öppna sedan filen direkt i webbläsaren.
+Skriver results/dashboard.html med flikar för varje omgång samt totalt.
+Lägger till nya omgångar genom att utöka ROUNDS-listan nedan.
 """
 
 import json
@@ -11,16 +11,38 @@ from pathlib import Path
 from statistics import mean, pstdev
 
 
-DIKT_NAMES = {
-    "1": "Stjärnorna",
-    "2": "Den som väntar på något gott",
-    "3": "Ett väldigt bra recept",
-    "4": "Smittsamt",
-    "5": "Hela havet stormar",
-    "6": "Förnuft och känsla",
-    "7": "Konstvärk",
-    "8": "Ultraviolens",
-}
+ROUNDS = [
+    {
+        "id": "omg1",
+        "label": "Omgång 1",
+        "path": "results/raw_komplett.json",
+        "dikter": {
+            "1": "Stjärnorna",
+            "2": "Den som väntar på något gott",
+            "3": "Ett väldigt bra recept",
+            "4": "Smittsamt",
+            "5": "Hela havet stormar",
+            "6": "Förnuft och känsla",
+            "7": "Konstvärk",
+            "8": "Ultraviolens",
+        },
+    },
+    {
+        "id": "omg2",
+        "label": "Omgång 2",
+        "path": "results2/raw_komplett.json",
+        "dikter": {
+            "1": "Ultraviolens",
+            "2": "Stjärnorna",
+            "3": "Konstvärk",
+            "4": "Hela havet stormar",
+            "5": "Smittsamt",
+            "6": "Den som väntar på något gott",
+            "7": "Ett väldigt bra recept",
+            "8": "Förnuft och känsla",
+        },
+    },
+]
 
 
 def parse_score(s):
@@ -40,96 +62,135 @@ def chosen_score(row):
 
 
 def fractional_ranks(form_scores):
-    """form_scores: list[(dikt, score)]. Returnera dikt -> placering (1 = högst).
+    """form_scores: list[(key, score)]. Returnera key -> placering (1 = högst).
     Lika poäng → medelplacering."""
     sorted_items = sorted(form_scores, key=lambda x: -x[1])
-    ranks: dict[str, float] = {}
+    ranks: dict = {}
     i = 0
     n = len(sorted_items)
     while i < n:
         j = i
         while j < n and sorted_items[j][1] == sorted_items[i][1]:
             j += 1
-        avg_rank = (i + 1 + j) / 2
+        avg = (i + 1 + j) / 2
         for k in range(i, j):
-            ranks[sorted_items[k][0]] = avg_rank
+            ranks[sorted_items[k][0]] = avg
         i = j
     return ranks
 
 
-def main() -> None:
-    src = Path("results/raw_komplett.json")
+def load_forms(round_cfg) -> list[dict]:
+    src = Path(round_cfg["path"])
     if not src.is_file():
-        sys.exit(f"Hittar inte {src}. Kör filter_complete.py först.")
+        sys.exit(f"Hittar inte {src}. Kör filter_complete.py först för den omgången.")
     data = json.loads(src.read_text(encoding="utf-8"))
-
-    per_score: dict[str, list[float]] = {k: [] for k in DIKT_NAMES}
-    per_norm: dict[str, list[float]] = {k: [] for k in DIKT_NAMES}
-    per_comments: dict[str, list[dict]] = {k: [] for k in DIKT_NAMES}
-    fav_count: dict[str, int] = {k: 0 for k in DIKT_NAMES}
-    worst_count: dict[str, int] = {k: 0 for k in DIKT_NAMES}
-
+    mapping = round_cfg["dikter"]
+    forms = []
     for img, entry in data.items():
-        ovrig = entry.get("ovrig_text") or ""
-        form_scores: list[tuple[str, float]] = []
+        reader = entry.get("ovrig_text") or ""
+        rader = []
         for r in entry.get("rader", []):
-            d = str(r.get("diktnummer") or "").strip()
+            nr = str(r.get("diktnummer") or "").strip()
+            poem = mapping.get(nr)
             score = chosen_score(r)
-            if d not in DIKT_NAMES or score is None:
+            if not poem or score is None:
                 continue
-            form_scores.append((d, score))
-            per_score[d].append(score)
-            kom = (r.get("kommentar") or "").strip()
-            minne = (r.get("minnesanteckning") or "").strip()
-            if kom or minne:
-                per_comments[d].append({
-                    "bild": img,
-                    "lasare": ovrig,
-                    "poang": score,
-                    "minnesanteckning": minne,
-                    "kommentar": kom,
+            rader.append({
+                "poem": poem,
+                "score": score,
+                "kommentar": (r.get("kommentar") or "").strip(),
+                "minnesanteckning": (r.get("minnesanteckning") or "").strip(),
+            })
+        forms.append({"img": img, "reader": reader, "round": round_cfg["id"], "rader": rader})
+    return forms
+
+
+def compute_rows(forms: list[dict], poems: list[str]) -> list[dict]:
+    per_score: dict[str, list[float]] = {p: [] for p in poems}
+    per_norm: dict[str, list[float]] = {p: [] for p in poems}
+    per_comments: dict[str, list[dict]] = {p: [] for p in poems}
+    fav: dict[str, int] = {p: 0 for p in poems}
+    worst: dict[str, int] = {p: 0 for p in poems}
+
+    for f in forms:
+        pairs = [(r["poem"], r["score"]) for r in f["rader"]]
+        for r in f["rader"]:
+            per_score[r["poem"]].append(r["score"])
+            if r["kommentar"] or r["minnesanteckning"]:
+                per_comments[r["poem"]].append({
+                    "bild": f["img"],
+                    "lasare": f["reader"],
+                    "poang": r["score"],
+                    "minnesanteckning": r["minnesanteckning"],
+                    "kommentar": r["kommentar"],
+                    "omg": f["round"],
                 })
-        for d, rk in fractional_ranks(form_scores).items():
-            per_norm[d].append(rk)
-        if form_scores:
-            top = max(s for _, s in form_scores)
-            bot = min(s for _, s in form_scores)
-            for d, s in form_scores:
+        for p, rk in fractional_ranks(pairs).items():
+            per_norm[p].append(rk)
+        if pairs:
+            top = max(s for _, s in pairs)
+            bot = min(s for _, s in pairs)
+            for p, s in pairs:
                 if s == top:
-                    fav_count[d] += 1
+                    fav[p] += 1
                 if s == bot:
-                    worst_count[d] += 1
+                    worst[p] += 1
 
     rows = []
-    for nr, namn in DIKT_NAMES.items():
-        s = per_score[nr]
-        nrm = per_norm[nr]
+    for poem in poems:
+        s = per_score[poem]
+        nm = per_norm[poem]
         rows.append({
-            "nr": nr,
-            "namn": namn,
+            "namn": poem,
             "antal": len(s),
             "snitt": round(mean(s), 3) if s else None,
             "stddev": round(pstdev(s), 3) if len(s) > 1 else 0,
             "total": round(sum(s), 2),
-            "norm_snitt": round(mean(nrm), 3) if nrm else None,
-            "norm_stddev": round(pstdev(nrm), 3) if len(nrm) > 1 else 0,
-            "norm_total": round(sum(nrm), 2),
-            "favoriter": fav_count[nr],
-            "samst": worst_count[nr],
-            "kommentarer": sorted(per_comments[nr], key=lambda c: -c["poang"]),
+            "norm_snitt": round(mean(nm), 3) if nm else None,
+            "norm_stddev": round(pstdev(nm), 3) if len(nm) > 1 else 0,
+            "norm_total": round(sum(nm), 2),
+            "favoriter": fav[poem],
+            "samst": worst[poem],
+            "kommentarer": sorted(per_comments[poem], key=lambda c: -c["poang"]),
         })
+    return rows
+
+
+def main() -> None:
+    canonical_poems = list(dict.fromkeys(
+        p for r in ROUNDS for p in r["dikter"].values()
+    ))
+    tabs = []
+    all_forms: list[dict] = []
+    for r in ROUNDS:
+        forms = load_forms(r)
+        all_forms.extend(forms)
+        rows = compute_rows(forms, list(r["dikter"].values()))
+        tabs.append({
+            "id": r["id"],
+            "label": r["label"],
+            "n_forms": len(forms),
+            "n_scores": sum(row["antal"] for row in rows),
+            "rows": rows,
+        })
+    total_rows = compute_rows(all_forms, canonical_poems)
+    tabs.append({
+        "id": "total",
+        "label": "Totalt",
+        "n_forms": len(all_forms),
+        "n_scores": sum(row["antal"] for row in total_rows),
+        "rows": total_rows,
+    })
 
     out = Path("results/dashboard.html")
-    out.write_text(render_html(rows, len(data)), encoding="utf-8")
-    print(f"Skrev {out} ({len(data)} formulär, {sum(r['antal'] for r in rows)} poäng)")
+    out.write_text(render_html(tabs), encoding="utf-8")
+    print(f"Skrev {out}")
+    for t in tabs:
+        print(f"  {t['label']}: {t['n_forms']} formulär, {t['n_scores']} poäng")
 
 
-def render_html(rows: list[dict], n_forms: int) -> str:
-    n_scores = sum(r["antal"] for r in rows)
-    return (HTML_TEMPLATE
-            .replace("__N_FORMS__", str(n_forms))
-            .replace("__N_SCORES__", str(n_scores))
-            .replace("__ROWS__", json.dumps(rows, ensure_ascii=False)))
+def render_html(tabs: list[dict]) -> str:
+    return HTML_TEMPLATE.replace("__TABS__", json.dumps(tabs, ensure_ascii=False))
 
 
 HTML_TEMPLATE = r"""<!doctype html>
@@ -161,11 +222,17 @@ HTML_TEMPLATE = r"""<!doctype html>
   html, body { background: var(--bg); color: var(--ink); }
   body { font-family: 'Inter', -apple-system, 'Segoe UI', Roboto, sans-serif; margin: 0; padding: 3rem 1.5rem 5rem; line-height: 1.5; }
   .wrap { max-width: 960px; margin: 0 auto; }
-  header.hero { text-align: center; margin-bottom: 3rem; }
+  header.hero { text-align: center; margin-bottom: 2.5rem; }
   .eyebrow { color: var(--accent); font-size: .8rem; font-weight: 600; letter-spacing: .15em; text-transform: uppercase; margin-bottom: .5rem; }
   h1 { font-family: 'Georgia', 'Times New Roman', serif; font-size: 2.6rem; font-weight: 400; margin: 0 0 .75rem; letter-spacing: -.01em; }
   .lead { color: var(--ink-soft); font-size: 1.05rem; max-width: 540px; margin: 0 auto; }
   .lead strong { color: var(--ink); font-weight: 600; }
+
+  nav.tabs { display: flex; gap: .25rem; background: var(--card); border-radius: 12px; padding: .35rem; margin-bottom: 1.5rem; box-shadow: var(--shadow); }
+  .tab { flex: 1; background: transparent; border: none; padding: .85rem 1rem; font-size: .95rem; font-weight: 500; color: var(--ink-soft); border-radius: 9px; cursor: pointer; font-family: inherit; transition: background .15s, color .15s; }
+  .tab:hover { color: var(--ink); background: var(--line-soft); }
+  .tab.active { background: var(--accent); color: white; }
+  .tab .count { display: block; font-size: .7rem; font-weight: 400; opacity: .8; margin-top: .15rem; letter-spacing: .05em; }
 
   section { background: var(--card); border-radius: 12px; padding: 2rem 2.25rem; margin-bottom: 1.5rem; box-shadow: var(--shadow); }
   section.tight { padding: 1.5rem 2.25rem; }
@@ -196,12 +263,10 @@ HTML_TEMPLATE = r"""<!doctype html>
   tbody tr.poem.active td { background: var(--accent-soft); box-shadow: inset 3px 0 0 var(--accent); }
   td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
   td.name { font-weight: 500; }
-  td.nr { color: var(--ink-muted); width: 2em; }
   td.rank { font-weight: 600; color: var(--accent); width: 2em; text-align: center; }
 
-  .bar-row { display: flex; align-items: center; gap: .75rem; }
+  .bar-row { display: flex; align-items: center; gap: .75rem; cursor: pointer; padding: .35rem 0; }
   .bar-row .label { flex: 0 0 auto; min-width: 12rem; font-weight: 500; }
-  .bar-row .label .nr { color: var(--ink-muted); margin-right: .4em; font-weight: 400; }
   .bar-track { flex: 1; height: .6rem; background: var(--line-soft); border-radius: 100px; overflow: hidden; }
   .bar-fill { height: 100%; border-radius: 100px; }
   .bar-fill.fav { background: linear-gradient(90deg, #c9a23a, #d9b860); }
@@ -215,16 +280,18 @@ HTML_TEMPLATE = r"""<!doctype html>
     .grid-2 { grid-template-columns: 1fr; }
     .podium { grid-template-columns: 1fr; }
     section { padding: 1.5rem; }
+    nav.tabs { flex-direction: column; }
   }
 
-  #comments { scroll-margin-top: 1rem; }
-  #comments.empty .empty-msg { color: var(--ink-muted); font-style: italic; text-align: center; padding: 2rem 0; }
+  .comments-area { scroll-margin-top: 1rem; }
+  .comments-area.empty .empty-msg { color: var(--ink-muted); font-style: italic; text-align: center; padding: 2rem 0; }
   .comment { padding: 1rem 0; border-bottom: 1px solid var(--line-soft); }
   .comment:last-child { border-bottom: none; }
   .comment-head { display: flex; gap: .85rem; align-items: baseline; flex-wrap: wrap; margin-bottom: .35rem; }
   .comment-head .reader { font-weight: 600; color: var(--ink); }
   .comment-head .score { color: var(--accent); font-weight: 700; font-variant-numeric: tabular-nums; }
   .comment-head .img { color: var(--ink-muted); font-family: 'SF Mono', Menlo, Consolas, monospace; font-size: .75rem; margin-left: auto; }
+  .comment-head .omg-badge { font-size: .7rem; background: var(--line-soft); color: var(--ink-soft); padding: .1rem .45rem; border-radius: 99px; }
   .minne { color: var(--ink-soft); font-style: italic; margin-bottom: .15rem; }
   .minne::before { content: '✎ '; color: var(--ink-muted); }
   .info { font-size: .8rem; color: var(--ink-muted); padding: 1rem 1.25rem; background: var(--line-soft); border-radius: 8px; margin-top: 1rem; line-height: 1.55; }
@@ -241,85 +308,228 @@ HTML_TEMPLATE = r"""<!doctype html>
 <header class="hero">
   <div class="eyebrow">Resultatsammanställning</div>
   <h1>Dikter i siffror</h1>
-  <p class="lead"><strong>__N_FORMS__</strong> formulär · <strong>8</strong> dikter · <strong>__N_SCORES__</strong> poäng</p>
+  <p class="lead" id="hero-lead"></p>
 </header>
 
-<section>
-  <h2>Pallplatser</h2>
-  <div class="section-sub">Sorterat efter genomsnittlig poäng. Klicka på ett kort för att läsa kommentarer.</div>
-  <div class="podium" id="podium"></div>
-</section>
+<nav class="tabs" id="tabs"></nav>
 
-<section>
-  <h2>Alla dikter</h2>
-  <div class="section-sub">Klicka på en kolumnrubrik för att sortera om. Klicka på en dikt för att läsa kommentarer.</div>
-  <table id="main-table">
-    <thead><tr>
-      <th class="num sortable" data-key="nr">#</th>
-      <th class="sortable" data-key="namn">Dikt</th>
-      <th class="num sortable" data-key="snitt" data-default="desc">Snitt</th>
-      <th class="num sortable" data-key="stddev">Std.avv.</th>
-      <th class="num sortable" data-key="total">Total</th>
-      <th class="num sortable" data-key="favoriter">★ Favorit</th>
-      <th class="num sortable" data-key="samst">▼ Sämst</th>
-    </tr></thead>
-    <tbody></tbody>
-  </table>
-</section>
-
-<div class="grid-2">
-  <section class="tight">
-    <h2>★ Favorit</h2>
-    <div class="section-sub">Antal formulär där dikten fick högsta poängen.</div>
-    <div id="fav-bars"></div>
-  </section>
-  <section class="tight">
-    <h2>▼ Sämst</h2>
-    <div class="section-sub">Antal formulär där dikten fick lägsta poängen.</div>
-    <div id="worst-bars"></div>
-  </section>
-</div>
-
-<section>
-  <h2>Normaliserad rangordning</h2>
-  <div class="section-sub">I varje formulär ersätts poängen med diktens placering 1–8 (1 = bäst, lika poäng → medelplacering). Lägre värde = bättre.</div>
-  <table id="norm-table">
-    <thead><tr>
-      <th class="num">Rang</th>
-      <th>Dikt</th>
-      <th class="num">Snittplacering</th>
-      <th class="num">Std.avv.</th>
-      <th class="num">Summa placeringar</th>
-    </tr></thead>
-    <tbody></tbody>
-  </table>
-  <div class="info">
-    <strong>Varför två sätt?</strong> Snitt-rankningen mäter absolut uppskattning (4.2 av 5 osv). Den normaliserade rankningen ignorerar att olika personer betygsätter olika hårt — bara ordningen inom varje formulär räknas. När båda pekar åt samma håll är resultatet stabilt.
-  </div>
-</section>
-
-<section id="comments-section">
-  <h2 id="comment-header">Kommentarer</h2>
-  <div id="comments" class="empty">
-    <div class="empty-msg">Klicka på en dikt för att se kommentarerna.</div>
-  </div>
-</section>
+<div id="panels"></div>
 
 </div>
 
 <script>
-const ROWS = __ROWS__;
+const TABS = __TABS__;
+const ROUND_LABELS = Object.fromEntries(TABS.map(t => [t.id, t.label]));
 
-function computeRanks() {
-  const byTotal = [...ROWS].sort((a, b) => b.snitt - a.snitt);
-  byTotal.forEach((r, i) => r.rank_total = i + 1);
-  const byNorm = [...ROWS].sort((a, b) => a.norm_snitt - b.norm_snitt);
-  byNorm.forEach((r, i) => r.rank_norm = i + 1);
+const tabsEl = document.getElementById('tabs');
+const panelsEl = document.getElementById('panels');
+
+TABS.forEach((t, i) => {
+  const btn = document.createElement('button');
+  btn.className = 'tab' + (i === 0 ? ' active' : '');
+  btn.dataset.tab = t.id;
+  btn.innerHTML = `${escapeHtml(t.label)}<span class="count">${t.n_forms} formulär · ${t.n_scores} poäng</span>`;
+  btn.addEventListener('click', () => activateTab(t.id));
+  tabsEl.appendChild(btn);
+
+  const panel = document.createElement('div');
+  panel.id = 'panel-' + t.id;
+  panel.className = 'tab-panel';
+  panel.hidden = i !== 0;
+  panelsEl.appendChild(panel);
+  renderPanel(panel, t);
+});
+
+function activateTab(id) {
+  document.querySelectorAll('.tab').forEach(b => b.classList.toggle('active', b.dataset.tab === id));
+  document.querySelectorAll('.tab-panel').forEach(p => p.hidden = p.id !== 'panel-' + id);
+  const t = TABS.find(x => x.id === id);
+  document.getElementById('hero-lead').innerHTML = `<strong>${t.label}</strong> — ${t.n_forms} formulär, ${t.n_scores} poäng.`;
 }
-computeRanks();
+activateTab(TABS[0].id);
 
-let sortKey = 'snitt';
-let sortDir = -1;
+function renderPanel(panel, tab) {
+  const rows = tab.rows.map(r => ({...r}));
+  computeRanks(rows);
+  panel.innerHTML = `
+    <section>
+      <h2>Pallplatser</h2>
+      <div class="section-sub">Sorterat efter genomsnittlig poäng. Klicka på ett kort för att läsa kommentarer.</div>
+      <div class="podium"></div>
+    </section>
+    <section>
+      <h2>Alla dikter</h2>
+      <div class="section-sub">Klicka på en kolumnrubrik för att sortera om. Klicka på en dikt för att läsa kommentarer.</div>
+      <table class="main-table">
+        <thead><tr>
+          <th class="sortable" data-key="namn">Dikt</th>
+          <th class="num sortable" data-key="snitt" data-default="desc">Snitt</th>
+          <th class="num sortable" data-key="stddev">Std.avv.</th>
+          <th class="num sortable" data-key="total">Total</th>
+          <th class="num sortable" data-key="favoriter">★ Favorit</th>
+          <th class="num sortable" data-key="samst">▼ Sämst</th>
+        </tr></thead>
+        <tbody></tbody>
+      </table>
+    </section>
+    <div class="grid-2">
+      <section class="tight">
+        <h2>★ Favorit</h2>
+        <div class="section-sub">Antal formulär där dikten fick högsta poängen.</div>
+        <div class="fav-bars"></div>
+      </section>
+      <section class="tight">
+        <h2>▼ Sämst</h2>
+        <div class="section-sub">Antal formulär där dikten fick lägsta poängen.</div>
+        <div class="worst-bars"></div>
+      </section>
+    </div>
+    <section>
+      <h2>Normaliserad rangordning</h2>
+      <div class="section-sub">I varje formulär ersätts poängen med diktens placering 1–8 (1 = bäst, lika poäng → medelplacering). Lägre värde = bättre.</div>
+      <table class="norm-table">
+        <thead><tr>
+          <th class="num">Rang</th>
+          <th>Dikt</th>
+          <th class="num">Snittplacering</th>
+          <th class="num">Std.avv.</th>
+          <th class="num">Summa placeringar</th>
+        </tr></thead>
+        <tbody></tbody>
+      </table>
+      <div class="info">
+        <strong>Varför två sätt?</strong> Snitt-rankningen mäter absolut uppskattning (4.2 av 5). Den normaliserade ignorerar att olika personer betygsätter olika hårt — bara ordningen inom varje formulär räknas. När båda pekar åt samma håll är resultatet stabilt.
+      </div>
+    </section>
+    <section class="comments-section">
+      <h2 class="comment-header">Kommentarer</h2>
+      <div class="comments-area empty">
+        <div class="empty-msg">Klicka på en dikt för att se kommentarerna.</div>
+      </div>
+    </section>
+  `;
+
+  const state = { sortKey: 'snitt', sortDir: -1, rows };
+  renderPodium(panel, state);
+  renderMain(panel, state);
+  renderBars(panel.querySelector('.fav-bars'), state.rows, 'favoriter', 'fav', panel);
+  renderBars(panel.querySelector('.worst-bars'), state.rows, 'samst', 'worst', panel);
+  renderNorm(panel, state);
+
+  panel.querySelectorAll('th.sortable').forEach(th => {
+    th.addEventListener('click', () => {
+      const key = th.dataset.key;
+      if (state.sortKey === key) state.sortDir = -state.sortDir;
+      else { state.sortKey = key; state.sortDir = th.dataset.default === 'asc' ? 1 : -1; }
+      renderMain(panel, state);
+    });
+  });
+}
+
+function computeRanks(rows) {
+  [...rows].sort((a, b) => b.snitt - a.snitt).forEach((r, i) => r.rank_total = i + 1);
+  [...rows].sort((a, b) => a.norm_snitt - b.norm_snitt).forEach((r, i) => r.rank_norm = i + 1);
+}
+
+function renderPodium(panel, state) {
+  const top3 = [...state.rows].sort((a, b) => b.snitt - a.snitt).slice(0, 3);
+  const order = [top3[1], top3[0], top3[2]].filter(Boolean);
+  const tier = top3.length === 3 ? ['silver', 'gold', 'bronze'] : ['gold'];
+  const medal = top3.length === 3 ? ['🥈', '🥇', '🥉'] : ['🥇'];
+  const place = top3.length === 3 ? ['Andra plats', 'Första plats', 'Tredje plats'] : ['Första plats'];
+  panel.querySelector('.podium').innerHTML = order.map((r, i) => `
+    <div class="pod ${tier[i]}" data-name="${escapeHtml(r.namn)}">
+      <div class="medal">${medal[i]}</div>
+      <div class="place">${place[i]}</div>
+      <div class="pname">${escapeHtml(r.namn)}</div>
+      <div class="pscore">${r.snitt.toFixed(2)}</div>
+      <div class="pmeta">snitt · ${r.favoriter} favoriter</div>
+    </div>
+  `).join('');
+  panel.querySelectorAll('.pod').forEach(el =>
+    el.addEventListener('click', () => showComments(panel, el.dataset.name)));
+}
+
+function renderMain(panel, state) {
+  const sorted = [...state.rows].sort((a, b) => {
+    const av = a[state.sortKey], bv = b[state.sortKey];
+    if (typeof av === 'string') return state.sortDir * av.localeCompare(bv, 'sv');
+    return state.sortDir * ((av ?? 0) - (bv ?? 0));
+  });
+  panel.querySelector('.main-table tbody').innerHTML = sorted.map(r => `
+    <tr class="poem" data-name="${escapeHtml(r.namn)}">
+      <td class="name">${escapeHtml(r.namn)}</td>
+      <td class="num">${fmt(r.snitt)}</td>
+      <td class="num">${fmt(r.stddev)}</td>
+      <td class="num">${fmt(r.total, 1)}</td>
+      <td class="num">${r.favoriter}</td>
+      <td class="num">${r.samst}</td>
+    </tr>
+  `).join('');
+  panel.querySelectorAll('.main-table th.sortable').forEach(th => {
+    th.classList.remove('sort-asc', 'sort-desc');
+    if (th.dataset.key === state.sortKey) th.classList.add(state.sortDir < 0 ? 'sort-desc' : 'sort-asc');
+  });
+  panel.querySelectorAll('.main-table tr.poem').forEach(tr =>
+    tr.addEventListener('click', () => showComments(panel, tr.dataset.name)));
+}
+
+function renderBars(el, rows, key, cls, panel) {
+  const sorted = [...rows].sort((a, b) => b[key] - a[key]);
+  const max = Math.max(...sorted.map(r => r[key])) || 1;
+  el.innerHTML = sorted.map(r => `
+    <div class="bar-row" data-name="${escapeHtml(r.namn)}">
+      <div class="label">${escapeHtml(r.namn)}</div>
+      <div class="bar-track"><div class="bar-fill ${cls}" style="width:${(r[key] / max * 100).toFixed(1)}%"></div></div>
+      <div class="count">${r[key]}</div>
+    </div>
+  `).join('');
+  el.querySelectorAll('.bar-row').forEach(row =>
+    row.addEventListener('click', () => showComments(panel, row.dataset.name)));
+}
+
+function renderNorm(panel, state) {
+  const sorted = [...state.rows].sort((a, b) => a.norm_snitt - b.norm_snitt);
+  panel.querySelector('.norm-table tbody').innerHTML = sorted.map((r, i) => `
+    <tr class="poem" data-name="${escapeHtml(r.namn)}">
+      <td class="rank">${i + 1}</td>
+      <td class="name">${escapeHtml(r.namn)}</td>
+      <td class="num">${r.norm_snitt.toFixed(2)}</td>
+      <td class="num">${r.norm_stddev.toFixed(2)}</td>
+      <td class="num">${r.norm_total.toFixed(1)}</td>
+    </tr>
+  `).join('');
+  panel.querySelectorAll('.norm-table tr.poem').forEach(tr =>
+    tr.addEventListener('click', () => showComments(panel, tr.dataset.name)));
+}
+
+function showComments(panel, name) {
+  panel.querySelectorAll('tr.poem').forEach(tr => tr.classList.toggle('active', tr.dataset.name === name));
+  const tab = TABS.find(t => 'panel-' + t.id === panel.id);
+  const row = tab.rows.find(r => r.namn === name);
+  const area = panel.querySelector('.comments-area');
+  const header = panel.querySelector('.comment-header');
+  header.textContent = `Kommentarer — ${name} (${row.kommentarer.length} st)`;
+  if (row.kommentarer.length === 0) {
+    area.className = 'comments-area empty';
+    area.innerHTML = '<div class="empty-msg">Inga kommentarer eller minnesanteckningar för denna dikt.</div>';
+  } else {
+    area.className = 'comments-area';
+    area.innerHTML = row.kommentarer.map(c => `
+      <div class="comment">
+        <div class="comment-head">
+          <span class="reader">${escapeHtml(c.lasare || '(okänd läsare)')}</span>
+          <span class="score">${c.poang.toFixed(1)}</span>
+          ${c.omg && tab.id === 'total' ? `<span class="omg-badge">${escapeHtml(ROUND_LABELS[c.omg] || c.omg)}</span>` : ''}
+          <span class="img">${escapeHtml(c.bild)}</span>
+        </div>
+        ${c.minnesanteckning ? `<div class="minne">${escapeHtml(c.minnesanteckning)}</div>` : ''}
+        ${c.kommentar ? `<div>${escapeHtml(c.kommentar)}</div>` : ''}
+      </div>
+    `).join('');
+  }
+  header.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
 
 function fmt(v, d = 2) {
   if (v === null || v === undefined || v === '') return '';
@@ -331,120 +541,6 @@ function escapeHtml(s) {
   if (s === null || s === undefined) return '';
   return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 }
-
-function renderPodium() {
-  const top3 = [...ROWS].sort((a, b) => b.snitt - a.snitt).slice(0, 3);
-  const order = [top3[1], top3[0], top3[2]];
-  const tier = ['silver', 'gold', 'bronze'];
-  const medal = ['🥈', '🥇', '🥉'];
-  const place = ['Andra plats', 'Första plats', 'Tredje plats'];
-  document.getElementById('podium').innerHTML = order.map((r, i) => `
-    <div class="pod ${tier[i]}" data-nr="${r.nr}">
-      <div class="medal">${medal[i]}</div>
-      <div class="place">${place[i]}</div>
-      <div class="pname">${escapeHtml(r.namn)}</div>
-      <div class="pscore">${r.snitt.toFixed(2)}</div>
-      <div class="pmeta">snitt · ${r.favoriter} favoriter</div>
-    </div>
-  `).join('');
-  document.querySelectorAll('.pod').forEach(el => el.addEventListener('click', () => showComments(el.dataset.nr)));
-}
-
-function renderMain() {
-  const tbody = document.querySelector('#main-table tbody');
-  const sorted = [...ROWS].sort((a, b) => {
-    let av = a[sortKey], bv = b[sortKey];
-    if (typeof av === 'string') return sortDir * av.localeCompare(bv, 'sv');
-    return sortDir * ((av ?? 0) - (bv ?? 0));
-  });
-  tbody.innerHTML = sorted.map(r => `
-    <tr class="poem" data-nr="${r.nr}">
-      <td class="nr num">${r.nr}</td>
-      <td class="name">${escapeHtml(r.namn)}</td>
-      <td class="num">${fmt(r.snitt)}</td>
-      <td class="num">${fmt(r.stddev)}</td>
-      <td class="num">${fmt(r.total, 1)}</td>
-      <td class="num">${r.favoriter}</td>
-      <td class="num">${r.samst}</td>
-    </tr>
-  `).join('');
-  document.querySelectorAll('#main-table th.sortable').forEach(th => {
-    th.classList.remove('sort-asc', 'sort-desc');
-    if (th.dataset.key === sortKey) th.classList.add(sortDir < 0 ? 'sort-desc' : 'sort-asc');
-  });
-  document.querySelectorAll('tr.poem').forEach(tr => {
-    tr.addEventListener('click', () => showComments(tr.dataset.nr));
-  });
-}
-
-function renderBars(elId, key, cls) {
-  const sorted = [...ROWS].sort((a, b) => b[key] - a[key]);
-  const max = Math.max(...sorted.map(r => r[key])) || 1;
-  document.getElementById(elId).innerHTML = sorted.map(r => `
-    <div class="bar-row" data-nr="${r.nr}" style="cursor:pointer; padding:.35rem 0;">
-      <div class="label"><span class="nr">${r.nr}.</span>${escapeHtml(r.namn)}</div>
-      <div class="bar-track"><div class="bar-fill ${cls}" style="width:${(r[key] / max * 100).toFixed(1)}%"></div></div>
-      <div class="count">${r[key]}</div>
-    </div>
-  `).join('');
-  document.querySelectorAll('#' + elId + ' .bar-row').forEach(el =>
-    el.addEventListener('click', () => showComments(el.dataset.nr)));
-}
-
-function renderNorm() {
-  const sorted = [...ROWS].sort((a, b) => a.norm_snitt - b.norm_snitt);
-  document.querySelector('#norm-table tbody').innerHTML = sorted.map((r, i) => `
-    <tr class="poem" data-nr="${r.nr}">
-      <td class="rank">${i + 1}</td>
-      <td class="name"><span class="nr" style="color:#8a8a96; margin-right:.4em">${r.nr}.</span>${escapeHtml(r.namn)}</td>
-      <td class="num">${r.norm_snitt.toFixed(2)}</td>
-      <td class="num">${r.norm_stddev.toFixed(2)}</td>
-      <td class="num">${r.norm_total.toFixed(1)}</td>
-    </tr>
-  `).join('');
-  document.querySelectorAll('#norm-table tr.poem').forEach(tr =>
-    tr.addEventListener('click', () => showComments(tr.dataset.nr)));
-}
-
-function showComments(nr) {
-  document.querySelectorAll('tr.poem').forEach(tr => tr.classList.toggle('active', tr.dataset.nr === nr));
-  const row = ROWS.find(r => r.nr === nr);
-  const div = document.getElementById('comments');
-  document.getElementById('comment-header').textContent = `Kommentarer — ${nr}. ${row.namn} (${row.kommentarer.length} st)`;
-  if (row.kommentarer.length === 0) {
-    div.className = 'empty';
-    div.innerHTML = '<div class="empty-msg">Inga kommentarer eller minnesanteckningar för denna dikt.</div>';
-  } else {
-    div.className = '';
-    div.innerHTML = row.kommentarer.map(c => `
-      <div class="comment">
-        <div class="comment-head">
-          <span class="reader">${escapeHtml(c.lasare || '(okänd läsare)')}</span>
-          <span class="score">${c.poang.toFixed(1)}</span>
-          <span class="img">${escapeHtml(c.bild)}</span>
-        </div>
-        ${c.minnesanteckning ? `<div class="minne">${escapeHtml(c.minnesanteckning)}</div>` : ''}
-        ${c.kommentar ? `<div>${escapeHtml(c.kommentar)}</div>` : ''}
-      </div>
-    `).join('');
-  }
-  document.getElementById('comment-header').scrollIntoView({ behavior: 'smooth', block: 'start' });
-}
-
-document.querySelectorAll('th.sortable').forEach(th => {
-  th.addEventListener('click', () => {
-    const key = th.dataset.key;
-    if (sortKey === key) sortDir = -sortDir;
-    else { sortKey = key; sortDir = th.dataset.default === 'asc' ? 1 : -1; }
-    renderMain();
-  });
-});
-
-renderPodium();
-renderMain();
-renderBars('fav-bars', 'favoriter', 'fav');
-renderBars('worst-bars', 'samst', 'worst');
-renderNorm();
 </script>
 </body>
 </html>

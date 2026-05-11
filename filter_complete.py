@@ -1,10 +1,13 @@
 #!/usr/bin/env python3
 """Filtrera bort formulär där någon dikt saknar officiell poäng.
 
-Läser results/raw_korrigerad.json och skriver:
-    results/raw_komplett.json   – endast formulär med poäng på alla rader
-    results/rader_komplett.csv  – samma data i CSV
-    results/exkluderade.txt     – lista över borttagna formulär och varför
+Användning:
+    python filter_complete.py [resultatmapp]   # default: results
+
+Läser <mapp>/raw_korrigerad.json och skriver:
+    <mapp>/raw_komplett.json   – endast formulär med poäng på alla rader
+    <mapp>/rader_komplett.csv  – samma data i CSV
+    <mapp>/exkluderade.txt     – lista över borttagna formulär och varför
 """
 
 import csv
@@ -14,7 +17,7 @@ from pathlib import Path
 
 
 def main() -> None:
-    results = Path("results")
+    results = Path(sys.argv[1] if len(sys.argv) > 1 else "results")
     src = results / "raw_korrigerad.json"
     if not src.is_file():
         sys.exit(f"Hittar inte {src}")
